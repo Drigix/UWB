@@ -9,6 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslationModule } from '@shared/language/translation.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '@config/translation.config';
+import { LayoutsModule } from './layouts/layouts.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HttpLoaderFactory } from '@config/translation.config';
     ComponentsModule,
     SharedModule,
     HttpClientModule,
+    LayoutsModule,
     TranslateModule.forRoot({
       loader: {
       provide: TranslateLoader,
