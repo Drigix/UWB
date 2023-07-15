@@ -1,0 +1,47 @@
+<p-toast key="mainToast" position="top-right"></p-toast>
+<ng-container [ngSwitch]="isAuthenticated()">
+  <div class="main h-screen" *ngSwitchCase="true">
+    <div class="block p-2">
+      <uwb-menu class="w-full"></uwb-menu>
+    </div>
+    <div class="page h-full w-full">
+      <div class="m-2 w-full">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngSwitchCase="false">
+    <ng-container *ngIf="firstLoad; else loading">
+      <!-- <swz-login></swz-login> -->
+    </ng-container>
+  </ng-container>
+  <ng-template #loading>
+    <div class="app-loading">
+      <div class="lds-pacman">
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>
+
+<p-confirmDialog #cd [style]="{width: '50vw'}">
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-center">
+      <p-button icon="pi pi-check" styleClass="button-confirm-width m-2"
+       label="{{'global.buttons.delete' | translate}}" (onClick)="cd.accept()">
+      </p-button>
+      <p-button icon="pi pi-times" styleClass="button-confirm-width m-2"
+       label="{{'global.buttons.cancel' | translate}}" (onClick)="cd.reject()">
+      </p-button>
+    </div>
+  </ng-template>
+</p-confirmDialog>
