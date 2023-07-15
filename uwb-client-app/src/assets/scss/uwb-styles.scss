@@ -1,7 +1,27 @@
-$uwb-primary: #237a87;
-$uwb-secondary: #146d7a;
-$uwb-primary-second-lighter: #7ecedb;
+/*GLOBAL COLORS*/
+$uwb-primary: #f18f13;
+$uwb-primary-light: #f5a43b;
+$uwb-secondary: #f39c42;
+$uwb-primary-second-lighter: #f6b571;
 $uwb-background: #f2efef;
+
+$uwb-menu-scrollbar-track: #54a7b4;
+$uwb-menu-scrollbar-thumb: #54a7b4;
+$uwb-menu-scrollbar-thumb-hover: #058B90;
+$uwb-checkbox-marked: #237a87;
+$uwb-menu-scrollbar-track: #54a7b4;
+$uwb-menu-scrollbar-thumb: #54a7b4;
+$uwb-menu-scrollbar-thumb-hover: #058B90;
+
+/*TABLE COLORS*/
+$uwb-label-color: #ffffff;
+$uwb-table-header-background-color: #f4f4f4;
+$uwb-table-header-color: #146d7a;
+$uwb-selected-row-light-text: #ffffff;
+$uwb-selected-row-light-bg: #54a7b4;
+$uwb-table-row-even-highlight-background: #54a7b4;
+$uwb-table-row-even-highlight-text: #232222;
+$uwb-table-row-even-selected-background: #54a7b4;
 $uwb-tab-background: #e5e3e3;
 $uwb-tab-content-background: #fdfdfd;
 $uwb-tab-frame: #f2efef;
@@ -9,27 +29,13 @@ $uwb-internal-tab-font-color: #232222;
 $uwb-internal-tab-header-background: #f2f2f2;
 $uwb-front-tab-background: #f2efef;
 $uwb-front-tab-text-color: #232222;
+
+/*BUTTONS COLORS*/
+$uwb-button-background: #f1ae13;
+$uwb-button-border: #f1ae13;
+$uwb-button-hover-background-color: #ffffff;
+$uwb-button-hover-text-color: #f1ae13;
 $uwb-button-text-color: #ffffff;
-$uwb-label-color: #ffffff;
-$uwb-button-hover-background-color: #54a7b4;
-$uwb-table-header-background-color: #f4f4f4;
-$uwb-table-header-color: #146d7a;
-$uwb-selected-row-light-text: #ffffff;
-$uwb-selected-row-light-bg: #54a7b4;
-$uwb-button-hover-text-color: #54a7b4;
-$uwb-table-row-even-highlight-background: #54a7b4;
-$uwb-table-row-even-highlight-text: #232222;
-$uwb-table-row-even-selected-background: #54a7b4;
-$uwb-menu-scrollbar-track: #54a7b4;
-$uwb-menu-scrollbar-thumb: #54a7b4;
-$uwb-menu-scrollbar-thumb-hover: #058B90;
-$uwb-button-background: #237a87;
-$uwb-button-border: #146d7a;
-$uwb-primary-light: #00a3a922;
-$uwb-checkbox-marked: #237a87;
-$uwb-menu-scrollbar-track: #54a7b4;
-$uwb-menu-scrollbar-thumb: #54a7b4;
-$uwb-menu-scrollbar-thumb-hover: #058B90;
 
 $wild-sand: #f4f4f4;
 $shady-lady: #9f9b9d;

@@ -1,0 +1,39 @@
+<div class="menu-bar" [ngClass]="{ 'collapsed': !isMenuVisible }">
+  <div class="flex-space">
+    <a class="mode-icon" (click)="switchTheme()">
+      <div class="icon-container">
+        <i [ngClass]="{ 'fade-out': !lighVersion }" class="pi pi-sun text-lg" (click)="lighVersion = !lighVersion"></i>
+        <i [ngClass]="{ 'fade-out': lighVersion }" class="pi pi-moon text-lg" (click)="lighVersion = !lighVersion"></i>
+      </div>
+    </a>
+    <a (click)="toggleMenuVisibility()">
+      <!-- <fa-icon icon="bars" [fixedWidth]="true" class="menu-icon"></fa-icon> -->
+      <i class="pi pi-bars menu-icon"></i>
+    </a>
+  </div>
+  <div class="logo-area">
+    <a (click)="logoClick()" style="padding: 0; cursor: pointer;">
+      <img src="../../../assets/images/uwb_logo.png">
+    </a>
+  </div>
+  <div class="flex-center user-info" style="margin: 10px;">
+    <label for="user" style="text-align: center;">imie nazwisko</label>
+  </div>
+  <div class="flex-center flex-column">
+    <a class="logout-item flex align-items-center" (click)="logout()" id="logout" data-cy="logout">
+      <i class="pi pi-power-off text-lg font-bold" [ngClass]="{ 'mr-2' : isMenuVisible }"></i>
+      <span swzTranslate="global.menu.account.logout">Wyloguj</span>
+    </a>
+  </div>
+  <div tabindex="0" class="menu-search flex-center flex-column">
+    <span tabindex="0" class="p-input-icon-left">
+      <i tabindex="0" [ngClass]="{'hide': filterText !== ''}" class="pi pi-search"></i>
+      <input tabindex="0" type="text" pInputText [(ngModel)]="filterText" (ngModelChange)="filterMenuItems(filterText)">
+    </span>
+  </div>
+
+  <div class="menu-container">
+    <p-panelMenu [model]="filteredItems" [style]="{'width':'100%'}">
+    </p-panelMenu>
+  </div>
+</div>

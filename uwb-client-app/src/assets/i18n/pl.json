@@ -1,0 +1,26 @@
+{
+  "global": {
+    "menu": {
+      "user": "Użytkownicy"
+    },
+    "table": {
+      "search": "Szukaj",
+      "noData": "Brak danych",
+      "filter": "Filtr"
+    },
+    "dialog": {
+      "addHeader": "Dodawanie elementu",
+      "editHeader": "Edytowanie elementu",
+      "deleteHeader": "Usuwanie elementu"
+    },
+    "buttons": {
+      "add": "Dodaj",
+      "edit": "Edytuj",
+      "delete": "Usuń",
+      "cancel": "Anuluj",
+      "save": "Zapisz",
+      "close": "Zamknij",
+      "copy": "Kopiuj"
+    }
+  }
+}

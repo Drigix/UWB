@@ -1,0 +1,11 @@
+@import './uwb-styles.scss';
+
+@font-face {
+  font-family: "Trasandina";
+  src: url("../font/Trasandina-Regular.otf")
+  format("truetype");
+}
+
+* {
+  font-family: "Trasandina";
+}

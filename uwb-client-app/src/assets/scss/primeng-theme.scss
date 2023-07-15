@@ -1718,7 +1718,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-button:enabled:hover {
   background: var(--uwb-button-hover-background-color);
-  color: var(--uwb-button-text-color);
+  color: var(--uwb-button-hover-text-color);
   border-color: var(--uwb-button-hover-background-color);
 }
 .p-button:enabled:active {
