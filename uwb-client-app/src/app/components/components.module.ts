@@ -6,7 +6,9 @@ import { PrimeNGLibsModule } from '@shared/primeng-libs.module';
   imports: [
     PrimeNGLibsModule
   ],
-  exports: [],
+  exports: [
+    PrimeNGLibsModule
+  ],
   declarations: [],
   providers: [],
 })
