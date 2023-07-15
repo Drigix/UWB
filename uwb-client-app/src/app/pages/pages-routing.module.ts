@@ -1,4 +1,4 @@
-import { authGuard } from './../config/user-route-access.service';
+import { authGuard } from '@config/user-route-access.service';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
