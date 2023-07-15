@@ -1,5 +1,8 @@
 {
   "global": {
+    "menu": {
+      "user": "Użytkownicy"
+    },
     "table": {
       "search": "Szukaj",
       "noData": "Brak danych",

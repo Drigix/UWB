@@ -1,0 +1,292 @@
+.menu-bar {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 20px);
+  transition: width ease 0.5s;
+
+}
+
+.mode-icon {
+  display: flex;
+  align-items: center;
+}
+
+.icon-container {
+  position: relative;
+  width: 24px; /* Dostosuj szerokość kontenera ikon */
+  height: 24px; /* Dostosuj wysokość kontenera ikon */
+}
+
+.icon-container i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.4s ease;
+}
+
+.icon-container i.fade-out {
+  opacity: 0;
+}
+
+::ng-deep .menu-bar.collapsed {
+
+  .menu-search{
+    z-index: 10;
+    transition: width ease 0.5s;
+    input{
+      transition: width ease 0.5s;
+      width: 90%;
+    }
+    i{
+      pointer-events: none;
+      transition: visibility ease 0.3s opacity 0.3s ease;;
+    }
+    i.hide{
+      visibility: hidden !important;
+    }
+  }
+
+  .menu-search:focus-within {
+    transition: width ease 0.5s;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-start;
+    top: 0;
+    span{
+      input{
+        transition: width ease 0.5s;
+        width: calc(100% + 60px);
+      }
+      i{
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+    overflow: visible;
+    align-items: center;
+  }
+
+  width: 60px;
+  /* szerokość menu po ukryciu */
+
+  .p-menuitem-text {
+    transition: visibility 0s, opacity 0.5s linear;
+    display: none !important;
+  }
+
+  .p-menuitem-icon {
+    transition: font-size ease 0.5s;
+    font-size: 20px;
+    margin-right: 0 !important;
+  }
+
+  .p-panelmenu-panel {
+    width: calc(100% - 6px);
+    height: 50px;
+  }
+
+  .p-panelmenu::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .p-panelmenu-header-link {
+    display: flex;
+    justify-content: center;
+  }
+
+  .user-info {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.1s, opacity 0.1s ease;
+    max-height: 20px;
+  }
+
+  .logout-item {
+    span {
+      display: none;
+    }
+
+    fa-icon {
+      font-size: 20px;
+    }
+
+    i{
+      font-size: 20px;
+    }
+  }
+
+  .logo-area {
+    a>img {
+      height: 50px !important;
+    }
+  }
+
+  .flex-space a i.menu-icon {
+    transform: rotate(-90deg) !important;
+    transition: transform 0.6s ease !important;
+  }
+}
+
+::ng-deep .menu {
+  padding: 5px;
+}
+
+.menu-search{
+  transition: width ease 0.5s;
+  input{
+    transition: width ease 0.5s;
+  }
+  i{
+    transition: visibility ease 0.3s opacity 0.3s ease;;
+  }
+}
+
+.menu-icon {
+  font-size: 20px;
+  margin-left: auto;
+}
+
+.logo-area {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width ease 0.5s;
+
+  a>img {
+    height: 100px;
+    transition: height ease 0.5s;
+  }
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-info {
+  transition: visibility 0.9s, opacity 0.9s ease-in;
+  max-height: 20px;
+}
+
+.flex-space {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a fa-icon.menu-icon{
+    display: inline-block;
+    transition: transform 0.6s ease;
+  }
+}
+
+
+
+.logout-item {
+  display: block;
+  padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+  clear: both;
+  font-weight: 400;
+  color: var(--ente-front-tab-text-color);
+  text-align: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  span {
+    transition: width 0.5s ease;
+  }
+}
+
+.menu-container {
+  margin-top: 10px;
+  overflow: hidden;
+  text-transform: uppercase !important;
+  flex-grow: 1;
+}
+
+.themeswitch {
+  display: inline-block;
+  position: absolute;
+  right: 5px;
+}
+
+::ng-deep .menu-search{
+  margin-top: 12px;
+  margin-left: 4px;
+  input{
+    width: 93%;
+    height: 30px;
+    border: none;
+    border-radius: 7px;
+  }
+  i{
+    padding-top: 2px;
+  }
+}
+
+::ng-deep .p-panelmenu::-webkit-scrollbar {
+  width: 10px;
+}
+
+::ng-deep .p-panelmenu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::ng-deep .p-panelmenu::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.2);
+  border-radius: 5px;
+  border: 3px solid transparent;
+  transition: background-color 0.5s ease;
+}
+
+::ng-deep .p-panelmenu::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(135, 135, 135, 0.5);
+}
+
+::ng-deep .p-panelmenu::-webkit-scrollbar-thumb:active {
+  background-color: rgba(125, 125, 125, 0.6);
+}
+
+:host ::ng-deep .p-panelmenu {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+::ng-deep .p-panelmenu .p-menuitem-text {
+  line-height: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: display linear 0s 2s !important;
+}
+
+:host ::ng-deep .p-panelmenu .p-panelmenu-header>a {
+  margin-top: 6px;
+  padding: 0.7rem;
+  border: 1px solid var(--ente-tab-frame);
+  color: var(--ente-front-tab-text-color);
+  background: var(--ente-background);
+  font-weight: 700;
+  border-radius: 6px;
+  transition: box-shadow 0.2s;
+}
+
+.menu-bar{
+  a{
+    color: var(--ente-front-tab-text-color);
+  }
+}
+
+::ng-deep .p-panelmenu .p-panelmenu-panel {
+  margin: 4px;
+}
+
+:host ::ng-deep .active-page a {
+  background: var(--ente-primary) !important;
+  color: var(--ente-button-text-color) !important;
+  border-color: var(--ente-tab-frame) !important;
+}

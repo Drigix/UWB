@@ -26,6 +26,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     OverlayPanelModule,
     SelectButtonModule,
     InputTextareaModule,
-    InputNumberModule
+    InputNumberModule,
+    ToggleButtonModule
   ],
   exports: [
     TableModule,
@@ -86,7 +88,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     OverlayPanelModule,
     SelectButtonModule,
     InputTextareaModule,
-    InputNumberModule
+    InputNumberModule,
+    ToggleButtonModule
   ],
 })
 export class PrimeNGLibsModule {}
