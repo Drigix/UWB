@@ -1,0 +1,12 @@
+.spinner {
+  max-width: 25%;
+  max-height: 7vw;
+  opacity: 75%;
+  animation: spin 0.5s linear infinite; /* Ustawienie animacji */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); } /* Początkowy obrót obrazka */
+  100% { transform: rotate(360deg); } /* Obrót obrazka o pełne 360 stopni */
+}
+
