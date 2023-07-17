@@ -1,0 +1,9 @@
+<p-calendar
+[(ngModel)]="date"
+[view]="view"
+[showTime]="showTime"
+[minDate]="minDate"
+[maxDate]="maxDate"
+appendTo="body"
+(onSelect)="onDateSelect($event)">
+</p-calendar>

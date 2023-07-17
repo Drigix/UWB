@@ -9,3 +9,27 @@
 * {
   font-family: "Trasandina";
 }
+
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid green;
+}
+
+.p-inputtext.ng-invalid,
+uwb-single-select.ng-invalid > p-dropdown > .p-dropdown,
+uwb-calendar.ng-invalid > p-calendar > span input,
+uwb-multi-select.ng-invalid > p-multiSelect > .p-multiselect,
+uwb-form-control-calendar.ng-invalid > p-calendar > span input,
+uwb-search-dropdown.ng-invalid > p-dropdown > .p-dropdown,
+.p-dropdown .p-inputtext.ng-invalid,
+.p-autocomplete .p-inputtext.ng-invalid,
+.p-calendar .p-inputtext.ng-invalid,
+.p-chkbox-box.ng-invalid,
+.p-radiobutton-box.ng-invalid,
+.p-inputswitch.ng-invalid,
+.p-multiselect.ng-invalid,
+.p-spinner.ng-invalid {
+  border-left: 5px solid red;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px
+}
