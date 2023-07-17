@@ -1,0 +1,40 @@
+::ng-deep .modal-body {
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+form {
+  width: 100%;
+  max-height: 70vh;
+  display: grid;
+  grid-template-rows: 1fr 80px;
+}
+
+.modal-body {
+  height: 100%;
+  overflow: auto !important;
+  padding: 1rem 1.5rem 3.5rem 1.5rem;
+}
+
+.modal-footer {
+  justify-content: center;
+  align-items: center;
+}
+
+::ng-deep .modal-body::-webkit-scrollbar {
+  width: 12px;
+}
+
+::ng-deep .modal-body::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background: var(--uwb-menu-scrollbar-thumb);
+}
+
+::ng-deep .modal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--uwb-menu-scrollbar-thumb-hover);
+}
+
+::ng-deep .modal-body::-webkit-scrollbar-track {
+  background: var(--uwb-menu-scrollbar-track);
+  background-color: transparent;
+}
