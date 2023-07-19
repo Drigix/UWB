@@ -6,6 +6,7 @@ import { FormControlComponent } from './form/form-control/form-control.component
 import { FormGridComponent } from './form/form-grid/form-grid.component';
 import { SharedLibsModule } from '@shared/shared-libs.module';
 import { UwbCalendarComponent } from './uwb-calendar/uwb-calendar.component';
+import { UwbFooterButtonsComponent } from './uwb-footer-buttons/uwb-footer-buttons.component';
 
 
 @NgModule({
@@ -19,13 +20,15 @@ import { UwbCalendarComponent } from './uwb-calendar/uwb-calendar.component';
     FormComponent,
     FormControlComponent,
     FormGridComponent,
-    UwbCalendarComponent
+    UwbCalendarComponent,
+    UwbFooterButtonsComponent
   ],
   declarations: [
     FormComponent,
     FormControlComponent,
     FormGridComponent,
-    UwbCalendarComponent
+    UwbCalendarComponent,
+    UwbFooterButtonsComponent
   ],
   providers: [],
 })
