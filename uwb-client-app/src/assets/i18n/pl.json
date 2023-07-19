@@ -11,7 +11,8 @@
     "dialog": {
       "addHeader": "Dodawanie elementu",
       "editHeader": "Edytowanie elementu",
-      "deleteHeader": "Usuwanie elementu"
+      "deleteHeader": "Usuwanie elementu",
+      "deleteMessage": "Czy na pewno chcesz usunąć podany element?"
     },
     "buttons": {
       "add": "Dodaj",

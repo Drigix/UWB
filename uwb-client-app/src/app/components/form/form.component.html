@@ -2,7 +2,7 @@
   <div class="modal-body">
     <ng-content select="[form-body]"></ng-content>
   </div>
-  <div *ngIf="showSaveButton || showCancelButton" [ngClass]="footerButton ? 'modal-footer' : ''">
+  <div   *ngIf="showSaveButton || showCancelButton" [ngClass]="footerButton ? 'modal-footer' : ''">
     <div class="buttons-container_center">
       <div *ngIf="showSaveButton" class="button_wrapper_text">
         <p-button
@@ -16,7 +16,7 @@
         <p-button
           styleClass="ui-button_size_125"
           type="button"
-          label="{{ 'buttons.cancel' | translate }}"
+          label="{{ 'global.buttons.cancel' | translate }}"
           data-dismiss="modal"
           (onClick)="cancel.emit()"
         ></p-button>

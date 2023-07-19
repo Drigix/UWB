@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DialogService } from 'primeng/dynamicdialog';
+import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogService } from '@shared/confirm-dialog/confirm-dialog.service';
 
 @Component({
   selector: 'app-user',
@@ -9,17 +13,39 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class UserComponent implements OnInit {
 
   date = new Date();
-  formGroup?: FormGroup;
+  selectedUser?: any;
+
   constructor(
-    private formBuilder: FormBuilder
+    private dialogService: DialogService,
+    private transalteService: TranslateService,
+    private confirmDialogService: ConfirmDialogService
   ) { }
 
   ngOnInit() {
-    this.formGroup = this.formBuilder.group({
-      name: [{value: null, disabled: false}, [Validators.required]],
-      surname: [{value: null, disabled: false}, [Validators.required]],
-      date: [{value: null, disabled: false}, [Validators.required]]
+  }
+
+  openDialog(edit = false): void {
+    const ref = this.dialogService.open(UserDialogComponent, {
+      header: this.transalteService.instant(edit ? 'global.dialog.editHeader' : 'global.dialog.addHeader'),
+      data: {
+        edit,
+        selectedUser: this.selectedUser
+      }
+    });
+    ref.onClose.subscribe((response) => this.handleDialogResponse(response));
+  }
+
+  openDeleteDialog(): void {
+    this.confirmDialogService.openDeleteDialog({}, (confirmed: boolean) => {
+      confirmed ? this.handleDeleteDialog() : null;
     });
   }
 
+  handleDialogResponse(response: any) {
+
+  }
+
+  handleDeleteDialog(): void {
+    console.log('DELETE');
+  }
 }

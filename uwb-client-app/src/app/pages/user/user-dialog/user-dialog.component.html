@@ -1,0 +1,20 @@
+
+<uwb-form [formGroup]="formGroup!" (cancel)="onCloseDialog()">
+  <uwb-form-grid form-body>
+    <uwb-form-control labe="Imie">
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" />
+        <label htmlFor="name">Imie</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control labe="Nazwisko">
+      <span class="p-float-label">
+        <input pInputText id="surname" formControlName="surname" />
+        <label htmlFor="name">Nazwisko</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control>
+      <uwb-calendar formControlName="date"></uwb-calendar>
+    </uwb-form-control>
+  </uwb-form-grid>
+</uwb-form>

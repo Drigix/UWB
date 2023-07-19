@@ -1,22 +1,11 @@
 <h2>USER PAGE</h2>
 <div *uwbSpinner="true"></div>
 
-<h2>{{date | formatDatetime}}</h2>
+<h2>{{ date | formatDatetime }}</h2>
 
-<uwb-form [formGroup]="formGroup!">
-  <uwb-form-grid form-body>
-    <uwb-form-control labe="Imie">
-      <!-- <input pInputText type="text" formControlName="name"> -->
-      <span class="p-float-label">
-        <input pInputText id="name" formControlName="name" />
-        <label htmlFor="name">Imie</label>
-      </span>
-    </uwb-form-control>
-    <uwb-form-control labe="Nazwisko">
-      <input pInputText type="text" formControlName="surname">
-    </uwb-form-control>
-    <uwb-form-control>
-      <uwb-calendar formControlName="date"></uwb-calendar>
-    </uwb-form-control>
-  </uwb-form-grid>
-</uwb-form>
+<uwb-footer-buttons
+  (emitAddClick)="openDialog()"
+  (emitEditClick)="openDialog(true)"
+  (emitDeleteClick)="openDeleteDialog()"
+>
+</uwb-footer-buttons>
