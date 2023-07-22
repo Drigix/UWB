@@ -10,6 +10,16 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 export class UserDialogComponent implements OnInit {
 
   formGroup?: FormGroup;
+  dropdownItems = [
+    {
+      id: 1,
+      name: "Jednostka główna"
+    },
+    {
+      id: 2,
+      name: "Jednostka poboczna"
+    }
+  ];
   edit = false;
   selectedUser?: any;
 
@@ -33,7 +43,12 @@ export class UserDialogComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       name: [{value: null, disabled: false}, [Validators.required]],
       surname: [{value: null, disabled: false}, [Validators.required]],
-      date: [{value: null, disabled: false}, [Validators.required]]
+      date: [{value: null, disabled: false}, [Validators.required]],
+      email: [{value: null, disabled: false}, [Validators.required]],
+      password: [{value: null, disabled: false}, [Validators.required]],
+      confirmPassword: [{value: null, disabled: false}, [Validators.required]],
+      orgUnit: [{value: null, disabled: false}, [Validators.required]],
+      orgUnits: [{value: null, disabled: false}, [Validators.required]]
     });
   }
 

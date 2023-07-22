@@ -4,17 +4,41 @@
     <uwb-form-control labe="Imie">
       <span class="p-float-label">
         <input pInputText id="name" formControlName="name" />
-        <label htmlFor="name">Imie</label>
+        <label htmlFor="name">{{ 'user.name' | translate }}</label>
       </span>
     </uwb-form-control>
     <uwb-form-control labe="Nazwisko">
       <span class="p-float-label">
         <input pInputText id="surname" formControlName="surname" />
-        <label htmlFor="name">Nazwisko</label>
+        <label htmlFor="name">{{ 'user.surname' | translate }}</label>
       </span>
     </uwb-form-control>
     <uwb-form-control>
-      <uwb-calendar formControlName="date"></uwb-calendar>
+        <uwb-calendar formControlName="date" label="{{ 'user.dayOfBirth' | translate }}"></uwb-calendar>
+    </uwb-form-control>
+    <uwb-form-control>
+      <span class="p-float-label">
+        <input pInputText id="email" formControlName="email" />
+        <label htmlFor="email">{{ 'user.email' | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control>
+      <span class="p-float-label">
+        <p-password formControlName="password" [toggleMask]="true" class="p-password"></p-password>
+        <label for="password">{{ 'user.password' | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control>
+      <span class="p-float-label">
+        <p-password formControlName="confirmPassword" [toggleMask]="true" class="p-password"></p-password>
+        <label for="confirmPassword">{{ 'user.confirmPassword' | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control>
+      <uwb-single-select [items]="dropdownItems" [optionLabel]="'name'" formControlName="orgUnit" label="{{ 'user.organizationUnit' | translate }}"></uwb-single-select>
+    </uwb-form-control>
+    <uwb-form-control>
+      <uwb-multi-select [items]="dropdownItems" [optionLabel]="'name'" formControlName="orgUnit" label="{{ 'user.organizationUnit' | translate }}"></uwb-multi-select>
     </uwb-form-control>
   </uwb-form-grid>
 </uwb-form>

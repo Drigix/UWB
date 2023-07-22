@@ -1,7 +1,12 @@
 {
   "global": {
     "menu": {
-      "user": "Użytkownicy"
+      "logout": "Wyloguj",
+      "profile": "Profil",
+      "changeStyle": "Zmień styl",
+      "pages": {
+        "user": "Użytkownicy"
+      }
     },
     "table": {
       "search": "Szukaj",
@@ -23,5 +28,21 @@
       "close": "Zamknij",
       "copy": "Kopiuj"
     }
+  },
+  "profile": {
+    "menu": {
+      "profile": "Profil",
+      "password": "Hasło",
+      "settings": "Ustawienia"
+    }
+  },
+  "user": {
+    "name": "Imie",
+    "surname": "Nazwisko",
+    "email": "Email",
+    "dayOfBirth": "Data urodzenia",
+    "password": "Hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "organizationUnit": "Jednostka organizacyjna"
   }
 }

@@ -6,11 +6,14 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from '@components/components.module';
 import { SharedModule } from '@shared/shared.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslationModule } from '@shared/language/translation.module';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpLoaderFactory } from '@config/translation.config';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LayoutsModule } from './layouts/layouts.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       }
       }),
   ],
-  providers: [],
+  providers: [
+    TranslateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
