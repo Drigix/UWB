@@ -16,7 +16,7 @@ export class ConfirmDialogService {
     key: 'mainDeleteConfirmDialog',
     header: this.translateService.instant('global.dialog.deleteHeader'),
     message: this.translateService.instant('global.dialog.deleteMessage'),
-    icon: 'pi pi-info-circle',
+    icon: 'pi pi-exclamation-triangle',
   };
 
   constructor(

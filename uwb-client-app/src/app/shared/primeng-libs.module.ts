@@ -27,6 +27,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   imports: [
@@ -58,7 +60,9 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     SelectButtonModule,
     InputTextareaModule,
     InputNumberModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    TabMenuModule,
+    PasswordModule
   ],
   exports: [
     TableModule,
@@ -89,7 +93,9 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     SelectButtonModule,
     InputTextareaModule,
     InputNumberModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    TabMenuModule,
+    PasswordModule
   ],
 })
 export class PrimeNGLibsModule {}
