@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMenuItem } from '@entities/menu/menu-item.model';
 import { MenuService } from './menu.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { UwbProfileComponent } from '@components/uwb-profile/uwb-profile.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'uwb-menu',
@@ -17,7 +20,9 @@ export class MenuComponent implements OnInit {
   filterText = '';
   constructor(
     private menuService: MenuService,
+    private dialogService: DialogService,
     private router: Router,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +43,14 @@ export class MenuComponent implements OnInit {
   //     }
   //   });
   // }
+
+  openProfileDialog(): void {
+    const ref = this.dialogService.open(UwbProfileComponent, {
+      header: this.translateService.instant('global.menu.profile'),
+      width: '45%'
+    });
+    //ref.onClose.subscribe((response) => this.handleDialogResponse(response));
+  }
 
   logout(): void {
     //this.loginService.logout();

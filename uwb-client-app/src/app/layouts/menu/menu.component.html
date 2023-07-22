@@ -1,6 +1,6 @@
 <div class="menu-bar" [ngClass]="{ 'collapsed': !isMenuVisible }">
   <div class="flex-space">
-    <a class="mode-icon" (click)="switchTheme()">
+    <a class="mode-icon" (click)="switchTheme()" pTooltip="{{ 'global.menu.changeStyle' | translate }}" tooltipPosition="right">
       <div class="icon-container">
         <i [ngClass]="{ 'fade-out': !lighVersion }" class="pi pi-sun text-lg" (click)="lighVersion = !lighVersion"></i>
         <i [ngClass]="{ 'fade-out': lighVersion }" class="pi pi-moon text-lg" (click)="lighVersion = !lighVersion"></i>
@@ -20,15 +20,21 @@
     <label for="user" style="text-align: center;">imie nazwisko</label>
   </div>
   <div class="flex-center flex-column">
-    <a class="logout-item flex align-items-center" (click)="logout()" id="logout" data-cy="logout">
+    <a class="logout-item flex align-items-center pb-2" (click)="openProfileDialog()" id="logout" data-cy="logout" pTooltip="{{ 'global.menu.profile' | translate }}">
+      <i class="pi pi-user text-lg font-bold" [ngClass]="{ 'mr-2' : isMenuVisible }"></i>
+      <span>{{ 'global.menu.profile' | translate }}</span>
+    </a>
+  </div>
+  <div class="flex-center flex-column">
+    <a class="logout-item flex align-items-center" (click)="logout()" id="logout" data-cy="logout"  pTooltip="{{ 'global.menu.logout' | translate }}">
       <i class="pi pi-power-off text-lg font-bold" [ngClass]="{ 'mr-2' : isMenuVisible }"></i>
-      <span swzTranslate="global.menu.account.logout">Wyloguj</span>
+      <span>{{ 'global.menu.logout' | translate }}</span>
     </a>
   </div>
   <div tabindex="0" class="menu-search flex-center flex-column">
     <span tabindex="0" class="p-input-icon-left">
       <i tabindex="0" [ngClass]="{'hide': filterText !== ''}" class="pi pi-search"></i>
-      <input tabindex="0" type="text" pInputText [(ngModel)]="filterText" (ngModelChange)="filterMenuItems(filterText)">
+      <input class="border-none" tabindex="0" type="text" pInputText [(ngModel)]="filterText" (ngModelChange)="filterMenuItems(filterText)">
     </span>
   </div>
 

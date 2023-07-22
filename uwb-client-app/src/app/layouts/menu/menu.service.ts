@@ -14,7 +14,7 @@ export class MenuService {
 
   getMenuItems(): IMenuItem[] {
     const items: IMenuItem[] = [
-      this.createMenuItem('pi pi-fw pi-plus', 'global.menu.user', 'user', []),
+      this.createMenuItem('pi pi-fw pi-plus', this.translateService.instant('global.menu.page.user'), 'user', []),
     ];
     //items = this.filterTabsByAuth(items);
     return items;
