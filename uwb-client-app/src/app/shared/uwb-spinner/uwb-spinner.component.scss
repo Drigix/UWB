@@ -10,3 +10,34 @@
   100% { transform: rotate(360deg); } /* Obrót obrazka o pełne 360 stopni */
 }
 
+
+.spinner-img3 {
+  img {
+    width: 220px;
+  }
+}
+
+.spinner-img2 {
+  img {
+    width: 180px;
+  }
+}
+
+.spinner-img1 {
+  img {
+    width: 140px;
+  }
+}
+
+.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s ease-in-out, visibility 1s linear;
+}
+
+/* Klasa do ukrywania elementu */
+.hide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease-in-out, visibility 1s linear;
+}

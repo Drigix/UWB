@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'uwb-spinner',
@@ -6,8 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./uwb-spinner.component.scss']
 })
 
-export class UwbSpinnerComponent implements OnInit {
-  constructor() { }
+export class UwbSpinnerComponent implements AfterViewInit {
 
-  ngOnInit() { }
+  imgVisible: number = 1;
+
+  ngAfterViewInit(): void {
+      setInterval(() => {
+      this.imgVisible = this.getNextImageNumber(this.imgVisible);
+    }, 700);
+  }
+
+  getNextImageNumber(currentNumber: number): number {
+    return currentNumber % 3 + 1;
+  }
 }

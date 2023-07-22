@@ -1,3 +1,15 @@
-<div style="text-align:center;">
+<!-- <div style="text-align:center;">
   <img class="spinner" src="../../../assets/images/uwb_spinner.png">
+</div> -->
+
+<div class="flex flex-column">
+  <div class="flex justify-content-center spinner-img3">
+    <img [ngClass]="{'show': imgVisible === 3, 'hide': imgVisible !== 3}" src="../../../assets/images/spinner_1element.png">
+  </div>
+  <div class=" flex w-full justify-content-center spinner-img2">
+    <img [ngClass]="{'show': imgVisible === 2, 'hide': imgVisible !== 2}" src="../../../assets/images/spinner_1element.png">
+  </div>
+  <div class="flex w-full justify-content-center spinner-img1">
+    <img [ngClass]="{'show': imgVisible === 1, 'hide': imgVisible !== 1}" src="../../../assets/images/spinner_1element.png">
+  </div>
 </div>
