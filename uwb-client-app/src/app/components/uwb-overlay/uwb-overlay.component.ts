@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'uwb-overlay',
@@ -6,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class UwbOverlayComponent implements OnInit {
+
+  @ViewChild('op') overlay?: OverlayPanel;
+
   constructor() { }
 
   ngOnInit() { }
+
+  toogleOverlay(event: any): void {
+    this.overlay?.toggle(event);
+  }
 }
