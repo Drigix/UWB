@@ -19,15 +19,15 @@
   <div class="flex-center user-info" style="margin: 10px;">
     <label for="user" style="text-align: center;">imie nazwisko</label>
   </div>
-  <div class="flex-center flex-column">
+  <div class="flex-center flex-column mb-1">
     <a class="logout-item flex align-items-center pb-2" (click)="openProfileDialog()" id="logout" data-cy="logout" pTooltip="{{ 'global.menu.profile' | translate }}">
-      <i class="pi pi-user text-lg font-bold" [ngClass]="{ 'mr-2' : isMenuVisible }"></i>
+      <i class="pi pi-user font-bold" [ngClass]="{ 'mr-2 text-lg' : isMenuVisible, 'text-xl': !isMenuVisible }"></i>
       <span>{{ 'global.menu.profile' | translate }}</span>
     </a>
   </div>
   <div class="flex-center flex-column">
     <a class="logout-item flex align-items-center" (click)="logout()" id="logout" data-cy="logout"  pTooltip="{{ 'global.menu.logout' | translate }}">
-      <i class="pi pi-power-off text-lg font-bold" [ngClass]="{ 'mr-2' : isMenuVisible }"></i>
+      <i class="pi pi-power-off text-lg font-bold" [ngClass]="{ 'mr-2 text-lg' : isMenuVisible, 'text-xl': !isMenuVisible }"></i>
       <span>{{ 'global.menu.logout' | translate }}</span>
     </a>
   </div>

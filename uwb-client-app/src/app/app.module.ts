@@ -10,10 +10,7 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { LayoutsModule } from './layouts/layouts.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
-}
+import { TranslationModule } from '@shared/language/translation.module';
 
 @NgModule({
   declarations: [
@@ -27,13 +24,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HttpClientModule,
     LayoutsModule,
     BrowserAnimationsModule,
-    TranslateModule.forRoot({
-      loader: {
-      provide: TranslateLoader,
-      useFactory: HttpLoaderFactory,
-      deps: [HttpClient]
-      }
-      }),
+    TranslationModule
   ],
   providers: [
     TranslateService

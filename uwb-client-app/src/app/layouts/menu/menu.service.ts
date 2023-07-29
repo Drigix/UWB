@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMenuItem } from '@entities/menu/menu-item.model';
 import { TranslateService } from '@ngx-translate/core';
+import { UwbTranslateService } from '@shared/uwb-translate/uwb-translate.service';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
@@ -10,11 +11,12 @@ export class MenuService {
   constructor(
     private translateService: TranslateService,
     private router: Router,
+    private uwbTranslateService: UwbTranslateService
     ) { }
 
-  getMenuItems(): IMenuItem[] {
+  async getMenuItems(): Promise<IMenuItem[]> {
     const items: IMenuItem[] = [
-      this.createMenuItem('pi pi-fw pi-plus', this.translateService.instant('global.menu.page.user'), 'user', []),
+      await this.createMenuItem('pi pi-fw pi-plus', 'global.menu.pages.users', 'user', []),
     ];
     //items = this.filterTabsByAuth(items);
     return items;
@@ -41,10 +43,10 @@ export class MenuService {
     return menuGroup;
   }
 
-  private createMenuItem(icon: string | null, label: string, routerLink: string, auth: string[], additionalOptions?: any): IMenuItem {
+  private async createMenuItem(icon: string | null, label: string, routerLink: string, auth: string[], additionalOptions?: any): Promise<IMenuItem> {
     const menuItem = {
       icon: icon ? icon : '',
-      label: this.translateService.instant(label),
+      label: await this.uwbTranslateService.get(label),
       routerLink,
       title: this.translateService.instant(label),
       auth,

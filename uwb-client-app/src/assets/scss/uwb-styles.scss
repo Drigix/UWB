@@ -5,13 +5,13 @@ $uwb-secondary: #f39c42;
 $uwb-primary-second-lighter: #f6b571;
 $uwb-background: #f2efef;
 
-$uwb-menu-scrollbar-track: #54a7b4;
-$uwb-menu-scrollbar-thumb: #54a7b4;
-$uwb-menu-scrollbar-thumb-hover: #058B90;
-$uwb-checkbox-marked: #237a87;
-$uwb-menu-scrollbar-track: #54a7b4;
-$uwb-menu-scrollbar-thumb: #54a7b4;
-$uwb-menu-scrollbar-thumb-hover: #058B90;
+$uwb-menu-scrollbar-track: #ffb559;
+$uwb-menu-scrollbar-thumb: #ffb559;
+$uwb-menu-scrollbar-thumb-hover: #d49c55;
+$uwb-checkbox-marked: #aa6818;
+$uwb-menu-scrollbar-track: #ffb559;
+$uwb-menu-scrollbar-thumb: #ffb559;
+$uwb-menu-scrollbar-thumb-hover: #d49c55;
 
 /*TABLE COLORS*/
 $uwb-label-color: #ffffff;
@@ -83,7 +83,7 @@ $tundora: #3c3a3b;
 }
 
 body {
-    font-family: "Righteous-Regular", sans-serif;
+    font-family: "Trasandina", sans-serif;
     background-color: var(--uwb-tab-background);
     color: var(--uwb-front-tab-text-color);
     overflow: hidden;
