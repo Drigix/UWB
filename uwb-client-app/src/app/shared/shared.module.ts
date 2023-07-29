@@ -5,6 +5,7 @@ import { UwbSpinnerComponent } from './uwb-spinner/uwb-spinner.component';
 import { MessageService } from 'primeng/api';
 import { FormatDatePipe } from './date/format-date.pipe';
 import { FormatDatetimePipe } from './date/format-datetime.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FormatDatetimePipe } from './date/format-datetime.pipe';
     SharedLibsModule,
     UwbSpinnerDirective,
     FormatDatePipe,
-    FormatDatetimePipe
+    FormatDatetimePipe,
+    TranslateModule
   ],
   providers: [
     MessageService

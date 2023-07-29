@@ -8,11 +8,12 @@ export class UwbTranslateService {
     private translateService: TranslateService
   ) { }
 
-  get(key: string): Observable<string> {
-    return this.translateService.get(key).pipe(
-      map((translated: string) => {
-        return translated;
-      })
-    );
+  async get(key: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      setTimeout(() => {
+        const result = this.translateService.instant(key);
+        resolve(result);
+      }, 1);
+    });
   }
 }
