@@ -11,6 +11,7 @@ import { UwbProfileComponent } from './uwb-profile/uwb-profile.component';
 import { UwbSingleSelectComponent } from './uwb-single-select/uwb-single-select.component';
 import { UwbMultiSelectComponent } from './uwb-multi-select/uwb-multi-select.component';
 import { UwbOverlayComponent } from './uwb-overlay/uwb-overlay.component';
+import { UwbTableComponent } from './uwb-table/uwb-table.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { UwbOverlayComponent } from './uwb-overlay/uwb-overlay.component';
     UwbProfileComponent,
     UwbSingleSelectComponent,
     UwbMultiSelectComponent,
-    UwbOverlayComponent
+    UwbOverlayComponent,
+    UwbTableComponent
   ],
   declarations: [
     FormComponent,
@@ -40,7 +42,8 @@ import { UwbOverlayComponent } from './uwb-overlay/uwb-overlay.component';
     UwbProfileComponent,
     UwbSingleSelectComponent,
     UwbMultiSelectComponent,
-    UwbOverlayComponent
+    UwbOverlayComponent,
+    UwbTableComponent
   ],
   providers: [],
 })

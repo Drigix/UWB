@@ -24,7 +24,8 @@
   // display: grid;
   // grid-row: 1;
   // grid-column: 1;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: var(--uwb-background);
   border: none;
 }
