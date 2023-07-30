@@ -153,6 +153,7 @@ body {
 }
 .ui-button_size_175 {
     width: 175px;
+    font-size: 17px !important;
 }
 .ui-button_size_200 {
     width: 200px;
@@ -365,4 +366,45 @@ body {
         background: var(--uwb-primary) !important;
         color: #ffffff !important;
     }
+}
+
+.single_table_with_buttons {
+  width: 100%;
+  height: calc(100vh - 40px);
+  display: grid;
+  gap: 10px;
+  grid-template-rows: auto 75px;
+}
+
+@media (max-width:700px) {
+  .single_table_with_buttons {
+    button {
+      width: 80px;
+      font-size: 12px !important
+    }
+  }
+}
+@media (min-width: 701px) {
+  .single_table_with_buttons {
+    button {
+      width: 130px;
+      font-size: 15px !important
+    }
+  }
+}
+@media (min-width: 1200px) {
+  .single_table_with_buttons {
+    button {
+      width: 170px;
+      font-size: 17px !important
+    }
+  }
+}
+
+
+.buttons_container_center {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
