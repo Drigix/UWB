@@ -1,11 +1,16 @@
-<h2>{{ 'global.menu.user' | translate }}</h2>
-<div *uwbSpinner="true"></div>
+<div class="single_table_with_buttons">
+  <uwb-table
+  [columns]="columns"
+  [values]="users"
+  >
+  </uwb-table>
+  <div class="buttons_container_center">
+    <uwb-footer-buttons
+      (emitAddClick)="openDialog()"
+      (emitEditClick)="openDialog(true)"
+      (emitDeleteClick)="openDeleteDialog()"
+    >
+    </uwb-footer-buttons>
+  </div>
+</div>
 
-<h2>{{ date | formatDatetime }}</h2>
-
-<uwb-footer-buttons
-  (emitAddClick)="openDialog()"
-  (emitEditClick)="openDialog(true)"
-  (emitDeleteClick)="openDeleteDialog()"
->
-</uwb-footer-buttons>
