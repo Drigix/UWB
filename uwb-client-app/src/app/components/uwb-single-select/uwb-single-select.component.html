@@ -1,0 +1,33 @@
+<span class="p-float-label">
+  <p-dropdown
+    [(ngModel)]="value"
+    [options]="items"
+    [optionValue]="itemValue"
+    [optionLabel]="optionLabel"
+    [panelStyleClass]="panelStyleClass"
+    [optionDisabled]="optionDisabled"
+    [filter]="true"
+    [disabled]="!items || items.length === 0 || isDisabled"
+    [autoDisplayFirst]="false"
+    [filterBy]="filterBy"
+    placeholder="{{ placeholder! | translate }}"
+    appendTo="body"
+    [showClear]="true"
+    [style]="{ width: '100%' }"
+    [class]="styleClass"
+    (onChange)="emitModelAndItemChange($event)"
+  >
+    <ng-template *ngIf="selectedItemTemplate" pTemplate="selectedItem" let-item>
+      <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { item }"></ng-container>
+    </ng-template>
+    <ng-template ngIf="itemTemplate" pTemplate="item" let-item>
+      <ng-container *ngTemplateOutlet="itemTemplate; context: { item }"></ng-container>
+    </ng-template>
+    <ng-template *ngIf="!itemTemplate" let-item pTemplate="item">
+      <div pTooltip="{{ item[optionLabel] }}">
+        {{ item[optionLabel].length > 30 ? (item[optionLabel] | slice:0:30) + '...' : item[optionLabel] }}
+      </div>
+    </ng-template>
+  </p-dropdown>
+  <label for="label">{{ label }}</label>
+</span>

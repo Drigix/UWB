@@ -1,7 +1,13 @@
 {
   "global": {
     "menu": {
-      "user": "Użytkownicy"
+      "logout": "Wyloguj",
+      "profile": "Profil",
+      "changeStyle": "Zmień styl",
+      "pages": {
+        "users": "Użytkownicy",
+        "localizations": "Lokalizacje"
+      }
     },
     "table": {
       "search": "Szukaj",
@@ -11,7 +17,8 @@
     "dialog": {
       "addHeader": "Dodawanie elementu",
       "editHeader": "Edytowanie elementu",
-      "deleteHeader": "Usuwanie elementu"
+      "deleteHeader": "Usuwanie elementu",
+      "deleteMessage": "Czy na pewno chcesz usunąć podany element?"
     },
     "buttons": {
       "add": "Dodaj",
@@ -22,5 +29,21 @@
       "close": "Zamknij",
       "copy": "Kopiuj"
     }
+  },
+  "profile": {
+    "menu": {
+      "profile": "Profil",
+      "password": "Hasło",
+      "settings": "Ustawienia"
+    }
+  },
+  "user": {
+    "name": "Imie",
+    "surname": "Nazwisko",
+    "email": "Email",
+    "dayOfBirth": "Data urodzenia",
+    "password": "Hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "organizationUnit": "Jednostka organizacyjna"
   }
 }

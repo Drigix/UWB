@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMenuItem } from '@entities/menu/menu-item.model';
 import { MenuService } from './menu.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { UwbProfileComponent } from '@components/uwb-profile/uwb-profile.component';
+import { TranslateService } from '@ngx-translate/core';
+import { ThemeService } from '@shared/theme/theme.service';
+import { Subscription } from 'rxjs';
+import { Themes } from '../themes';
 
 @Component({
   selector: 'uwb-menu',
@@ -15,15 +21,22 @@ export class MenuComponent implements OnInit {
   version: string | null = null;
   isMenuVisible = true;
   filterText = '';
+  login = 'drigix'
+  themeSubscription?: Subscription;
   constructor(
     private menuService: MenuService,
+    private dialogService: DialogService,
     private router: Router,
+    private translateService: TranslateService,
+    private themeService: ThemeService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     //this.loadAccount();
-    this.items = this.menuService.getMenuItems();
+    this.items = await this.menuService.getMenuItems();
     this.filteredItems = this.items;
+    this.lighVersion = this.themeService.getLastSavedTheme() === 'primaryTheme';
+    this.observeAppThemeChange();
     //this.navigateToStartPage();
   }
 
@@ -38,6 +51,14 @@ export class MenuComponent implements OnInit {
   //     }
   //   });
   // }
+
+  openProfileDialog(): void {
+    const ref = this.dialogService.open(UwbProfileComponent, {
+      header: this.translateService.instant('global.menu.profile'),
+      width: '45%'
+    });
+    //ref.onClose.subscribe((response) => this.handleDialogResponse(response));
+  }
 
   logout(): void {
     //this.loginService.logout();
@@ -56,19 +77,18 @@ export class MenuComponent implements OnInit {
   }
 
   switchTheme(): void {
-    // let name: string;
-    // const html = document.getElementsByTagName('html')[0];
-    // const themeName = window.localStorage.getItem(this.account!.login + '_colorTheme');
-    // if (themeName === 'darkTheme') {
-    //   window.localStorage.setItem(this.account!.login + '_colorTheme', 'primaryTheme');
-    //   name = 'primaryTheme';
-    // } else {
-    //   window.localStorage.setItem(this.account!.login + '_colorTheme', 'darkTheme');
-    //   name = 'darkTheme';
-    // }
-    // Themes.themes.get(name)!.forEach((value, key) => {
-    //   html.style.setProperty(key, value);
-    // });
+    if(this.login) {
+      this.themeService.switchTheme(this.login);
+    }
+  }
+
+  observeAppThemeChange(): void {
+    this.themeSubscription = this.themeService.theme$.subscribe(themeName => {
+      const html = document.getElementsByTagName('html')[0];
+      Themes.themes.get(themeName)!.forEach((value, key) => {
+        html.style.setProperty(key, value);
+      });
+    });
   }
 
   navigateToStartPage(): void {

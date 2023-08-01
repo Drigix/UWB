@@ -1,0 +1,271 @@
+<p-table
+  #table
+  [value]="lazyValues"
+  [columns]="columns"
+  [selectionMode]="selectMode"
+  [(selection)]="selection"
+  [scrollable]="scrollable"
+  [scrollHeight]="scrollHeight"
+  [virtualScrollItemSize]="rowHeight"
+  [virtualScroll]="virtualScroll"
+  [rowHover]="rowHover"
+  [totalRecords]="totalRecords"
+  (onSort)="handleSort($event)"
+  [resizableColumns]="resizableColumns"
+  [rows]="rows"
+  [customSort]="customSort !== null"
+  [reorderableColumns]="reorderableColumns"
+  [dataKey]="dataKey ?? ''"
+  [expandedRowKeys]="expandedRowKeys"
+  (onRowExpand)="onRowExpand()"
+  (onRowCollapse)="onRowCollapse()"
+  >
+
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+      <col *ngIf="selectMode === 'checkbox'" />
+      <col *ngIf="draggableRows" />
+      <col *ngFor="let col of columns" />
+    </colgroup>
+  </ng-template>
+
+  <ng-template pTemplate="caption" *ngIf="showCaption">
+    <ng-container *ngIf="customCaption">
+      <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="!customCaption">
+      <div class="header" class="grid">
+        <div class="caption" *ngIf="filterMode === 'none'" style="opacity: 0; pointer-events: none;">
+          <span class="p-input-icon-left search-input">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText />
+          </span>
+          <!-- <swz-refresher *ngIf="refreshRate !== null" [rate]="refreshRate" (refresh)="onRefresh()"></swz-refresher> -->
+        </div>
+        <div class="col flex caption p-1" *ngIf="showCalendar" [ngClass]="{ 'justify-content-center': tableWidth < '500' }">
+          <ng-content></ng-content>
+        </div>
+        <div
+          class="col flex caption"
+          *ngIf="filterMode === 'single'"
+          [ngClass]="{
+            'flex-row-reverse': showCalendar === false,
+            'justify-content-end': showCalendar === true,
+            'justify-content-center': tableWidth < '500'
+          }"
+        >
+          <span class="p-input-icon-left search-input">
+            <i class="pi pi-search"></i>
+            <input
+              type="text"
+              pInputText
+              placeholder="{{ 'global.table.search' | translate }}"
+              (input)="filterGlobal($any($event.target).value)"
+              [disabled]="!storagedData || storagedData.length === 0"
+            />
+          </span>
+          <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
+          <!-- <swz-refresher *ngIf="refreshRate !== null" [rate]="refreshRate" (refresh)="onRefresh()"></swz-refresher> -->
+        </div>
+        <ng-container *ngIf="showTableName && tableName">
+          <div class="table-name">
+            {{ tableName | translate }}
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-template>
+
+  <ng-template pTemplate="header" *ngIf="showHeader">
+    <ng-container *ngTemplateOutlet="headerTemplate; context: { columns: columns }"></ng-container>
+    <ng-container *ngIf="!customHeader">
+      <tr>
+        <th *ngIf="selectMode === 'checkbox'" [ngStyle]="{ height: rowHeight + 'px', 'max-width': '3rem' }">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th *ngIf="draggableRows" style="width:3rem"></th>
+        <th
+          *ngFor="let col of columns"
+          class="resizable-column-border"
+          [ngStyle]="col.style"
+          [pSortableColumn]="col.field"
+          [pSortableColumnDisabled]="!sortableColumns"
+          pResizableColumn
+          pReorderableColumn>
+          <div
+            class="ellipsis"
+            pTooltip="{{ col.header | translate }}"
+            [tooltipDisabled]="disableTooltip"
+            (mouseenter)="enableTooltipIfNecessary($event)">
+            <p-sortIcon
+              *ngIf="sortableColumns"
+              [field]="col.field"
+              style="margin-right: .5rem;">
+            </p-sortIcon>{{col.header | translate}}
+          </div>
+        </th>
+        <th *ngIf="actions.length > 0" [ngStyle]="{ width: actions.length * 52 + 'px' }"></th>
+      </tr>
+      <tr *ngIf="filterMode === 'multiple'">
+        <th *ngIf="selectMode === 'checkbox'"></th>
+        <th *ngIf="draggableRows" style="width: 3rem"></th>
+        <th *ngFor="let col of columns" [ngStyle]="col.style">
+          <input
+            type="text"
+            pInputText
+            placeholder="{{ 'global.search' | translate }}"
+            (input)="filterGlobal($any($event.target).value, col.field)"
+            [disabled]="!storagedData || storagedData.length === 0"
+            (click)="$event.stopPropagation()"
+          />
+        </th>
+        <th *ngIf="actions.length > 0" [ngStyle]="{ height: rowHeight + 'px', width: actions.length * 52 + 'px' }"></th>
+      </tr>
+    </ng-container>
+  </ng-template>
+
+  <ng-template *ngIf="customBody" pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex" let-expanded="expanded">
+    <ng-container *ngTemplateOutlet="bodyTemplate; context: { rowData: rowData, columns: columns, expanded: expanded }"></ng-container>
+  </ng-template>
+
+  <ng-template *ngIf="!customBody" pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+    <tr
+      [pDraggableDisabled]="!draggable"
+      [pDraggable]="draggable ? 'draggableRow' : ''"
+      (onDragStart)="onDragStart(rowData)"
+      [pSelectableRow]="rowData"
+      [pSelectableRowDisabled]="draggable"
+      [pReorderableRowDisabled]="!draggableRows"
+      class="p-selectable-row"
+      [pReorderableRow]="index"
+      [ngStyle]="{ height: rowHeight + 'px' }"
+    >
+      <td *ngIf="selectMode === 'checkbox'">
+        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+      </td>
+      <td *ngIf="draggableRows">
+        <span class="pi pi-bars" pReorderableRowHandle></span>
+      </td>
+      <td
+        *ngFor="let col of columns"
+        class="ui-resizable-column"
+        [ngStyle]="col.style"
+        [ngSwitch]="getInstanceType(col.subField && rowData[col.field][col.subField] ? rowData[col.field][col.subField] : rowData[col.field])">
+        <ng-container *ngSwitchCase="'NULL'">
+          <div class="ellipsis">
+            {{ nullHandlerText }}
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'ARRAY'">
+          <div
+            class="ellipsis"
+            pTooltip="{{ getTooltipForArray(rowData[col.field]) }}"
+            [tooltipDisabled]="disableTooltip"
+            (mouseenter)="enableTooltipIfNecessary($event)"
+          >
+            {{ getRowValue(rowData, col) }}
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'DATE'">
+          <div
+            class="ellipsis"
+            pTooltip="{{ getRowValue(rowData, col) | date: getDateFormat(col) }}"
+            [tooltipDisabled]="disableTooltip"
+            (mouseenter)="enableTooltipIfNecessary($event)"
+          >
+            {{ getRowValue(rowData, col) | date: getDateFormat(col) | date: getDateFormat(col) }}
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'BOOLEAN'" [ngStyle]="col.style">
+          <i class="pi flex justify-content-center"
+              [ngClass]="{'pi-times': col.subfield ? !rowData[col.field][col.subfield] : !rowData[col.field], 'pi-check': col.subfield ? rowData[col.field][col.subfield] : rowData[col.field] }"
+              [ngStyle]="{color: ((col.subfield ? rowData[col.field][col.subfield] : rowData[col.field]) ? 'rgb(24, 206, 0)' : 'rgb(206, 0, 0)')}"></i>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <ng-container *ngIf="col?.isLineColor || col?.isFontColor; else default">
+            <ng-container *ngIf="col?.isLineColor">
+              <div class="color-block" [style.backgroundColor]="rowData[col.field]"></div>
+            </ng-container>
+            <ng-container *ngIf="col?.isFontColor">
+              <div
+                [style.color]="rowData[col.field]"
+                class="ellipsis"
+                pTooltip="{{ getRowValue(rowData, col) }}"
+                [tooltipDisabled]="disableTooltip"
+                (mouseenter)="enableTooltipIfNecessary($event)"
+              >
+                {{ getRowValue(rowData, col) }}
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-template #default>
+            <div
+              class="ellipsis"
+              pTooltip="{{ getRowValue(rowData, col) }}"
+              [tooltipDisabled]="disableTooltip"
+              (mouseenter)="enableTooltipIfNecessary($event)"
+            >
+              {{ getRowValue(rowData, col) }}
+            </div>
+            <ng-container *ngIf="col?.isIcon">
+              <img width="18" height="18" [src]="IMG_URL + rowData[col.field]" alt="Icon">
+            </ng-container>
+          </ng-template>
+        </ng-container>
+      </td>
+      <td *ngIf="actions.length > 0">
+        <div class="button-container">
+          <p-button
+            *ngFor="let action of actions"
+            (onClick)="action.onClick(rowData)"
+            [icon]="getActionIcon(action)"
+            pTooltip="{{ getActionTooltip(action) }}"
+            tooltipPosition="left"
+            [tooltipDisabled]="action.disableTooltip ?? false"
+            styleClass="ui-button_special_icon"
+            [ngStyle]="{ margin: '0 4px' }"
+          >
+          </p-button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template *ngIf="rowExpand" pTemplate="rowexpansion" let-rowData let-columns="columns">
+    <ng-container *ngTemplateOutlet="rowExpansion; context: { rowData: rowData, columns: columns }"></ng-container>
+  </ng-template>
+
+  <ng-template pTemplate="loadingbody" let-columns="columns">
+    <tr [ngStyle]="{ height: rowHeight + 'px' }">
+      <th *ngIf="selectMode === 'checkbox'" [ngStyle]="{ height: rowHeight + 'px', 'max-width': '3rem' }">
+        <div class="skeleton"></div>
+      </th>
+      <th *ngIf="draggableRows" style="width: 3rem">
+        <div class="skeleton"></div>
+      </th>
+      <td *ngFor="let col of columns">
+        <div class="skeleton"></div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template *ngIf="showFooter" pTemplate="footer" let-columns="columns">
+    <tr *ngIf="footerTemplate && values?.length! > 0">
+      <td [attr.colspan]="getColspan()">
+        <ng-container *ngTemplateOutlet="footerTemplate; context: { columns: columns }"></ng-container>
+      </td>
+    </tr>
+    <ng-container *ngIf="values?.length === 0">
+      <tr *ngIf="!loading">
+        <td [attr.colspan]="getColspan()" style="width: 100%; text-align: center; justify-content: center">
+          {{ 'global.table.noData' | translate }}
+        </td>
+      </tr>
+      <tr *ngIf="loading">
+        <td [attr.colspan]="getColspan()" class="spinner">
+          <div *uwbSpinner="true"></div>
+        </td>
+      </tr>
+    </ng-container>
+  </ng-template>
+</p-table>

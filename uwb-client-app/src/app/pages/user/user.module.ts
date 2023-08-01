@@ -3,6 +3,7 @@ import { UserComponent } from './user.component';
 import { ComponentsModule } from '@components/components.module';
 import { SharedModule } from '@shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
+import { UserDialogComponent } from './user-dialog/user-dialog.component';
 
 const routes: Routes = [
   {
@@ -18,10 +19,12 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   exports: [
-    UserComponent
+    UserComponent,
+    UserDialogComponent
   ],
   declarations: [
-    UserComponent
+    UserComponent,
+    UserDialogComponent
   ],
   providers: [],
 })

@@ -386,6 +386,9 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
   box-shadow: 0 0 0 0.2rem var(--uwb-selected-row-light-bg);
 }
 
+.p-calendar {
+  height: 30px;
+}
 p-calendar.p-calendar-clearable .p-inputtext {
   padding-right: 2.5rem;
 }
@@ -998,6 +1001,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
   font-size: var(--uwb-font-size);
   color: black;
   background: #ffffff;
+  height: 30px;
   padding: 2px 4px;
   border: 1px solid #ced4da;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
@@ -1165,6 +1169,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect {
   background: #ffffff;
   border: 1px solid #ced4da;
+  height: 30px;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   border-radius: var(--border-radius);
 }
@@ -1179,6 +1184,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 .p-multiselect .p-multiselect-label {
   padding: 0.75rem 0.75rem;
+  height: 30px;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 .p-multiselect .p-multiselect-label.p-placeholder {
@@ -1186,6 +1192,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.375rem 0.75rem;
+  height: 18px;
   margin-right: 0.5rem;
   background: var(--uwb-primary-second-lighter);
   color: var(--uwb-button-text-color);
@@ -1320,6 +1327,12 @@ p-multiselect.p-multiselect-clearable .p-multiselect-clear-icon {
 
 p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
   border-color: #e24c4c;
+}
+
+.p-input-icon-left>i, .p-input-icon-left>.p-icon-wrapper, .p-input-icon-right>i, .p-input-icon-right>.p-icon-wrapper {
+  position: relative;
+  top: 8px;
+  right: 2%;
 }
 
 .p-password-panel {
@@ -4292,7 +4305,7 @@ p-dynamicdialog .p-dialog-mask {
 }
 .p-dialog .p-dialog-footer button {
   width: 100px;
-  background-color: var(--uwb-primary);
+  background-color: var(--uwb-button-background);
   border: none;
 }
 .p-dialog.p-confirm-dialog .p-confirm-dialog-icon {

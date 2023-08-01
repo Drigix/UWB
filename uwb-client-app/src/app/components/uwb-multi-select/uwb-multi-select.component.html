@@ -1,0 +1,17 @@
+<span class="p-float-label">
+  <p-multiSelect
+    [(ngModel)]="value"
+    [dataKey]="'id'"
+    [options]="items"
+    [optionValue]="itemValue"
+    [optionLabel]="optionLabel"
+    [disabled]="isDisabled"
+    display="chip"
+    appendTo="body"
+    (onChange)="emitAndUpdate($event)"
+    [showClear]="showClear"
+    (onPanelShow)="sort()"
+  >
+  </p-multiSelect>
+  <label for="label">{{ label }}</label>
+</span>

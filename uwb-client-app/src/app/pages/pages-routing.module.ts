@@ -9,7 +9,11 @@ import { RouterModule } from '@angular/router';
         {
           path: '',
           loadChildren: () => import('./user/user.module').then(m => m.UserModule)
-         },
+        },
+        {
+          path: '',
+          loadChildren: () => import('./localizations/localizations.module').then(m => m.LocalizationsModule)
+        },
       ]
     )
   ]

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -6,10 +6,13 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'uwb-client-app';
   constructor(private translateService: TranslateService){
-    translateService.setDefaultLang('pl');
-    translateService.use('pl');
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.translateService.setDefaultLang('pl');
+    this.translateService.use('pl');
   }
 }

@@ -1,0 +1,69 @@
+.caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 8px;
+  border: none;
+}
+
+.skeleton {
+  width: 100%;
+  height: 25px;
+  background-color: #d3d3d3;
+  border-radius: 1.5rem;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.color-block {
+  display:inline-block;
+  width:75px;
+  height:20px;
+  vertical-align: middle;
+  border-radius: 5px;
+}
+
+.spinner {
+  background-color: transparent !important;
+  border: none;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+::ng-deep .p-scroller::-webkit-scrollbar {
+  width: 12px;
+}
+
+::ng-deep .p-scroller::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background: var(--uwb-menu-scrollbar-thumb);
+}
+
+::ng-deep .p-scroller::-webkit-scrollbar-thumb:hover {
+  background: var(--uwb-menu-scrollbar-thumb-hover);
+}
+
+::ng-deep .p-scroller::-webkit-scrollbar-track {
+  background: var(--uwb-menu-scrollbar-track);
+  background-color: transparent;
+}
+
+.rezisable-column-border {
+  border: 1px solid var(--uwb-tab-frame) !important;
+}

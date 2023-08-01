@@ -4,6 +4,7 @@ import { MenuComponent } from './menu/menu.component';
 import { ComponentsModule } from '@components/components.module';
 import { SharedModule } from '@shared/shared.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   ],
   providers: [
     MessageService,
-    ConfirmationService
+    ConfirmationService,
+    DialogService
   ],
 })
 export class LayoutsModule { }

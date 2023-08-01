@@ -1,1 +1,16 @@
-<h2>USER PAGE</h2>
+<div class="single_table_with_buttons">
+  <uwb-table
+  [columns]="columns"
+  [values]="users"
+  >
+  </uwb-table>
+  <div class="buttons_container_center">
+    <uwb-footer-buttons
+      (emitAddClick)="openDialog()"
+      (emitEditClick)="openDialog(true)"
+      (emitDeleteClick)="openDeleteDialog()"
+    >
+    </uwb-footer-buttons>
+  </div>
+</div>
+

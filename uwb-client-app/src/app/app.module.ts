@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from '@components/components.module';
 import { SharedModule } from '@shared/shared.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslationModule } from '@shared/language/translation.module';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpLoaderFactory } from '@config/translation.config';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LayoutsModule } from './layouts/layouts.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslationModule } from '@shared/language/translation.module';
 
 @NgModule({
   declarations: [
@@ -22,15 +23,12 @@ import { LayoutsModule } from './layouts/layouts.module';
     SharedModule,
     HttpClientModule,
     LayoutsModule,
-    TranslateModule.forRoot({
-      loader: {
-      provide: TranslateLoader,
-      useFactory: HttpLoaderFactory,
-      deps: [HttpClient]
-      }
-      }),
+    BrowserAnimationsModule,
+    TranslationModule
   ],
-  providers: [],
+  providers: [
+    TranslateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
