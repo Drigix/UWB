@@ -16,7 +16,8 @@ export class MenuService {
 
   async getMenuItems(): Promise<IMenuItem[]> {
     const items: IMenuItem[] = [
-      await this.createMenuItem('pi pi-fw pi-plus', 'global.menu.pages.users', 'user', []),
+      await this.createMenuItem('pi pi-users', 'global.menu.pages.users', 'user', []),
+      await this.createMenuItem('pi pi-map-marker', 'global.menu.pages.localizations', 'localizations', []),
     ];
     //items = this.filterTabsByAuth(items);
     return items;

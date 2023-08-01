@@ -5,7 +5,8 @@
       "profile": "Profil",
       "changeStyle": "Zmień styl",
       "pages": {
-        "users": "Użytkownicy"
+        "users": "Użytkownicy",
+        "localizations": "Lokalizacje"
       }
     },
     "table": {
