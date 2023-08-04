@@ -1,0 +1,29 @@
+<div class="login-page grid">
+  <div class="col-4 flex justify-content-center align-items-center">
+    <img src="../../../assets/images/uwb_logo.png" />
+  </div>
+  <div class="col-8 flex justify-content-center align-items-center">
+    <form #formRef="ngForm" (ngSubmit)="login()" autocomplete="off" class="flex flex-column align-items-center">
+      <span class="p-float-label">
+        <input pInputText id="email" formControlName="email" />
+        <label htmlFor="email">{{ "user.email" | translate }}</label>
+      </span>
+      <span class="p-float-label">
+        <p-password
+          formControlName="password"
+          [toggleMask]="true"
+          class="p-password"
+          [feedback]="false"
+        ></p-password>
+        <label for="password">{{ "user.password" | translate }}</label>
+      </span>
+      <p-button
+        class="mt-6"
+        styleClass="ui-button_size_175"
+        label="{{ 'global.buttons.login' | translate }}"
+        type="submit"
+      >
+      </p-button>
+    </form>
+  </div>
+</div>

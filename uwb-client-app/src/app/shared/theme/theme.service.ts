@@ -34,7 +34,7 @@ export class ThemeService {
     this.themeSub.next(theme);
   }
 
-  getLastSavedTheme():string{
+  getLastSavedTheme(): string{
     return window.localStorage.getItem(this.LAST_SAVED_THEME_KEY)??this.DEFAULT_THEME;
   }
 

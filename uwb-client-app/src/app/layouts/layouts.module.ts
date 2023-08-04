@@ -5,12 +5,14 @@ import { ComponentsModule } from '@components/components.module';
 import { SharedModule } from '@shared/shared.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
+import { LoginModule } from '@pages/login/login.module';
 
 
 @NgModule({
   imports: [
     ComponentsModule,
-    SharedModule
+    SharedModule,
+    LoginModule
   ],
   exports: [
     MainComponent,
