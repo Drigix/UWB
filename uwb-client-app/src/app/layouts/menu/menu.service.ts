@@ -18,6 +18,7 @@ export class MenuService {
     const items: IMenuItem[] = [
       await this.createMenuItem('pi pi-users', 'global.menu.pages.users', 'user', []),
       await this.createMenuItem('pi pi-map-marker', 'global.menu.pages.localizations', 'localizations', []),
+      await this.createMenuItem('pi pi-map-marker', 'global.menu.pages.localizationsArchive', 'localizations-archive', [])
     ];
     //items = this.filterTabsByAuth(items);
     return items;

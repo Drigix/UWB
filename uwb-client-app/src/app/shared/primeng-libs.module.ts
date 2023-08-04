@@ -29,6 +29,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { PasswordModule } from 'primeng/password';
+import { SliderModule } from 'primeng/slider';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   imports: [
@@ -62,7 +64,9 @@ import { PasswordModule } from 'primeng/password';
     InputNumberModule,
     ToggleButtonModule,
     TabMenuModule,
-    PasswordModule
+    PasswordModule,
+    SliderModule,
+    FileUploadModule
   ],
   exports: [
     TableModule,
@@ -95,7 +99,9 @@ import { PasswordModule } from 'primeng/password';
     InputNumberModule,
     ToggleButtonModule,
     TabMenuModule,
-    PasswordModule
+    PasswordModule,
+    SliderModule,
+    FileUploadModule
   ],
 })
 export class PrimeNGLibsModule {}

@@ -6,7 +6,8 @@
       "changeStyle": "Zmień styl",
       "pages": {
         "users": "Użytkownicy",
-        "localizations": "Lokalizacje"
+        "localizations": "Lokalizacje",
+        "localizationsArchive": "Archiwum lokalizacji"
       }
     },
     "table": {
@@ -27,7 +28,8 @@
       "cancel": "Anuluj",
       "save": "Zapisz",
       "close": "Zamknij",
-      "copy": "Kopiuj"
+      "copy": "Kopiuj",
+      "login": "Zaloguj"
     }
   },
   "profile": {

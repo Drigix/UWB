@@ -1,0 +1,9 @@
+<div class="h-full localizations-archive-page">
+  <uwb-heatmap [background]="'https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source'" [data]="localizations" [pointRadius]="radius" [pointBlur]="blur"></uwb-heatmap>
+  <div class="w-2 m-2">
+    <p>Promień: {{ radius }}</p>
+    <p-slider [(ngModel)]="radius" class="w-full"></p-slider>
+    <p>Blur: {{ blur }}</p>
+    <p-slider [(ngModel)]="blur" class="w-full"></p-slider>
+  </div>
+</div>
