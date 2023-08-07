@@ -1,0 +1,39 @@
+<div class="grid">
+  <div class="col-5 single_table_with_navbar_and_buttons">
+    <uwb-single-select
+      [items]="backgrounds"
+      optionLabel="name"
+      (modelChange)="onBackgroundSelect($event)"
+      [itemTemplate]="itemTemplate"
+    >
+      <ng-template #itemTemplate let-item="item" pTemplate="item">
+        <div class="flex align-items-center" pTooltip="{{ item.name }}">
+          <img [src]="item.path" style="height: 30px" />
+          {{ item.name }}
+        </div>
+      </ng-template>
+    </uwb-single-select>
+    <uwb-table
+      class="w-full"
+      [columns]="columns"
+      [values]="areas"
+      (selectionChange)="onAreaSelect($event)"
+    >
+    </uwb-table>
+    <div class="buttons_container_center">
+      <uwb-footer-buttons
+      (emitAddClick)="openDialog()"
+      (emitEditClick)="openDialog(true)"
+      (emitDeleteClick)="openDeleteDialog()">
+      </uwb-footer-buttons>
+    </div>
+  </div>
+  <div class="col-7">
+    <uwb-map
+      class="w-full"
+      [background]="selectedBackground?.path!"
+      [area]="selectedArea"
+      [vertexes]="areaVertexes"
+    ></uwb-map>
+  </div>
+</div>

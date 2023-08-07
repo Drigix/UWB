@@ -1,0 +1,47 @@
+@media (max-width:700px) {
+  ::ng-deep .single_table_with_navbar_and_buttons {
+    button {
+      width: 70px;
+      height: 30px;
+      font-size: 10px;
+    }
+  }
+  ::ng-deep .single_map_with_footer {
+    button {
+      width: 70px;
+      height: 30px;
+      font-size: 10px;
+    }
+  }
+}
+@media (min-width: 701px) {
+  ::ng-deep .single_table_with_navbar_and_buttons {
+    button {
+      width: 90px;
+      height: 30px;
+      font-size: 12px;
+    }
+  }
+  ::ng-deep .single_map_with_footer {
+    button {
+      width: 90px;
+      height: 30px;
+      font-size: 12px;
+    }
+  }
+}
+@media (min-width: 1200px) {
+  ::ng-deep .single_table_with_navbar_and_buttons {
+    button {
+      width: 125px;
+      height: 30px;
+    }
+  }
+  ::ng-deep .single_map_with_footer {
+    button {
+      width: 125px;
+      height: 30px;
+    }
+  }
+}
+
