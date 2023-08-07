@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "lp": 0,
+    "x": 450,
+    "y": 450,
+    "area": {
+      "id": 1,
+      "name": "Obszar 1",
+      "color": "#ff0fdf",
+      "background": {
+        "id": 1,
+        "name": "Plan parter",
+        "fileName": "plan_parter.jpg",
+        "fileSize": 1024,
+        "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+      }
+    }
+  },
+  {
+    "id": 2,
+    "lp": 1,
+    "x": 600,
+    "y": 450,
+    "area": {
+      "id": 1,
+      "name": "Obszar 1",
+      "color": "#ff0fdf",
+      "background": {
+        "id": 1,
+        "name": "Plan parter",
+        "fileName": "plan_parter.jpg",
+        "fileSize": 1024,
+        "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "lp": 2,
+    "x": 600,
+    "y": 600,
+    "area": {
+      "id": 1,
+      "name": "Obszar 1",
+      "color": "#ff0fdf",
+      "background": {
+        "id": 1,
+        "name": "Plan parter",
+        "fileName": "plan_parter.jpg",
+        "fileSize": 1024,
+        "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+      }
+    }
+  },
+  {
+    "id": 4,
+    "lp": 3,
+    "x": 450,
+    "y": 600,
+    "area": {
+      "id": 1,
+      "name": "Obszar 1",
+      "color": "#ff0fdf",
+      "background": {
+        "id": 1,
+        "name": "Plan parter",
+        "fileName": "plan_parter.jpg",
+        "fileSize": 1024,
+        "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+      }
+    }
+  },
+  {
+    "id": 5,
+    "lp": 4,
+    "x": 450,
+    "y": 450,
+    "area": {
+      "id": 1,
+      "name": "Obszar 1",
+      "color": "#ff0fdf",
+      "background": {
+        "id": 1,
+        "name": "Plan parter",
+        "fileName": "plan_parter.jpg",
+        "fileSize": 1024,
+        "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+      }
+    }
+  },
+  {
+    "id": 6,
+    "lp": 0,
+    "x": 200,
+    "y": 800,
+    "area": {
+      "id": 3,
+      "name": "Obszar 2",
+      "color": "#870fff",
+      "background": {
+        "id": 1,
+        "name": "Plan parter",
+        "fileName": "plan_parter.jpg",
+        "fileSize": 1024,
+        "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+      }
+    }
+  },
+  {
+    "id": 7,
+    "lp": 1,
+    "x": 400,
+    "y": 800,
+    "area": {
+      "id": 3,
+      "name": "Obszar 2",
+      "color": "#870fff",
+      "background": {
+        "id": 1,
+        "name": "Plan parter",
+        "fileName": "plan_parter.jpg",
+        "fileSize": 1024,
+        "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+      }
+    }
+  },
+  {
+    "id": 8,
+    "lp": 2,
+    "x": 400,
+    "y": 1000,
+    "area": {
+      "id": 3,
+      "name": "Obszar 2",
+      "color": "#870fff",
+      "background": {
+        "id": 1,
+        "name": "Plan parter",
+        "fileName": "plan_parter.jpg",
+        "fileSize": 1024,
+        "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+      }
+    }
+  },
+  {
+    "id": 9,
+    "lp": 3,
+    "x": 200,
+    "y": 1000,
+    "area": {
+      "id": 3,
+      "name": "Obszar 2",
+      "color": "#870fff",
+      "background": {
+        "id": 1,
+        "name": "Plan parter",
+        "fileName": "plan_parter.jpg",
+        "fileSize": 1024,
+        "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+      }
+    }
+  },
+  {
+    "id": 10,
+    "lp": 4,
+    "x": 200,
+    "y": 800,
+    "area": {
+      "id": 3,
+      "name": "Obszar 2",
+      "color": "#870fff",
+      "background": {
+        "id": 1,
+        "name": "Plan parter",
+        "fileName": "plan_parter.jpg",
+        "fileSize": 1024,
+        "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+      }
+    }
+  }
+]
