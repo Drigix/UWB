@@ -26,4 +26,13 @@ export class ColumnService {
     }];
     return this.columns;
   }
+
+  getAreaColumns(): UniversalTableColumn[] {
+    this.columns = [{
+      field: 'name',
+      label: 'Name',
+      header: 'Name',
+    }];
+    return this.columns;
+  }
 }
