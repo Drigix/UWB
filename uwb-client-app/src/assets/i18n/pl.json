@@ -7,7 +7,8 @@
       "pages": {
         "users": "Użytkownicy",
         "localizations": "Lokalizacje",
-        "localizationsArchive": "Archiwum lokalizacji"
+        "localizationsArchive": "Archiwum lokalizacji",
+        "areas": "Obszary"
       }
     },
     "table": {
@@ -29,6 +30,9 @@
       "save": "Zapisz",
       "close": "Zamknij",
       "copy": "Kopiuj",
+      "draw": "Rysuj",
+      "stopDraw": "Nie rysuj",
+      "clear": "Wyczyść",
       "login": "Zaloguj"
     }
   },
@@ -47,5 +51,10 @@
     "password": "Hasło",
     "confirmPassword": "Potwierdź hasło",
     "organizationUnit": "Jednostka organizacyjna"
+  },
+  "area": {
+    "name": "Nazwa",
+    "areaType": "Typ obszaru",
+    "color": "Kolor obszaru"
   }
 }
