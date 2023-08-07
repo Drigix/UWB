@@ -1,0 +1,22 @@
+.login-page {
+  height: 100vh;
+  background: rgb(255,255,255) !important;
+  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,165,52,1) 54%, rgba(255,145,5,1) 100%) !important;
+
+  img {
+    height: calc(100% - 400px);
+  }
+
+  input {
+    width: 300px;
+  }
+}
+
+::ng-deep .p-password input {
+  width: 300px;
+}
+
+::ng-deep .p-button {
+  background-color: var(--uwb-button-text-color);
+  color: var(--uwb-button-background);
+}

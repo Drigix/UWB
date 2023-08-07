@@ -23,7 +23,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => { this.setLastUsedTheme(); }, 1);
+    setTimeout(() => { this.setLastUsedTheme(); }, 100);
   }
 
   isAuthenticated(): boolean {
@@ -36,6 +36,5 @@ export class MainComponent implements OnInit, AfterViewInit {
     Themes.themes.get(lastUsedTheme)!.forEach((value, key) => {
       html.style.setProperty(key, value);
     });
-    this.cd.detectChanges();
   }
 }
