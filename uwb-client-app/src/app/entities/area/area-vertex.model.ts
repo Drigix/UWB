@@ -7,3 +7,5 @@ export interface IAreaVertex {
   y?: number;
   area?: IArea;
 }
+
+export type NewAreaVertex = Omit<IAreaVertex, 'id'>;

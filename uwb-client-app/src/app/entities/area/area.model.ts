@@ -8,3 +8,5 @@ export interface IArea {
   type?: IAreaType;
   background?: IBackground;
 }
+
+export type NewArea = Omit<IArea, 'id'>;

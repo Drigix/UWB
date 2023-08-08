@@ -3,3 +3,5 @@ export interface IAreaType {
   name?: string;
   color?: string;
 }
+
+export type NewAreaType = Omit<IAreaType, 'id'>;

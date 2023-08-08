@@ -6,3 +6,5 @@ export interface IBackground {
   path?: string;
   scale?: number;
 }
+
+export type NewBackground = Omit<IBackground, 'id'>;
