@@ -20,7 +20,7 @@
     <ng-template *ngIf="selectedItemTemplate" pTemplate="selectedItem" let-item>
       <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { item }"></ng-container>
     </ng-template>
-    <ng-template ngIf="itemTemplate" pTemplate="item" let-item>
+    <ng-template *ngIf="itemTemplate" pTemplate="item" let-item>
       <ng-container *ngTemplateOutlet="itemTemplate; context: { item }"></ng-container>
     </ng-template>
     <ng-template *ngIf="!itemTemplate" let-item pTemplate="item">

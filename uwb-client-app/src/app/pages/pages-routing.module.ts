@@ -21,6 +21,10 @@ import { RouterModule } from '@angular/router';
         {
           path: '',
           loadChildren: () => import('./localizations-archive/localizations-archive.module').then(m => m.LocalizationsArchiveModule)
+        },
+        {
+          path: '',
+          loadChildren: () => import('./areas/areas.module').then(m => m.AreasModule)
         }
       ]
     )
