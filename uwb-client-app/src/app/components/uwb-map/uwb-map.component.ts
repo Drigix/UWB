@@ -15,7 +15,7 @@ import Fill from 'ol/style/Fill';
 import Style from 'ol/style/Style';
 import { Feature } from 'ol';
 import { transform } from 'ol/proj';
-import { IAreaVertex } from '@entities/area/area-vertex.model';
+import { IAreaVertex, NewAreaVertex } from '@entities/area/area-vertex.model';
 import { Polygon } from 'ol/geom';
 import { never } from 'ol/events/condition';
 import { IArea } from '@entities/area/area.model';
@@ -37,6 +37,7 @@ export class UwbMap implements OnChanges {
   @Input() vertexAlfa = '66';
   @Input() vertexBackgroundColor = '#8f8f8f';
   @Input() vertexColor = '#ffcc33';
+  @Input() disabledMapButtons = false;
   map!: Map;
   source!: VectorSource;
   extent = [0, 0, 1024, 968];
@@ -202,7 +203,7 @@ export class UwbMap implements OnChanges {
     if(feature != null) {
       const coordinates = feature.getProperties()['geometry'].getFlatCoordinates();
       const vertexList = chunk(coordinates, 2).map((coord3857: any[], index) => {
-        const vertex: IAreaVertex = { lp: index, x: coord3857[0], y: coord3857[1], area};
+        const vertex: NewAreaVertex = { lp: index, x: coord3857[0], y: coord3857[1], area};
         return vertex;
       });
       console.log(vertexList);

@@ -5,6 +5,7 @@
     <p-button
       class="px-2"
       styleClass="ui-button_size_125"
+      [disabled]="disabledMapButtons"
       label="{{
         (drawable ? 'global.buttons.stopDraw' : 'global.buttons.draw')
           | translate
@@ -14,18 +15,21 @@
     <p-button
       class="px-2"
       styleClass="ui-button_size_125"
+      [disabled]="disabledMapButtons"
       label="{{ 'global.buttons.save' | translate }}"
       (onClick)="saveVertex()"
     ></p-button>
     <p-button
       class="px-2"
       styleClass="ui-button_size_125"
+      [disabled]="disabledMapButtons"
       label="{{ 'global.buttons.edit' | translate }}"
       (onClick)="onModifyClick()"
     ></p-button>
     <p-button
       class="px-2"
       styleClass="ui-button_size_125"
+      [disabled]="disabledMapButtons"
       label="{{ 'global.buttons.clear' | translate }}"
       (onClick)="clearVertex()"
     ></p-button>

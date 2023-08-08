@@ -1,5 +1,23 @@
 <div class="grid">
-  <p-button  class="col-4 px-2" *ngIf="showAddButton" label="{{ 'global.buttons.add' | translate }}" (onClick)="onAddClick()"></p-button>
-  <p-button class="col-4 px-2" *ngIf="showEditButton" label="{{ 'global.buttons.edit' | translate }}" (onClick)="onEditClick()"></p-button>
-  <p-button class="col-4 px-2" *ngIf="showDeleteButton" label="{{ 'global.buttons.delete' | translate }}" (onClick)="onDeleteClick()"></p-button>
+  <p-button
+    class="col-4 px-2"
+    *ngIf="showAddButton"
+    [disabled]="disabledAddButton"
+    label="{{ 'global.buttons.add' | translate }}"
+    (onClick)="onAddClick()"
+  ></p-button>
+  <p-button
+    class="col-4 px-2"
+    *ngIf="showEditButton"
+    [disabled]="disabledEditAndDeleteButton"
+    label="{{ 'global.buttons.edit' | translate }}"
+    (onClick)="onEditClick()"
+  ></p-button>
+  <p-button
+    class="col-4 px-2"
+    *ngIf="showDeleteButton"
+    [disabled]="disabledEditAndDeleteButton"
+    label="{{ 'global.buttons.delete' | translate }}"
+    (onClick)="onDeleteClick()"
+  ></p-button>
 </div>

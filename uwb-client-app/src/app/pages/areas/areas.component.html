@@ -22,6 +22,8 @@
     </uwb-table>
     <div class="buttons_container_center">
       <uwb-footer-buttons
+      [disabledAddButton]="selectedBackground === undefined"
+      [disabledEditAndDeleteButton]="selectedArea === undefined"
       (emitAddClick)="openDialog()"
       (emitEditClick)="openDialog(true)"
       (emitDeleteClick)="openDeleteDialog()">
@@ -34,6 +36,7 @@
       [background]="selectedBackground?.path!"
       [area]="selectedArea"
       [vertexes]="areaVertexes"
+      [disabledMapButtons]="selectedArea === undefined"
     ></uwb-map>
   </div>
 </div>
