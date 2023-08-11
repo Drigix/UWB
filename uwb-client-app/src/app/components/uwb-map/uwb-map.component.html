@@ -1,37 +1,41 @@
-
-<div class="single_map_with_footer">
-  <div id="map" class="map"></div>
-  <div class="buttons_container_center">
-    <p-button
-      class="px-2"
-      styleClass="ui-button_size_125"
-      [disabled]="disabledMapButtons"
-      label="{{
-        (drawable ? 'global.buttons.stopDraw' : 'global.buttons.draw')
-          | translate
-      }}"
-      (onClick)="onDrawClick()"
-    ></p-button>
-    <p-button
-      class="px-2"
-      styleClass="ui-button_size_125"
-      [disabled]="disabledMapButtons"
-      label="{{ 'global.buttons.save' | translate }}"
-      (onClick)="saveVertex()"
-    ></p-button>
-    <p-button
-      class="px-2"
-      styleClass="ui-button_size_125"
-      [disabled]="disabledMapButtons"
-      label="{{ 'global.buttons.edit' | translate }}"
-      (onClick)="onModifyClick()"
-    ></p-button>
-    <p-button
-      class="px-2"
-      styleClass="ui-button_size_125"
-      [disabled]="disabledMapButtons"
-      label="{{ 'global.buttons.clear' | translate }}"
-      (onClick)="clearVertex()"
-    ></p-button>
+<ng-container [ngSwitch]="mapWithButtons">
+  <div [class]="styleClass" *ngSwitchCase="false">
+    <div id="map" class="map"></div>
   </div>
-</div>
+  <div *ngSwitchCase="true" class="single_map_with_footer">
+    <div id="map" class="map"></div>
+    <div class="buttons_container_center">
+      <p-button
+        class="px-2"
+        styleClass="ui-button_size_125"
+        [disabled]="disabledMapButtons"
+        label="{{
+          (drawable ? 'global.buttons.stopDraw' : 'global.buttons.draw')
+            | translate
+        }}"
+        (onClick)="onDrawClick()"
+      ></p-button>
+      <p-button
+        class="px-2"
+        styleClass="ui-button_size_125"
+        [disabled]="disabledMapButtons"
+        label="{{ 'global.buttons.save' | translate }}"
+        (onClick)="saveVertex()"
+      ></p-button>
+      <p-button
+        class="px-2"
+        styleClass="ui-button_size_125"
+        [disabled]="disabledMapButtons"
+        label="{{ 'global.buttons.edit' | translate }}"
+        (onClick)="onModifyClick()"
+      ></p-button>
+      <p-button
+        class="px-2"
+        styleClass="ui-button_size_125"
+        [disabled]="disabledMapButtons"
+        label="{{ 'global.buttons.clear' | translate }}"
+        (onClick)="clearVertex()"
+      ></p-button>
+    </div>
+  </div>
+</ng-container>

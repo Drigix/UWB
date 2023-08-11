@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import ImageLayer from 'ol/layer/Image';
@@ -27,7 +27,7 @@ import { chunk } from 'lodash';
   templateUrl: './uwb-map.component.html',
   styleUrls: ['./uwb-map.component.scss'],
 })
-export class UwbMap implements OnChanges {
+export class UwbMap implements OnInit, OnChanges {
   @Input() background = '';
   @Input() area?: IArea;
   @Input() vertexes: IAreaVertex[] = [];
@@ -37,7 +37,9 @@ export class UwbMap implements OnChanges {
   @Input() vertexAlfa = '66';
   @Input() vertexBackgroundColor = '#8f8f8f';
   @Input() vertexColor = '#ffcc33';
+  @Input() mapWithButtons = false;
   @Input() disabledMapButtons = false;
+  @Input() styleClass = 'h-full';
   map!: Map;
   source!: VectorSource;
   extent = [0, 0, 1024, 968];
@@ -50,20 +52,26 @@ export class UwbMap implements OnChanges {
   snap!: Snap;
   modify!: Modify;
 
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.loadMap();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if(changes['background'] && this.background !== '') {
+      console.log('cos');
+      this.loadMap();
+    }
     if(changes['area']) {
       this.vertexBackgroundColor = this.area?.color!;
       this.vertexColor = this.area?.color!;
       this.loadLayer();
     }
-    if(changes['background'] && this.background !== '') {
-      this.loadMap();
-    }
     if(changes['vertexes']) {
       this.loadVertexes();
     }
+    this.cd.detectChanges();
   }
 
   loadMap(): void {
