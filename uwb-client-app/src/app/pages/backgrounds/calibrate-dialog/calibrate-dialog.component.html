@@ -1,0 +1,16 @@
+<div class="calibrate-map">
+  <uwb-map
+        class="w-full calibrate-map"
+        [background]="selectedBackground?.path!"
+  ></uwb-map>
+  <uwb-form [formGroup]="formGroup!" (ngSubmit)="onSave()" (cancel)="onCloseDialog()">
+    <uwb-form-grid form-body>
+      <uwb-form-control [styleClass]="'col-12 flex justify-content-center'">
+        <span class="p-float-label">
+          <input pInputText id="realValue" formControlName="realValue" />
+          <label htmlFor="realValue">{{ 'background.realValue' | translate }}</label>
+        </span>
+      </uwb-form-control>
+    </uwb-form-grid>
+  </uwb-form>
+</div>
