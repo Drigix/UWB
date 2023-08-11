@@ -12,6 +12,7 @@ export class UwbFooterButtonsComponent implements OnInit {
   @Input() showDeleteButton = true;
   @Input() disabledAddButton = false;
   @Input() disabledEditAndDeleteButton = false;
+  @Input() styleClass = 'col-4 px-2';
 
   @Output() emitAddClick = new EventEmitter<boolean>();
   @Output() emitEditClick = new EventEmitter<boolean>();
