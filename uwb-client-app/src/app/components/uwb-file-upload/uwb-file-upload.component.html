@@ -1,7 +1,21 @@
-<p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" [maxFileSize]="1000000">
+<p-fileUpload
+  [chooseLabel]="'global.buttons.addFile' | translate"
+  [showUploadButton]="showUploadButton"
+  [showCancelButton]="showCancelButton"
+  name="demo[]"
+  url="https://www.primefaces.org/cdn/api/upload.php"
+  (onUpload)="onUpload($event)"
+  (onSelect)="onSelect($event)"
+  (onRemove)="onRemove($event)"
+  [multiple]="multiple"
+  accept="image/*"
+  [maxFileSize]="fileSize"
+>
   <ng-template pTemplate="content">
-      <ul *ngIf="uploadedFiles.length">
-          <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-      </ul>
+    <!-- <ul *ngIf="uploadedFiles.length">
+      <li *ngFor="let file of uploadedFiles">
+        {{ file.name }} - {{ file.size }} bytes
+      </li>
+    </ul> -->
   </ng-template>
 </p-fileUpload>

@@ -4436,10 +4436,12 @@ p-dynamicdialog .p-dialog-mask {
 }
 
 .p-fileupload .p-fileupload-buttonbar {
-  background: #f8f9fa;
+  display: flex;
+  justify-content: space-evenly;
+  background: var(--uwb-primary);
   padding: 1.25rem;
   border: 1px solid #dee2e6;
-  color: #343a40;
+  color: var(--uwb-front-tab-text-color);
   border-bottom: 0 none;
   border-top-right-radius: var(--border-radius);
   border-top-left-radius: var(--border-radius);
@@ -4452,11 +4454,14 @@ p-dynamicdialog .p-dialog-mask {
   outline-offset: 0;
   box-shadow: 0 0 0 0.2rem var(--uwb-selected-row-light-bg);
 }
+.p-button.p-button-icon-only {
+  width: 3rem !important;
+}
 .p-fileupload .p-fileupload-content {
-  background: #ffffff;
+  background: var(--uwb-background);
   padding: 2rem 1rem;
   border: 1px solid #dee2e6;
-  color: #495057;
+  color: var(--uwb-front-tab-text-color);
   border-bottom-right-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
 }
@@ -4472,12 +4477,12 @@ p-dynamicdialog .p-dialog-mask {
 
 .p-fileupload-choose:not(.p-disabled):hover {
   background: var(--uwb-button-hover-background-color);
-  color: #ffffff;
+  color: var(--uwb-button-hover-text-color);
   border-color: var(--uwb-button-hover-background-color);
 }
 .p-fileupload-choose:not(.p-disabled):active {
   background: var(--uwb-button-hover-background-color);
-  color: #ffffff;
+  color: var(--uwb-button-hover-text-color);
   border-color: var(--uwb-button-hover-background-color);
 }
 
