@@ -34,6 +34,8 @@ export class MenuComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     //this.loadAccount();
     this.items = await this.menuService.getMenuItems();
+    const currentUrl = window.location.pathname.split('/')[1];
+    const currentMenuItem = this.items.find( i => i.routerLink === currentUrl);
     this.filteredItems = this.items;
     this.lighVersion = this.themeService.getLastSavedTheme() === 'primaryTheme';
     this.observeAppThemeChange();
