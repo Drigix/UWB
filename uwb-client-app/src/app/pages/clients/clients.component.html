@@ -1,0 +1,18 @@
+<div class="single_table_with_buttons">
+  <uwb-tree-table
+    [values]="clients"
+    [columns]="columns"
+    (emitSelection)="onClientChange($event)"
+  >
+
+  </uwb-tree-table>
+  <div class="buttons_container_center">
+    <uwb-footer-buttons
+      [disabledEditAndDeleteButton]="selectedClient === undefined"
+      (emitAddClick)="openDialog()"
+      (emitEditClick)="openDialog(true)"
+      (emitDeleteClick)="openDeleteDialog()"
+    >
+    </uwb-footer-buttons>
+  </div>
+</div>
