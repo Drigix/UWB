@@ -8,8 +8,6 @@ import { Observable } from 'rxjs';
 export class BackgroundsService {
 
   private resourceUrl = '../../../assets/data/data-backgrounds.json';
-  private entityResponseType = HttpResponse<IBackground>;
-  private entityArrayResponseType = HttpResponse<IBackground>;
 
   constructor(
     private http: HttpClient

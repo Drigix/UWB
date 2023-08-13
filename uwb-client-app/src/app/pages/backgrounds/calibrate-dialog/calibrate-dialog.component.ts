@@ -14,6 +14,7 @@ export class CalibrateDialogComponent implements OnInit {
   formGroup?: FormGroup;
   selectedBackground?: IBackground;
   edit = false;
+  mapLineLength?: number = undefined;
 
   constructor(
     private ref: DynamicDialogRef,
@@ -33,7 +34,7 @@ export class CalibrateDialogComponent implements OnInit {
 
   loadFormGroup(): void {
     this.formGroup = this.formBuilder.group({
-      realValue: [{value: null, disabled: false}, [Validators.required]],
+      realValue: [{value: null, disabled: true}, [Validators.required]],
     });
     if(this.edit) {
       this.formGroup.patchValue({
@@ -42,8 +43,16 @@ export class CalibrateDialogComponent implements OnInit {
     }
   }
 
+  onDrawLineStringLengthChange(length: number): void {
+    this.mapLineLength = length;
+    this.formGroup?.get('realValue')?.enable();
+  }
+
   onSave(): void {
     const value = this.formGroup?.getRawValue();
+    const scale = Math.floor((this.mapLineLength! / value.realValue) * 100) / 100;
+    this.selectedBackground!.scale = scale;
+    console.log(this.selectedBackground)
   }
 
   onCloseDialog(): void {

@@ -32,6 +32,7 @@ export class UwbMap implements OnInit, OnChanges {
   @Input() area?: IArea;
   @Input() vertexes: IAreaVertex[] = [];
   @Input() drawable = false;
+  @Input() drawableLineString = false;
   @Input() modified = false;
   @Input() clear = false;
   @Input() vertexAlfa = '66';
@@ -40,6 +41,7 @@ export class UwbMap implements OnInit, OnChanges {
   @Input() mapWithButtons = false;
   @Input() disabledMapButtons = false;
   @Input() styleClass = 'h-full';
+  @Output() emitLengthLineString = new EventEmitter<number>();
   map!: Map;
   source!: VectorSource;
   extent = [0, 0, 1024, 968];
@@ -60,7 +62,6 @@ export class UwbMap implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['background'] && this.background !== '') {
-      console.log('cos');
       this.loadMap();
     }
     if(changes['area']) {
@@ -88,6 +89,9 @@ export class UwbMap implements OnInit, OnChanges {
       }),
     });
     this.loadLayer();
+    if(this.drawableLineString) {
+      this.loadDrawLineStringOption();
+    }
   }
 
   loadLayer(): void {
@@ -180,6 +184,34 @@ export class UwbMap implements OnInit, OnChanges {
     this.map.addInteraction(this.drawInteraction);
     this.snap = new Snap({ source: this.source });
     this.map.addInteraction(this.snap);
+  }
+
+  loadDrawLineStringOption(): void {
+    this.drawInteraction = new Draw({
+      source: this.source,
+      type: 'LineString',
+      maxPoints: 2,
+      style: new Style({
+        fill: new Fill({
+          color: this.vertexBackgroundColor + this.vertexAlfa
+        }),
+        stroke: new Stroke({
+          color: this.vertexColor,
+          width: 2
+        }),
+        image: new Circle({
+          radius: 7,
+          fill: new Fill({
+            color: this.vertexColor
+          })
+        })
+      })
+    });
+    this.drawInteraction.on('drawend', (event) => {
+      const length = event.feature.getProperties()['geometry'].getLength();
+      this.emitLengthLineString.emit(length);
+    })
+    this.map.addInteraction(this.drawInteraction);
   }
 
   loadModifyOption(): void {
