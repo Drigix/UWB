@@ -1,0 +1,13 @@
+<uwb-form [formGroup]="formGroup!" (ngSubmit)="onSave()" (cancel)="onCloseDialog()">
+  <uwb-form-grid form-body>
+    <uwb-form-control>
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" />
+        <label htmlFor="name">{{ 'client.name' | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control>
+      <uwb-single-select [items]="dropdownItems" [optionLabel]="'name'" formControlName="orgUnit" label="{{ 'client.orgUnit' | translate }}" ></uwb-single-select>
+    </uwb-form-control>
+  </uwb-form-grid>
+</uwb-form>
