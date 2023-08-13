@@ -9,7 +9,8 @@
         "localizations": "Lokalizacje",
         "localizationsArchive": "Archiwum lokalizacji",
         "areas": "Obszary",
-        "backgrounds": "Plany pomieszczeń"
+        "backgrounds": "Plany pomieszczeń",
+        "clients": "Klienci"
       }
     },
     "table": {
@@ -69,5 +70,10 @@
     "dialog": {
       "header": "Podgląd planu"
     }
+  },
+  "client": {
+    "name": "Nazwa klienta",
+    "clients": "Klienci",
+    "orgUnit": "Jednostka organizacyjna"
   }
 }
