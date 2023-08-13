@@ -16,6 +16,7 @@ import { UwbMap } from './uwb-map/uwb-map.component';
 import { UwbHeatmapComponent } from './uwb-heatmap/uwb-heatmap.component';
 import { UwbFileUploadComponent } from './uwb-file-upload/uwb-file-upload.component';
 import { UwbDialogComponent } from './uwb-dialog/uwb-dialog.component';
+import { UwbTreeTableComponent } from './uwb-tree-table/uwb-tree-table.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { UwbDialogComponent } from './uwb-dialog/uwb-dialog.component';
     UwbMap,
     UwbHeatmapComponent,
     UwbFileUploadComponent,
-    UwbDialogComponent
+    UwbDialogComponent,
+    UwbTreeTableComponent
   ],
   declarations: [
     FormComponent,
@@ -55,7 +57,8 @@ import { UwbDialogComponent } from './uwb-dialog/uwb-dialog.component';
     UwbMap,
     UwbHeatmapComponent,
     UwbFileUploadComponent,
-    UwbDialogComponent
+    UwbDialogComponent,
+    UwbTreeTableComponent
   ],
   providers: [],
 })
