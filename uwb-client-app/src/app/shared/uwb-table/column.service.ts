@@ -55,4 +55,15 @@ export class ColumnService {
     ];
     return this.columns;
   }
+
+  getClientColumns(): UniversalTableColumn[] {
+    this.columns = [
+      {
+        field: 'name',
+        label: 'name',
+        header: this.translateService.instant('client.clients'),
+      }
+    ];
+    return this.columns;
+  }
 }
