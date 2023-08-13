@@ -3694,6 +3694,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   padding: 1rem 1rem;
   font-weight: 700;
 }
+.p-treetable-thead {
+  background: var(--uwb-table-header-color);
+}
 .p-treetable .p-treetable-thead > tr > th {
   text-align: left;
   padding: 1rem 1rem;
