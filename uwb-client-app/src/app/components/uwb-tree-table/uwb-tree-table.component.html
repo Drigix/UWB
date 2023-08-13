@@ -1,0 +1,56 @@
+<p-treeTable
+  #treeTable
+  [value]="values"
+  [columns]="columns"
+  selectionMode="single"
+  (onNodeSelect)="onNodeSelect($event)"
+  (onNodeUnselect)="onNodeUnselect()"
+  dataKey="id"
+  [scrollable]="false"
+  [(selection)]="selectedValue"
+  scrollHeight="80vh"
+>
+  <ng-template pTemplate="header" let-columns>
+    <div class="flex flex-row-reverse pt-3 pr-3">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          pInputText
+          placeholder="{{ 'global.table.search' | translate }}"
+          class="search-bar"
+          (input)="treeTableFilter($event)"
+        />
+      </span>
+    </div>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{ col.header }}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-rowNode
+    let-rowData="rowData"
+    let-columns="columns"
+  >
+    <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+      <td *ngFor="let col of columns; let i = index">
+        <p-treeTableToggler
+          [rowNode]="rowNode"
+          *ngIf="i == 0"
+        ></p-treeTableToggler>
+        {{ rowData[col.field] }}
+        <ng-container>
+          {{
+            rowData["treePath"] != null &&
+            rowData["treePath"].split("")[4] == null
+              ? "(ID: " + rowData["id"] + ")"
+              : ""
+          }}
+        </ng-container>
+      </td>
+    </tr>
+  </ng-template>
+</p-treeTable>

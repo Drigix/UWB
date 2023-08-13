@@ -25,6 +25,14 @@ import { RouterModule } from '@angular/router';
         {
           path: '',
           loadChildren: () => import('./areas/areas.module').then(m => m.AreasModule)
+        },
+        {
+          path: '',
+          loadChildren: () => import('./backgrounds/backgrounds.module').then(m => m.BackgroundsModule)
+        },
+        {
+          path: '',
+          loadChildren: () => import('./clients/clients.module').then(m => m.ClientsModule)
         }
       ]
     )

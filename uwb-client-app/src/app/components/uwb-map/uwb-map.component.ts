@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import ImageLayer from 'ol/layer/Image';
@@ -27,17 +27,21 @@ import { chunk } from 'lodash';
   templateUrl: './uwb-map.component.html',
   styleUrls: ['./uwb-map.component.scss'],
 })
-export class UwbMap implements OnChanges {
+export class UwbMap implements OnInit, OnChanges {
   @Input() background = '';
   @Input() area?: IArea;
   @Input() vertexes: IAreaVertex[] = [];
   @Input() drawable = false;
+  @Input() drawableLineString = false;
   @Input() modified = false;
   @Input() clear = false;
   @Input() vertexAlfa = '66';
   @Input() vertexBackgroundColor = '#8f8f8f';
   @Input() vertexColor = '#ffcc33';
+  @Input() mapWithButtons = false;
   @Input() disabledMapButtons = false;
+  @Input() styleClass = 'h-full';
+  @Output() emitLengthLineString = new EventEmitter<number>();
   map!: Map;
   source!: VectorSource;
   extent = [0, 0, 1024, 968];
@@ -50,20 +54,25 @@ export class UwbMap implements OnChanges {
   snap!: Snap;
   modify!: Modify;
 
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.loadMap();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if(changes['background'] && this.background !== '') {
+      this.loadMap();
+    }
     if(changes['area']) {
       this.vertexBackgroundColor = this.area?.color!;
       this.vertexColor = this.area?.color!;
       this.loadLayer();
     }
-    if(changes['background'] && this.background !== '') {
-      this.loadMap();
-    }
     if(changes['vertexes']) {
       this.loadVertexes();
     }
+    this.cd.detectChanges();
   }
 
   loadMap(): void {
@@ -80,6 +89,9 @@ export class UwbMap implements OnChanges {
       }),
     });
     this.loadLayer();
+    if(this.drawableLineString) {
+      this.loadDrawLineStringOption();
+    }
   }
 
   loadLayer(): void {
@@ -172,6 +184,34 @@ export class UwbMap implements OnChanges {
     this.map.addInteraction(this.drawInteraction);
     this.snap = new Snap({ source: this.source });
     this.map.addInteraction(this.snap);
+  }
+
+  loadDrawLineStringOption(): void {
+    this.drawInteraction = new Draw({
+      source: this.source,
+      type: 'LineString',
+      maxPoints: 2,
+      style: new Style({
+        fill: new Fill({
+          color: this.vertexBackgroundColor + this.vertexAlfa
+        }),
+        stroke: new Stroke({
+          color: this.vertexColor,
+          width: 2
+        }),
+        image: new Circle({
+          radius: 7,
+          fill: new Fill({
+            color: this.vertexColor
+          })
+        })
+      })
+    });
+    this.drawInteraction.on('drawend', (event) => {
+      const length = event.feature.getProperties()['geometry'].getLength();
+      this.emitLengthLineString.emit(length);
+    })
+    this.map.addInteraction(this.drawInteraction);
   }
 
   loadModifyOption(): void {

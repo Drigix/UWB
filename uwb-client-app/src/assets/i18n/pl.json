@@ -8,7 +8,9 @@
         "users": "Użytkownicy",
         "localizations": "Lokalizacje",
         "localizationsArchive": "Archiwum lokalizacji",
-        "areas": "Obszary"
+        "areas": "Obszary",
+        "backgrounds": "Plany pomieszczeń",
+        "clients": "Klienci"
       }
     },
     "table": {
@@ -19,6 +21,7 @@
     "dialog": {
       "addHeader": "Dodawanie elementu",
       "editHeader": "Edytowanie elementu",
+      "calibrateHeader": "Kalibrowanie planu",
       "deleteHeader": "Usuwanie elementu",
       "deleteMessage": "Czy na pewno chcesz usunąć podany element?"
     },
@@ -33,7 +36,10 @@
       "draw": "Rysuj",
       "stopDraw": "Nie rysuj",
       "clear": "Wyczyść",
-      "login": "Zaloguj"
+      "login": "Zaloguj",
+      "addFile": "Dodaj plik",
+      "preview": "Podgląd",
+      "calibrate": "Kalibruj"
     }
   },
   "profile": {
@@ -56,5 +62,18 @@
     "name": "Nazwa",
     "areaType": "Typ obszaru",
     "color": "Kolor obszaru"
+  },
+  "background": {
+    "name": "Nazwa planu",
+    "client": "Klient",
+    "realValue": "Rzeczywista wartość",
+    "dialog": {
+      "header": "Podgląd planu"
+    }
+  },
+  "client": {
+    "name": "Nazwa klienta",
+    "clients": "Klienci",
+    "orgUnit": "Jednostka organizacyjna"
   }
 }

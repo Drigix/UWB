@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Główna firma",
+    "parentOrgUnit": 0,
+    "treePath": ";0;",
+    "userLimit": 50,
+    "deleted": false
+  },
+  {
+    "id": 2,
+    "name": "Firma podprzędna 1",
+    "parentOrgUnit": 1,
+    "treePath": ";0;1;",
+    "userLimit": 50,
+    "deleted": false
+  },
+  {
+    "id": 3,
+    "name": "Firma podprzędna 2",
+    "parentOrgUnit": 1,
+    "treePath": ";0;1;",
+    "userLimit": 50,
+    "deleted": false
+  },
+  {
+    "id": 4,
+    "name": "Firma podpodprzędna 1",
+    "parentOrgUnit": 3,
+    "treePath": ";0;1;3;",
+    "userLimit": 50,
+    "deleted": false
+  }
+]

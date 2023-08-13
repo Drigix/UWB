@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/co
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from '@shared/theme/theme.service';
 import { Themes } from '../themes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'uwb-main',
@@ -15,7 +16,8 @@ export class MainComponent implements OnInit, AfterViewInit {
   constructor(
     private translateService: TranslateService,
     private themeService: ThemeService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private router: Router
   ) { }
 
   ngOnInit() {

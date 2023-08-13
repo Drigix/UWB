@@ -19,7 +19,9 @@ export class MenuService {
       await this.createMenuItem('pi pi-users', 'global.menu.pages.users', 'user', []),
       await this.createMenuItem('pi pi-map-marker', 'global.menu.pages.localizations', 'localizations', []),
       await this.createMenuItem('fa fa-archive', 'global.menu.pages.localizationsArchive', 'localizations-archive', []),
-      await this.createMenuItem('fa fa-object-group', 'global.menu.pages.areas', 'areas', [])
+      await this.createMenuItem('fa fa-object-group', 'global.menu.pages.areas', 'areas', []),
+      await this.createMenuItem('fa fa-photo', 'global.menu.pages.backgrounds', 'backgrounds', []),
+      await this.createMenuItem('fa fa-handshake-o', 'global.menu.pages.clients', 'clients', [])
     ];
     //items = this.filterTabsByAuth(items);
     return items;
