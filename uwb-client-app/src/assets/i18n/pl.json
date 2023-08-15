@@ -10,7 +10,8 @@
         "localizationsArchive": "Archiwum lokalizacji",
         "areas": "Obszary",
         "backgrounds": "Plany pomieszczeń",
-        "clients": "Klienci"
+        "clients": "Klienci",
+        "objects": "Tagi"
       }
     },
     "table": {
@@ -75,5 +76,25 @@
     "name": "Nazwa klienta",
     "clients": "Klienci",
     "orgUnit": "Jednostka organizacyjna"
+  },
+  "object": {
+    "name": "Nazwa",
+    "lastName": "Druga nazwa",
+    "hexTagId": "Identyfikator tagu",
+    "icon": "Ikona",
+    "client": "Klient",
+    "type": "Typ tagu",
+    "objects": "Tagi",
+    "objectTypes": "Typy tagów",
+    "icons": "Ikony"
+  },
+  "objectType": {
+    "name": "Nazwa typu",
+    "client": "Klient",
+    "adminOnly": "Dla administratorów"
+  },
+  "icon": {
+    "name": "Nazwa ikony",
+    "icon": "Ikona"
   }
 }
