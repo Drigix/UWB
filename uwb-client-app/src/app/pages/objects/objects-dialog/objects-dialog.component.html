@@ -1,0 +1,59 @@
+<uwb-form
+  [formGroup]="formGroup!"
+  (ngSubmit)="onSave()"
+  (cancel)="onCloseDialog()"
+>
+  <uwb-form-grid form-body>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" />
+        <label htmlFor="name">{{ "object.name" | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="lastName" formControlName="lastName" />
+        <label htmlFor="lastName">{{ "object.lastName" | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="hexTagId" formControlName="hexTagId" />
+        <label htmlFor="hexTagId">{{ "object.hexTagId" | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-single-select
+        [items]="dropdownClientItems"
+        [optionLabel]="'name'"
+        formControlName="client"
+        label="{{ 'object.client' | translate }}"
+        (modelChange)="onClientSelected($event)"
+      ></uwb-single-select>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-single-select
+        [items]="dropdownObjectTypeItems"
+        [optionLabel]="'name'"
+        formControlName="type"
+        label="{{ 'object.type' | translate }}"
+      ></uwb-single-select>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-single-select
+        [items]="dropdownIconItems"
+        [optionLabel]="'name'"
+        formControlName="icon"
+        label="{{ 'object.icon' | translate }}"
+        [itemTemplate]="itemTemplate"
+      >
+        <ng-template #itemTemplate let-item="item" pTemplate="item">
+          <div class="flex align-items-center" pTooltip="{{ item.name }}">
+            <img [src]="item.path" style="height: 30px" />
+            {{ item.name }}
+          </div>
+        </ng-template>
+      </uwb-single-select>
+    </uwb-form-control>
+  </uwb-form-grid>
+</uwb-form>
