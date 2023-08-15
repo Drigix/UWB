@@ -29,3 +29,21 @@
   background-color: var(--uwb-background);
   border: none;
 }
+
+::ng-deep .page::-webkit-scrollbar {
+  width: 12px;
+}
+
+::ng-deep .page::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background: var(--uwb-menu-scrollbar-thumb);
+}
+
+::ng-deep .page::-webkit-scrollbar-thumb:hover {
+  background: var(--uwb-menu-scrollbar-thumb-hover);
+}
+
+::ng-deep .page::-webkit-scrollbar-track {
+  background: var(--uwb-menu-scrollbar-track);
+  background-color: transparent;
+}

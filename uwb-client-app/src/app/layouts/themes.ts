@@ -30,7 +30,7 @@ export class Themes {
     ['--uwb-primary-light', '#00a3a922'], // Light Green (Jasnozielony)
     ['--uwb-table-color-true', '#85CB85'], // Light Green (Jasnozielony)
     ['--uwb-table-color-false', '#FF6B6B'], // Light Red (Jasnoczerwony)
-    ['--uwb-checkbox-marked', '#237a87'], // Blue (Niebieski)
+    ['--uwb-checkbox-marked', '#f18f13'], // Blue (Niebieski)
     ['--uwb-default-row', '#DFEEF5'], // Light Blue (Jasnoniebieski)
   ]);
 
