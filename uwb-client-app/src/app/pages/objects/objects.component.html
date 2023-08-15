@@ -1,0 +1,53 @@
+<div class="objects-page">
+  <div class="grid m-2">
+    <span
+      class="col-4 page-mode"
+      [ngClass]="{ 'selection-page-mode': pageMode === 'objects' }"
+      pTooltip="{{ 'object.objects' | translate }}"
+      tooltipPosition="bottom"
+      (click)="onPageModeChange('objects')"
+    >
+      <i class="fa fa-bullseye mr-2"></i>
+      <h2 *ngIf="!isSmallScreen">{{ "object.objects" | translate }}</h2>
+    </span>
+    <span
+      class="col-4 page-mode"
+      [ngClass]="{ 'selection-page-mode': pageMode === 'object-types' }"
+      pTooltip="{{ 'object.objectTypes' | translate }}"
+      tooltipPosition="bottom"
+      (click)="onPageModeChange('object-types')"
+    >
+      <i class="fa fa-clone mr-2"></i>
+      <h2 *ngIf="!isSmallScreen">{{ "object.objectTypes" | translate }}</h2>
+    </span>
+    <span
+      class="col-4 page-mode"
+      [ngClass]="{ 'selection-page-mode': pageMode === 'object-icons' }"
+      pTooltip="{{ 'object.icons' | translate }}"
+      tooltipPosition="bottom"
+      (click)="onPageModeChange('object-icons')"
+    >
+      <i class="fa fa-file-picture-o mr-2"></i>
+      <h2 *ngIf="!isSmallScreen">{{ "object.icons" | translate }}</h2>
+    </span>
+  </div>
+  <ng-container [ngSwitch]="pageMode">
+    <div class="object-table" *ngSwitchCase="'objects'">
+      <uwb-table [columns]="columns" [values]="objects" (selectionChange)="onObjectSelected($event)"> </uwb-table>
+      <div class="buttons_container_center buttons_container_scale">
+        <uwb-footer-buttons
+        [disabledEditAndDeleteButton]="selectedObject === undefined"
+        (emitAddClick)="openDialog()"
+        (emitEditClick)="openDialog(true)"
+        (emitDeleteClick)="openDeleteDialog()">
+        </uwb-footer-buttons>
+      </div>
+    </div>
+    <div *ngSwitchCase="'object-types'">
+      <uwb-object-types></uwb-object-types>
+    </div>
+    <div *ngSwitchCase="'object-icons'">
+      <uwb-object-icons></uwb-object-icons>
+    </div>
+  </ng-container>
+</div>

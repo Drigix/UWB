@@ -33,6 +33,10 @@ import { RouterModule } from '@angular/router';
         {
           path: '',
           loadChildren: () => import('./clients/clients.module').then(m => m.ClientsModule)
+        },
+        {
+          path: '',
+          loadChildren: () => import('./objects/objects.module').then(m => m.ObjectsModule)
         }
       ]
     )
