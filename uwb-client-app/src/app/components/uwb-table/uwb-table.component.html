@@ -178,8 +178,11 @@
         </ng-container>
         <ng-container *ngSwitchCase="'BOOLEAN'" [ngStyle]="col.style">
           <i class="pi flex justify-content-center"
-              [ngClass]="{'pi-times': col.subfield ? !rowData[col.field][col.subfield] : !rowData[col.field], 'pi-check': col.subfield ? rowData[col.field][col.subfield] : rowData[col.field] }"
-              [ngStyle]="{color: ((col.subfield ? rowData[col.field][col.subfield] : rowData[col.field]) ? 'rgb(24, 206, 0)' : 'rgb(206, 0, 0)')}"></i>
+              [ngClass]="{'pi-times': col.subfield ? !rowData[col.field][col.subField] : !rowData[col.field], 'pi-check': col.subField ? rowData[col.field][col.subField] : rowData[col.field] }"
+              [ngStyle]="{color: ((col.subfield ? rowData[col.field][col.subField] : rowData[col.field]) ? 'rgb(24, 206, 0)' : 'rgb(206, 0, 0)')}"></i>
+        </ng-container>
+        <ng-container *ngSwitchCase="'IMG'">
+          <img [src]="col.subField ? rowData[col.field][col.subField] : rowData[col.field]" type="image/svg+xml" width="20" height="20"/>
         </ng-container>
         <ng-container *ngSwitchDefault>
           <ng-container *ngIf="col?.isLineColor || col?.isFontColor; else default">

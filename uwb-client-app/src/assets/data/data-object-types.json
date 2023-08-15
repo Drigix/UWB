@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "name": "Pracownik",
+    "client" : {
+      "id": 1,
+      "name": "Główna firma",
+      "parentOrgUnit": 0,
+      "treePath": ";0;",
+      "userLimit": 50,
+      "deleted": false
+    },
+    "adminOnly": true
+  },
+  {
+    "id": 2,
+    "name": "Ochroniarz",
+    "client" : {
+      "id": 2,
+      "name": "Firma podprzędna 1",
+      "parentOrgUnit": 1,
+      "treePath": ";0;1;",
+      "userLimit": 50,
+      "deleted": false
+    },
+    "adminOnly": true
+  },
+  {
+    "id": 3,
+    "name": "Pojazd",
+    "client": {
+      "id": 3,
+      "name": "Firma podprzędna 2",
+      "parentOrgUnit": 1,
+      "treePath": ";0;1;",
+      "userLimit": 50,
+      "deleted": false
+    },
+    "adminOnly": true
+  }
+]

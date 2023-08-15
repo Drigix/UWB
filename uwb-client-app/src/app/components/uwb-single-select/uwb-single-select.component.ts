@@ -27,7 +27,7 @@ import { noop } from 'rxjs';
 export class UwbSingleSelectComponent<T> implements AfterViewInit, ControlValueAccessor {
 
   @Input() items!: T[];
-  @Input() placeholder = 'global.choose';
+  @Input() placeholder = '';
   @Input() optionLabel!: string;
   @Input() panelStyleClass!: string;
   @Input() optionDisabled!: string;

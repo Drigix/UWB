@@ -381,6 +381,12 @@ body {
       font-size: 10px !important
     }
   }
+  .buttons_container_scale {
+    button {
+      width: 80px;
+      font-size: 12px !important
+    }
+  }
 }
 @media (min-width: 701px) {
   .single_table_with_buttons {
@@ -392,6 +398,12 @@ body {
   .single_table_with_5buttons {
     button {
       width: 110px;
+      font-size: 15px !important
+    }
+  }
+  .buttons_container_scale {
+    button {
+      width: 130px;
       font-size: 15px !important
     }
   }
@@ -409,8 +421,13 @@ body {
       font-size: 17px !important
     }
   }
+  .buttons_container_scale {
+    button {
+      width: 170px;
+      font-size: 17px !important
+    }
+  }
 }
-
 .buttons_container_center {
   overflow: hidden;
   display: flex;

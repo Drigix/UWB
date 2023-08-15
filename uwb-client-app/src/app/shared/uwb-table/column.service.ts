@@ -66,4 +66,64 @@ export class ColumnService {
     ];
     return this.columns;
   }
+
+  getObjectColumns(): UniversalTableColumn[] {
+    this.columns = [
+      {
+        field: 'name',
+        label: 'name',
+        header: this.translateService.instant('object.name'),
+      },
+      {
+        field: 'lastName',
+        label: 'lastName',
+        header: this.translateService.instant('object.lastName'),
+      },
+      {
+        field: 'hexTagId',
+        label: 'hexTagId',
+        header: this.translateService.instant('object.hexTagId'),
+      },
+      {
+        field: 'icon',
+        subField: 'path',
+        label: 'path',
+        header: this.translateService.instant('object.imgUrl'),
+      },
+      {
+        field: 'type',
+        subField: 'name',
+        label: 'type',
+        header: this.translateService.instant('object.type'),
+      }
+    ];
+    return this.columns;
+  }
+
+  getObjectTypeColumns(): UniversalTableColumn[] {
+    this.columns = [
+      {
+        field: 'name',
+        label: 'name',
+        header: this.translateService.instant('object.name'),
+      }
+    ];
+    return this.columns;
+  }
+
+  getIconColumns(): UniversalTableColumn[] {
+    this.columns = [
+      {
+        field: 'name',
+        label: 'name',
+        header: this.translateService.instant('icon.name'),
+      },
+      {
+        field: 'path',
+        label: 'path',
+        header: this.translateService.instant('icon.icon'),
+      }
+    ];
+    return this.columns;
+  }
 }

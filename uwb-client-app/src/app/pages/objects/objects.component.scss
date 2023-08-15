@@ -1,0 +1,32 @@
+.objects-page {
+  display: grid;
+  grid-template-rows: 70px calc(100vh - 500px);
+}
+
+.object-table {
+  width: 100%;
+  height: calc(100vh - 90px);
+  display: grid;
+  gap: 10px;
+  grid-template-rows: auto 75px;
+}
+
+.page-mode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    margin: 0;
+  }
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.page-mode:hover {
+  transform: scale(1.05);
+  background: linear-gradient(0deg, var(--uwb-tab-content-background) 0%, var(--uwb-secondary) 75%);
+}
+
+.selection-page-mode {
+  background-color: var(--uwb-secondary);
+  transform: translateX(10px);
+}

@@ -1,0 +1,16 @@
+<div class="object-table">
+  <uwb-table
+    [columns]="columns"
+    [values]="objectTypes"
+    (selectionChange)="onObjectTypeSelected($event)"
+    >
+    </uwb-table>
+  <div class="buttons_container_center buttons_container_scale">
+    <uwb-footer-buttons
+        [disabledEditAndDeleteButton]="selectedObjectType === undefined"
+        (emitAddClick)="openDialog()"
+        (emitEditClick)="openDialog(true)"
+        (emitDeleteClick)="openDeleteDialog()">
+    </uwb-footer-buttons>
+  </div>
+</div>
