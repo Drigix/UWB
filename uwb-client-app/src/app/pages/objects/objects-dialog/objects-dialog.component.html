@@ -23,13 +23,14 @@
       </span>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
-      <uwb-single-select
-        [items]="dropdownClientItems"
+      <uwb-tree-select
+        [treeSelectValue]="selectedClient"
+        [options]="treeSelectClientItems"
         [optionLabel]="'name'"
         formControlName="client"
         label="{{ 'object.client' | translate }}"
         (modelChange)="onClientSelected($event)"
-      ></uwb-single-select>
+      ></uwb-tree-select>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <uwb-single-select
