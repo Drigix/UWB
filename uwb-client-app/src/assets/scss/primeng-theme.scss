@@ -1611,7 +1611,8 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   border-color: var(--uwb-button-border);
 }
 .p-treeselect .p-treeselect-label {
-  padding: 0.75rem 0.75rem;
+  padding: 0.375rem 0.75rem;
+  height: 30px;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 .p-treeselect .p-treeselect-label.p-placeholder {
@@ -1694,7 +1695,6 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 .p-treeselect-panel .p-treeselect-items-wrapper .p-tree {
   border: 0 none;
   max-height: 170px;
-  overflow: scroll;
 }
 .p-treeselect-panel .p-treeselect-items-wrapper .p-treeselect-empty-message {
   padding: 0.75rem 1.25rem;

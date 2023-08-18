@@ -31,6 +31,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { PasswordModule } from 'primeng/password';
 import { SliderModule } from 'primeng/slider';
 import { FileUploadModule } from 'primeng/fileupload';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     TabMenuModule,
     PasswordModule,
     SliderModule,
-    FileUploadModule
+    FileUploadModule,
+    TreeSelectModule
   ],
   exports: [
     TableModule,
@@ -101,7 +103,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     TabMenuModule,
     PasswordModule,
     SliderModule,
-    FileUploadModule
+    FileUploadModule,
+    TreeSelectModule
   ],
 })
 export class PrimeNGLibsModule {}
