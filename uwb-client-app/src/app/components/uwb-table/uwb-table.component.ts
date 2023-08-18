@@ -304,7 +304,6 @@ export class UwbTableComponent<T> implements OnChanges, AfterViewInit {
       return 'BOOLEAN';
     }
     if(value.includes('.svg') || value.includes('.png') || value.includes('.jpg')) {
-      console.log(value);
       return 'IMG';
     }
     return 'UNKNOWN';
