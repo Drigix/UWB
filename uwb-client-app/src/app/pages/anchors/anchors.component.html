@@ -1,0 +1,68 @@
+<div
+  [class]="
+    isDialogOpen
+      ? 'single_map_with_navbar'
+      : 'single_map_with_navbar_and_footer'
+  "
+>
+  <div class="grid">
+    <uwb-single-select
+      class="col-6"
+      [items]="backgrounds"
+      optionLabel="name"
+      label="{{ 'anchor.backgrounds' | translate }}"
+      (modelChange)="onBackgroundSelect($event)"
+      [itemTemplate]="itemTemplate"
+    >
+      <ng-template #itemTemplate let-item="item" pTemplate="item">
+        <div class="flex align-items-center" pTooltip="{{ item.name }}">
+          <img [src]="item.path" style="height: 30px" />
+          {{ item.name }}
+        </div>
+      </ng-template>
+    </uwb-single-select>
+
+    <uwb-single-select
+      class="col-6"
+      [value]="selectedAnchor"
+      [showClear]="false"
+      [isDisabled]="mapClickMode === 'add'"
+      [items]="anchors"
+      optionLabel="name"
+      label="{{ 'anchor.anchors' | translate }}"
+      (modelChange)="onAnchorSelect($event)"
+    >
+    </uwb-single-select>
+  </div>
+  <div class="grid">
+    <uwb-anchors-dialog
+      *ngIf="isDialogOpen"
+      class="col-4"
+      [edit]="isEditDialog"
+      [selectedAnchor]="selectedAnchor"
+      (emitCloseDialog)="handleDialogResponse($event)"
+    ></uwb-anchors-dialog>
+    <uwb-map
+      [class]="isDialogOpen ? 'col-8' : 'col-12'"
+      [background]="selectedBackground?.path!"
+      [anchors]="anchors"
+      [selectedMapPoint]="selectedAnchor"
+      [mapClickMode]="mapClickMode"
+      (emitNewPoint)="onAddNewPoint($event)"
+      (emitEditSelectedPoint)="openDialog(true, $event)"
+      (emitDeleteSelectedPoint)="openDeleteDialog()"
+    ></uwb-map>
+  </div>
+  <div
+    *ngIf="!isDialogOpen"
+    class="buttons_container_center buttons_container_scale"
+  >
+    <uwb-footer-buttons
+      [disabledAddButton]="selectedBackground === undefined"
+      [showEditButton]="false"
+      [showDeleteButton]="false"
+      (emitAddClick)="openDialog()"
+    >
+    </uwb-footer-buttons>
+  </div>
+</div>

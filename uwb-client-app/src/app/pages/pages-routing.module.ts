@@ -37,6 +37,10 @@ import { RouterModule } from '@angular/router';
         {
           path: '',
           loadChildren: () => import('./objects/objects.module').then(m => m.ObjectsModule)
+        },
+        {
+          path: '',
+          loadChildren: () => import('./anchors/anchors.module').then(m => m.AnchorsModule)
         }
       ]
     )
