@@ -11,7 +11,8 @@
         "areas": "Obszary",
         "backgrounds": "Plany pomieszczeń",
         "clients": "Klienci",
-        "objects": "Tagi"
+        "objects": "Tagi",
+        "anchors": "Kotwice"
       }
     },
     "table": {
@@ -96,5 +97,13 @@
   "icon": {
     "name": "Nazwa ikony",
     "icon": "Ikona"
+  },
+  "anchor": {
+    "anchors": "Kotwice",
+    "backgrounds":"Plany pomieszczeń",
+    "name": "Identyfikator",
+    "x": "X",
+    "y": "Y",
+    "z": "Z"
   }
 }
