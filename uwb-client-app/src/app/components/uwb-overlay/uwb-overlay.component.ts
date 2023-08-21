@@ -6,13 +6,10 @@ import { OverlayPanel } from 'primeng/overlaypanel';
   templateUrl: './uwb-overlay.component.html'
 })
 
-export class UwbOverlayComponent implements OnInit {
+export class UwbOverlayComponent extends OverlayPanel {
 
   @ViewChild('op') overlay?: OverlayPanel;
 
-  constructor() { }
-
-  ngOnInit() { }
 
   toogleOverlay(event: any): void {
     this.overlay?.toggle(event);
