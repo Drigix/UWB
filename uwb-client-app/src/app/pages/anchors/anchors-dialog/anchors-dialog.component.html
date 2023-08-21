@@ -1,0 +1,33 @@
+<uwb-form
+  [formGroup]="formGroup!"
+  [footerButton]="false"
+  (ngSubmit)="onSave()"
+  (cancel)="onCloseDialog()"
+>
+  <uwb-form-grid form-body>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" />
+        <label htmlFor="name">{{ "anchor.name" | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="x" formControlName="x" />
+        <label htmlFor="x">{{ "anchor.x" | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="y" formControlName="y" />
+        <label htmlFor="y">{{ "anchor.y" | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="z" formControlName="z" />
+        <label htmlFor="z">{{ "anchor.z" | translate }}</label>
+      </span>
+    </uwb-form-control>
+  </uwb-form-grid>
+</uwb-form>

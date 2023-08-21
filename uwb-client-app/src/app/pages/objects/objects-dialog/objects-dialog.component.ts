@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IClientUnit } from '@entities/client/client-unit.model';
 import { IClient } from '@entities/client/client.model';
 import { IIcon } from '@entities/icon/icon.model';
 import { IObjectType } from '@entities/objects/object-type.model';
 import { IObject } from '@entities/objects/object.model';
+import { ClientUnitsService } from '@services/clients/client-units.service';
 import { ClientsService } from '@services/clients/clients.service';
 import { IconsService } from '@services/icon/icons.service';
 import { ObjectTypesService } from '@services/objects/object-types.service';
@@ -21,15 +23,17 @@ export class ObjectsDialogComponent implements OnInit {
   selectedObject?: IObject;
   dropdownObjectTypeItems: IObjectType[] = [];
   dropdownIconItems: IIcon[] = [];
-  dropdownClientItems: IClient[] = [];
+  treeSelectClientItems: IClientUnit[] = [];
+  selectedClient?: IClientUnit;
 
   constructor(
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private iconsService: IconsService,
-    private clientsService: ClientsService,
-    private objectTypesService: ObjectTypesService
+    private clientUnitsService: ClientUnitsService,
+    private objectTypesService: ObjectTypesService,
+    private cd: ChangeDetectorRef
     ) { }
 
   ngOnInit() {
@@ -61,7 +65,6 @@ export class ObjectsDialogComponent implements OnInit {
         name: this.selectedObject?.name,
         lastName: this.selectedObject?.lastName,
         hexTagId: this.selectedObject?.hexTagId,
-        client: this.selectedObject?.client,
         type: this.selectedObject?.type,
         icon: this.selectedObject?.icon
       });
@@ -69,9 +72,13 @@ export class ObjectsDialogComponent implements OnInit {
   }
 
   loadClients(): void {
-    this.clientsService.findAll().subscribe(
+    this.clientUnitsService.findAll().subscribe(
       (res) => {
-        this.dropdownClientItems = res;
+        this.treeSelectClientItems = res;
+        if(this.edit) {
+            this.selectedClient = this.clientUnitsService.findByClientId(this.treeSelectClientItems[0], this.selectedObject?.client?.id!)!;
+            this.formGroup?.get('client')?.patchValue(this.selectedClient);
+        }
       }
     );
   }
@@ -101,6 +108,7 @@ export class ObjectsDialogComponent implements OnInit {
 
   onSave(): void {
     const value = this.formGroup?.getRawValue();
+    console.log(value);
   }
 
   onCloseDialog(): void {

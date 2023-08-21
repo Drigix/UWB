@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IClientUnit } from '@entities/client/client-unit.model';
 import { IClient } from '@entities/client/client.model';
-import { ClientsService } from '@services/clients/clients.service';
+import { ClientUnitsService } from '@services/clients/client-units.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -12,15 +13,16 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 export class ClientsDialogComponent implements OnInit {
 
   formGroup?: FormGroup;
-  dropdownItems: IClient[] = [];
+  treeSelectItems: IClientUnit[] = [];
   edit = false;
   selectedClient?: IClient;
+  selectedParentClient?: IClientUnit;
 
   constructor(
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
-    private clientsService: ClientsService
+    private clientUnitsService: ClientUnitsService
   ) { }
 
   ngOnInit() {
@@ -48,13 +50,12 @@ export class ClientsDialogComponent implements OnInit {
   }
 
   loadClients(): void {
-    this.clientsService.findAll().subscribe(
+    this.clientUnitsService.findAll().subscribe(
       (res) => {
-        this.dropdownItems = res;
+        this.treeSelectItems = res;
         if(this.edit) {
-          this.formGroup?.patchValue({
-            orgUnit: this.dropdownItems.find( item => item.id === this.selectedClient?.parentOrgUnit)
-          });
+          this.selectedParentClient = this.clientUnitsService.findByClientId(this.treeSelectItems[0], this.selectedClient?.parentOrgUnit!)!;
+          this.formGroup?.get('orgUnit')?.patchValue(this.selectedParentClient);
         }
       }
     );

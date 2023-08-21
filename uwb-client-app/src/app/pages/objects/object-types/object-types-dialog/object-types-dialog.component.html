@@ -1,18 +1,34 @@
-<uwb-form [formGroup]="formGroup!" (ngSubmit)="onSave()" (cancel)="onCloseDialog()">
+<uwb-form
+  [formGroup]="formGroup!"
+  (ngSubmit)="onSave()"
+  (cancel)="onCloseDialog()"
+>
   <uwb-form-grid form-body>
     <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
         <input pInputText id="name" formControlName="name" />
-        <label htmlFor="name">{{ 'objectType.name' | translate }}</label>
+        <label htmlFor="name">{{ "objectType.name" | translate }}</label>
       </span>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
-      <uwb-single-select [items]="dropdownItems" [optionLabel]="'name'" formControlName="client" label="{{ 'objectType.client' | translate }}"></uwb-single-select>
+      <uwb-tree-select
+        [treeSelectValue]="selectedClient"
+        [options]="treeSelectItems"
+        formControlName="client"
+        label="{{ 'objectType.client' | translate }}"
+        (modelChange)="onClientSelected($event)"
+      ></uwb-tree-select>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <span class="flex justify-content-center align-items-center">
-        <label class="mr-2" htmlFor="adminOnly">{{ 'objectType.adminOnly' | translate }}</label>
-        <p-checkbox formControlName="adminOnly" [binary]="true" inputId="binary"></p-checkbox>
+        <label class="mr-2" htmlFor="adminOnly">{{
+          "objectType.adminOnly" | translate
+        }}</label>
+        <p-checkbox
+          formControlName="adminOnly"
+          [binary]="true"
+          inputId="binary"
+        ></p-checkbox>
       </span>
     </uwb-form-control>
   </uwb-form-grid>

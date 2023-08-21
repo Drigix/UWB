@@ -1,0 +1,26 @@
+.p-inputtext.ng-valid {
+  border-left: none;
+  border: 1px solid #ced4da;
+}
+
+::ng-deep .p-treeselect .p-treeselect-label span {
+  color: black;
+}
+
+::ng-deep .p-treeselect-items-wrapper::-webkit-scrollbar {
+  width: 12px;
+}
+
+::ng-deep .p-treeselect-items-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background: var(--uwb-menu-scrollbar-thumb);
+}
+
+::ng-deep .p-treeselect-items-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--uwb-menu-scrollbar-thumb-hover);
+}
+
+::ng-deep .p-treeselect-items-wrapper::-webkit-scrollbar-track {
+  background: var(--uwb-menu-scrollbar-track);
+  background-color: transparent;
+}

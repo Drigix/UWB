@@ -1,4 +1,5 @@
 import { HttpResponse } from "@angular/common/http";
+import { IAnchor } from "@entities/anchor/anchor.model";
 import { IBackground } from "@entities/background/background.model";
 import { IClient } from "@entities/client/client.model";
 import { IIcon } from "@entities/icon/icon.model";
@@ -19,3 +20,6 @@ export type ObjectTypeArrayResponseType = HttpResponse<IObjectType[]>;
 
 export type IconResponseType = HttpResponse<IIcon>;
 export type IconArrayResponseType = HttpResponse<IIcon[]>;
+
+export type AnchorsResponseType = HttpResponse<IAnchor>;
+export type AnchorsArrayResponseType = HttpResponse<IAnchor[]>;

@@ -22,7 +22,9 @@ export class MenuService {
       await this.createMenuItem('fa fa-object-group', 'global.menu.pages.areas', 'areas', []),
       await this.createMenuItem('fa fa-photo', 'global.menu.pages.backgrounds', 'backgrounds', []),
       await this.createMenuItem('fa fa-handshake-o', 'global.menu.pages.clients', 'clients', []),
-      await this.createMenuItem('fa fa-bullseye', 'global.menu.pages.objects', 'objects', [])
+      await this.createMenuItem('fa fa-bullseye', 'global.menu.pages.objects', 'objects', []),
+      await this.createMenuItem('fa fa-anchor', 'global.menu.pages.anchors', 'anchors', [])
+
     ];
     //items = this.filterTabsByAuth(items);
     return items;

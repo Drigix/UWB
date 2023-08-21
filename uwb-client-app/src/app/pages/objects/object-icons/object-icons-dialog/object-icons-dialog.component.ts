@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IClientUnit } from '@entities/client/client-unit.model';
 import { IClient } from '@entities/client/client.model';
 import { IIcon } from '@entities/icon/icon.model';
+import { ClientUnitsService } from '@services/clients/client-units.service';
 import { ClientsService } from '@services/clients/clients.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
@@ -15,13 +17,14 @@ export class ObjectIconsDialogComponent implements OnInit {
   formGroup?: FormGroup;
   edit = false;
   selectedIcon?: IIcon;
-  dropdownItems: IClient[] = [];
+  treeSelectItems: IClientUnit[] = [];
+  selectedClient?: IClientUnit;
 
   constructor(
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
-    private clientsService: ClientsService
+    private clientUnitsService: ClientUnitsService
     ) { }
 
   ngOnInit() {
@@ -49,9 +52,13 @@ export class ObjectIconsDialogComponent implements OnInit {
   }
 
   loadClients(): void {
-    this.clientsService.findAll().subscribe(
+    this.clientUnitsService.findAll().subscribe(
       (res) => {
-        this.dropdownItems = res;
+        this.treeSelectItems = res;
+        if(this.edit) {
+          this.selectedClient = this.clientUnitsService.findByClientId(this.treeSelectItems[0], this.selectedIcon?.client?.id!)!;
+          this.formGroup?.get('client')?.patchValue(this.selectedClient);
+        }
       }
     );
   }

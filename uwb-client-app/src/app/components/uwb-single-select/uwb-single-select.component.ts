@@ -42,6 +42,7 @@ export class UwbSingleSelectComponent<T> implements AfterViewInit, ControlValueA
   @Input() isDisabled = false;
   @Input() styleClass?: string;
   @Input() label = 'Wybierz opcje';
+  @Input() showClear = true;
 
   onModelChange: (_: UwbSingleSelectValue | undefined) => void = () => noop;
   onModelTouched: () => void = () => noop;

@@ -1,16 +1,30 @@
-<uwb-form [formGroup]="formGroup!" (ngSubmit)="onSave()" (cancel)="onCloseDialog()">
+<uwb-form
+  [formGroup]="formGroup!"
+  (ngSubmit)="onSave()"
+  (cancel)="onCloseDialog()"
+>
   <uwb-form-grid form-body>
-    <uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
         <input pInputText id="name" formControlName="name" />
-        <label htmlFor="name">{{ 'background.name' | translate }}</label>
+        <label htmlFor="name">{{ "background.name" | translate }}</label>
       </span>
     </uwb-form-control>
-    <uwb-form-control>
-      <uwb-single-select [items]="dropdownItems" [optionLabel]="'name'" formControlName="client" label="{{ 'background.client' | translate }}" ></uwb-single-select>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-tree-select
+        [treeSelectValue]="selectedClient"
+        [options]="treeSelectItems"
+        [optionLabel]="'name'"
+        formControlName="client"
+        label="{{ 'background.client' | translate }}"
+      ></uwb-tree-select>
     </uwb-form-control>
     <uwb-form-control *ngIf="!edit" [styleClass]="'col-12'">
-      <uwb-file-upload [showUploadButton]="false" [showCancelButton]="false" [fileSize]="1000000000"></uwb-file-upload>
+      <uwb-file-upload
+        [showUploadButton]="false"
+        [showCancelButton]="false"
+        [fileSize]="1000000000"
+      ></uwb-file-upload>
     </uwb-form-control>
   </uwb-form-grid>
 </uwb-form>

@@ -39,3 +39,24 @@
     </div>
   </div>
 </ng-container>
+
+<div id="popup" class="overlay">
+  <div *ngIf="selectedMapPoint" class="flex flex-column">
+    <span class="p-1">
+      {{ 'anchor.name' | translate }}: {{ selectedMapPoint.name }}
+    </span>
+    <span class="p-1">
+      {{ 'anchor.x' | translate }}: {{ selectedMapPoint.x }}
+    </span>
+    <span class="p-1">
+      {{ 'anchor.y' | translate }}: {{ selectedMapPoint.y }}
+    </span>
+    <span class="p-1">
+      {{ 'anchor.z' | translate }}: {{ selectedMapPoint.z }}
+    </span>
+  </div>
+  <div class="buttons_container_center">
+    <p-button class="p-2" styleClass="ui-button_size_125" pTooltip="{{ 'global.buttons.edit' | translate }}" icon="pi pi-pencil" (onClick)="emitEditSelectedPoint.emit(selectedMapPoint)"></p-button>
+    <p-button class="p-2" styleClass="ui-button_size_125" pTooltip="{{ 'global.buttons.delete' | translate }}" icon="pi pi-times" (onClick)="emitDeleteSelectedPoint.emit()"></p-button>
+  </div>
+</div>

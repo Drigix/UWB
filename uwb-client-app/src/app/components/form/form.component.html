@@ -2,7 +2,7 @@
   <div class="modal-body">
     <ng-content select="[form-body]"></ng-content>
   </div>
-  <div   *ngIf="showSaveButton || showCancelButton" [ngClass]="footerButton ? 'modal-footer' : ''">
+  <div *ngIf="showSaveButton || showCancelButton" [ngClass]="footerButton ? 'modal-footer' : ''">
     <div class="buttons-container_center">
       <div *ngIf="showSaveButton" class="button_wrapper_text">
         <p-button

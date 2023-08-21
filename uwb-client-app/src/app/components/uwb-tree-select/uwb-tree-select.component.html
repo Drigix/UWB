@@ -1,0 +1,36 @@
+<span class="p-float-label">
+  <p-treeSelect
+    [(ngModel)]="treeSelectValue"
+    [options]="options"
+    placeholder=""
+    appendTo="body"
+    [style]="{ width: '100%' }"
+    [class]="styleClass"
+    [selectionMode]="selectionMode"
+    (onNodeSelect)="emitModelAndItemChange($event)"
+  >
+    <ng-template pTemplate="header" let-node>
+      <div class="p-treeselect-header">
+        <div class="p-treeselect-filter-container p-input-icon-right custom-filter">
+          <input class="p-treeselect-filter p-inputtext p-component" type="text" autofocus [(ngModel)]="filterText" (input)="customFilter($event)" placeholder="Filter">
+          <i class="pi pi-search"></i>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="value" let-node>
+      <span>
+        {{ node?.data[optionLabel] }}
+      </span>
+    </ng-template>
+    <ng-template let-node pTemplate="default">
+      <span pTooltip="{{ node.data[optionLabel] }}">
+        {{
+          node.data[optionLabel].length > 30
+            ? (node.data[optionLabel] | slice : 0 : 30) + "..."
+            : node.data[optionLabel]
+        }}
+      </span>
+    </ng-template>
+  </p-treeSelect>
+  <label for="label">{{ label }}</label>
+</span>
