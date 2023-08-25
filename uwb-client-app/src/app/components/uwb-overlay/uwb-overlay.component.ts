@@ -10,7 +10,6 @@ export class UwbOverlayComponent extends OverlayPanel {
 
   @ViewChild('op') overlay?: OverlayPanel;
 
-
   toogleOverlay(event: any): void {
     this.overlay?.toggle(event);
   }
