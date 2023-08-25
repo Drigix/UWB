@@ -22,9 +22,14 @@ import { IArea } from '@entities/area/area.model';
 import { chunk, over } from 'lodash';
 import { IAnchor } from '@entities/anchor/anchor.model';
 import CircleStyle from 'ol/style/Circle';
-import { UwbOverlayComponent } from '@components/uwb-overlay/uwb-overlay.component';
-import { anchorMapIconStyle, anchorMapStyle } from '@entities/anchor/anchor-map-style';
+import { anchorMapIconStyle } from '@entities/anchor/anchor-map-style';
+import { localizationMapIconStyle } from '@entities/localization/localization-map.style';
 
+
+enum MapPointType {
+  ANCHOR = 'anchor',
+  TAG = 'tag'
+};
 
 @Component({
   selector: 'uwb-map',
@@ -37,6 +42,7 @@ export class UwbMap implements OnInit, OnChanges {
   @Input() area?: IArea;
   @Input() vertexes: IAreaVertex[] = [];
   @Input() anchors: IAnchor[] = [];
+  @Input() localizations: any[] = [];
   /*BUTTONS OPTION*/
   @Input() drawable = false;
   @Input() drawableLineString = false;
@@ -69,6 +75,7 @@ export class UwbMap implements OnInit, OnChanges {
   @Input() selectedMapPoint?: any;
   overlay!: Overlay;
   overlayVisible = false;
+  pointType?: MapPointType;
 
   constructor(private cd: ChangeDetectorRef, private renderer: Renderer2) {}
 
@@ -89,8 +96,9 @@ export class UwbMap implements OnInit, OnChanges {
       this.loadVertexes();
     }
     if(changes['anchors'] || changes['mapClickMode']) {
-      this.loadPoints(anchorMapIconStyle);
-      this.loadOnMapClickOptions(anchorMapIconStyle);
+      console.log(this.anchors);
+      this.loadPoints(anchorMapIconStyle, MapPointType.ANCHOR);
+      this.loadOnMapClickOptions(anchorMapIconStyle, MapPointType.ANCHOR);
     }
     if(changes['selectedMapPoint'] && this.selectedMapPoint) {
       const feature = this.source.getFeatureById('anchor_' + this.selectedMapPoint.id);
@@ -101,6 +109,10 @@ export class UwbMap implements OnInit, OnChanges {
         this.overlay.setPosition(coordinates);
         this.cd.detectChanges();
       }
+    }
+    if(changes['localizations']) {
+      this.loadPoints(localizationMapIconStyle, MapPointType.TAG);
+      this.loadOnMapClickOptions(localizationMapIconStyle, MapPointType.TAG);
     }
     this.cd.detectChanges();
   }
@@ -196,24 +208,47 @@ export class UwbMap implements OnInit, OnChanges {
     this.source.changed();
   }
 
-  loadPoints(style: Style): void {
+  loadPoints(style: Style, pointType: MapPointType): void {
     this.overlay.setPosition(undefined);
     this.selectedMapPoint = undefined;
     this.source.clear();
-    if(this.mapClickMode === 'else') {
-      this.anchors.forEach((anchor) => {
-        const feature = new Feature(new Point([anchor.xPx!, anchor.yPx!]));
-        if(anchor.id !== null) {
-          feature.setId('anchor_' + anchor.id);
-        } else {
-          feature.setId('anchor_' + 'NEW')
+    switch(pointType) {
+      case 'anchor': {
+        if(this.mapClickMode === 'else') {
+          this.anchors.forEach((anchor) => {
+            const feature = new Feature(new Point([anchor.xPx!, anchor.yPx!]));
+            if(anchor.id !== null) {
+              feature.setId('anchor_' + anchor.id);
+            } else {
+              feature.setId('anchor_' + 'NEW')
+            }
+            feature.setStyle(
+              style
+            );
+            this.source.addFeature(feature);
+            this.source.changed();
+          });
         }
-        feature.setStyle(
-          style
-        );
-        this.source.addFeature(feature);
-        this.source.changed();
-      });
+        break;
+      }
+      case 'tag': {
+        setInterval(() => {
+          this.localizations.forEach((localization) => {
+            const feature = new Feature(new Point([localization.xPx!, localization.yPx!]));
+              if(localization.id !== null) {
+                feature.setId('tag_' + localization.id);
+              } else {
+                feature.setId('tag_' + 'NEW')
+              }
+              feature.setStyle(
+                style
+              );
+              this.source.addFeature(feature);
+              this.source.changed();
+          });
+        }, 1000);
+        break;
+      }
     }
   }
 
@@ -276,37 +311,55 @@ export class UwbMap implements OnInit, OnChanges {
     this.map.addInteraction(this.modify);
   }
 
-  loadOnMapClickOptions(style: Style): void {
+  loadOnMapClickOptions(style: Style, pointType: MapPointType): void {
     this.map.on('click', (event) => {
-      if(this.mapClickMode === 'add') {
-        const existingFeature = this.source.getFeatureById('anchor_NEW');
-        if(existingFeature) {
-          const newCoordinates = this.map.getCoordinateFromPixel(event.pixel);
-          existingFeature.setGeometry(new Point(newCoordinates));
+      switch(pointType) {
+        case 'anchor': {
+          if(this.mapClickMode === 'add') {
+            const existingFeature = this.source.getFeatureById('anchor_NEW');
+            if(existingFeature) {
+              const newCoordinates = this.map.getCoordinateFromPixel(event.pixel);
+              existingFeature.setGeometry(new Point(newCoordinates));
+            } else {
+              const feature = new Feature(new Point([event.pixel[0], event.pixel[1]]));
+              feature.setId('anchor_' + 'NEW')
+              feature.setStyle(
+                style
+              );
+              this.source.addFeature(feature);
+            }
+            this.source.changed();
+            const newAnchor: IAnchor = { x: event.pixel[0], y: event.pixel[1]};
+            this.selectedMapPoint = newAnchor;
+            this.emitNewPoint.emit(this.selectedMapPoint);
         } else {
-          const feature = new Feature(new Point([event.pixel[0], event.pixel[1]]));
-          feature.setId('anchor_' + 'NEW')
-          feature.setStyle(
-            style
-          );
-          this.source.addFeature(feature);
-        }
-        this.source.changed();
-        const newAnchor: IAnchor = { x: event.pixel[0], y: event.pixel[1]};
-        this.selectedMapPoint = newAnchor;
-        this.emitNewPoint.emit(this.selectedMapPoint);
-    } else {
-      if(this.map.getFeaturesAtPixel(event.pixel).length > 0) {
-         const id = this.map.getFeaturesAtPixel(event.pixel)[0].getId() as string;
-          if(id.startsWith('anchor_')) {
-            this.selectedMapPoint = this.anchors.find((anchor) => anchor.id === parseInt(id.split('_')[1], 10));
-            this.overlay.setPosition(event.coordinate);
-            this.cd.detectChanges();
-          } else {
-            this.overlay.setPosition(undefined);
+          if(this.map.getFeaturesAtPixel(event.pixel).length > 0) {
+             const id = this.map.getFeaturesAtPixel(event.pixel)[0].getId() as string;
+              if(id.startsWith('anchor_')) {
+                this.selectedMapPoint = this.anchors.find((anchor) => anchor.id === parseInt(id.split('_')[1], 10));
+                this.overlay.setPosition(event.coordinate);
+                this.cd.detectChanges();
+              } else {
+                this.overlay.setPosition(undefined);
+              }
+            }
           }
+          break;
+        }
+        case 'tag': {
+          if(this.map.getFeaturesAtPixel(event.pixel).length > 0) {
+            const id = this.map.getFeaturesAtPixel(event.pixel)[0].getId() as string;
+             if(id.startsWith('tag_')) {
+               this.selectedMapPoint = this.anchors.find((anchor) => anchor.id === parseInt(id.split('_')[1], 10));
+               this.overlay.setPosition(event.coordinate);
+               this.cd.detectChanges();
+             } else {
+               this.overlay.setPosition(undefined);
+             }
+           }
+          break;
+        }
       }
-    }
     });
   }
 
