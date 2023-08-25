@@ -105,5 +105,18 @@
     "x": "X",
     "y": "Y",
     "z": "Z"
+  },
+  "localization": {
+    "backgrounds":"Plany pomieszczeń",
+    "objects": "Tagi",
+    "anchors": "Kotwice",
+    "areas": "Obszary",
+    "details": {
+      "mapOptions": "Opcje mapy"
+    },
+    "overlay": {
+      "showAnchors": "Pokaż kotwice",
+      "showAreas": "Pokaż obszary"
+    }
   }
 }
