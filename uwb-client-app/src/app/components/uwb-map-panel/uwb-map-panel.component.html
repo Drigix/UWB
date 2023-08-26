@@ -1,0 +1,5 @@
+<div class="map-panel flex align-items-center p-2">
+  <p-button class="px-3" icon="pi pi-backward" (onClick)="onPreviousClick()"></p-button>
+  <p-button class="px-3" [icon]="isPlay ? 'pi pi-pause' : 'pi pi-play'" (onClick)="isPlay ? onPauseClick() : onPlayClick()"></p-button>
+  <p-button class="px-3" icon="pi pi-forward" (onClick)="onNextClick()"></p-button>
+</div>

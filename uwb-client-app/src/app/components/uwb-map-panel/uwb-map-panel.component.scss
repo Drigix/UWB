@@ -1,0 +1,15 @@
+.map-panel {
+  position: absolute;
+  z-index: 100;
+  background-color: var(--uwb-background);
+  border: 2px solid var(--uwb-primary);
+  border-left: none;
+  border-top: none;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 15px;
+  width: 25%;
+}
+
+::ng-deep .map-panel .p-button {
+  border-radius: 50%;
+}
