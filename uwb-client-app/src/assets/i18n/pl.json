@@ -12,7 +12,8 @@
         "backgrounds": "Plany pomieszczeń",
         "clients": "Klienci",
         "objects": "Tagi",
-        "anchors": "Kotwice"
+        "anchors": "Kotwice",
+        "occurrence-map": "Mapa występowań"
       }
     },
     "table": {
@@ -41,7 +42,8 @@
       "login": "Zaloguj",
       "addFile": "Dodaj plik",
       "preview": "Podgląd",
-      "calibrate": "Kalibruj"
+      "calibrate": "Kalibruj",
+      "mapSettings": "Ustawienia mapy"
     }
   },
   "profile": {
