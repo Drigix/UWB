@@ -1,7 +1,34 @@
 <span class="p-float-label">
-  <p-calendar
-    [(ngModel)]="date"
+  <ng-container *ngIf="!rangeMode; else rangeCalendar">
+    <p-calendar
+      [(ngModel)]="date"
+      [disabled]="isDisabled"
+      [dateFormat]="dateFormat"
+      [view]="view"
+      [timeOnly]="timeOnly"
+      [showTime]="showTime"
+      [showSeconds]="showSeconds"
+      [disabledDays]="disabledDays"
+      [stepMinute]="stepMinute"
+      [showIcon]="showIcon"
+      [showButtonBar]="showButtonBar"
+      [firstDayOfWeek]="1"
+      [selectOtherMonths]="true"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+      [touchUI]="touchUI"
+      [timeOnly]="timeOnly"
+      appendTo="body"
+      (onSelect)="onSelect($event)"
+      (onClearClick)="onSelect()"
+      (onClose)="onClose()"
+    ></p-calendar>
+  </ng-container>
+  <ng-template #rangeCalendar>
+    <p-calendar
+    [(ngModel)]="rangeDate"
     [disabled]="isDisabled"
+    selectionMode="range"
     [dateFormat]="dateFormat"
     [view]="view"
     [timeOnly]="timeOnly"
@@ -19,9 +46,8 @@
     [timeOnly]="timeOnly"
     appendTo="body"
     (onSelect)="onSelect($event)"
-    (onClearClick)="onSelect()"
-    (onClose)="onClose()"
-  ></p-calendar>
+    ></p-calendar>
+  </ng-template>
   <label for="date">{{ label }}</label>
 </span>
 

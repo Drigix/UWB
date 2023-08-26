@@ -29,6 +29,8 @@ export class UwbCalendarComponent implements OnInit, AfterViewInit, ControlValue
   @Input() showButtonBar = false;
   @Input() showTime = false;
   @Input() label = 'Data';
+  @Input() rangeMode = false;
+  @Input() rangeDate: Date[] = [];
   @Output() modelChange = new EventEmitter();
   @ViewChild(Calendar) calendar!: Calendar;
 
@@ -53,12 +55,14 @@ export class UwbCalendarComponent implements OnInit, AfterViewInit, ControlValue
   stepMinute!: number;
 
   value?: string | Date;
+  rangeValue?: Date[] | string[] = [];
   date?: Date;
   lastEmitedValue?: string | Date;
+  lastEmitedRangeValue?: string[] | Date[];
 
   isDisabled = false;
 
-  onModelChange: (_: string | Date | undefined) => void = () => noop;
+  onModelChange: (_: string | string[] | Date | Date[] | undefined) => void = () => noop;
 
   onModelTouched: () => void = () => noop;
 
@@ -106,17 +110,34 @@ export class UwbCalendarComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   ngAfterViewInit(): void {
-    this.calendar.registerOnChange((date?: Date) => {
-      date = this.correctDate(date);
-      this.value = this.rawValue ? (date ? date : undefined) : (date ? format(date, this.parseDateFormat) : undefined);
-      this.onModelChange(this.value);
+    this.calendar.registerOnChange((date?: Date | Date[]) => {
+      if(this.rangeMode) {
+        const dates: Date[] = date as Date[];
+        if(this.rawValue) {
+          this.rangeValue![0] = dates[0] ?? undefined;
+          this.rangeValue![1] = dates[1] ?? undefined;
+        } else {
+          this.rangeValue![0] = (dates[0] ? format(dates[0], this.parseDateFormat) : undefined)!;
+          this.rangeValue![1] = (dates[1] ? format(dates[1], this.parseDateFormat) : undefined)!;
+        }
+        this.onModelChange(this.rangeValue);
+      } else {
+        date = this.correctDate(date as Date);
+        this.value = this.rawValue ? (date ? date : undefined) : (date ? format(date, this.parseDateFormat) : undefined);
+        this.onModelChange(this.value);
+      }
     });
     this.calendar.registerOnTouched(this.onModelTouched);
   }
 
-  onSelect(event?: Date): void {
-    this.lastEmitedValue = this.value;
-    this.modelChange.emit(event);
+  onSelect(event?: Date | Date[]): void {
+    if(this.rangeMode) {
+      this.lastEmitedRangeValue = this.rangeValue;
+      this.modelChange.emit(this.rangeValue);
+    } else {
+      this.lastEmitedValue = this.value;
+      this.modelChange.emit(event);
+    }
   }
 
   onClose(): void {
@@ -131,6 +152,7 @@ export class UwbCalendarComponent implements OnInit, AfterViewInit, ControlValue
   }
 
   writeValue(value?: string): void {
+    console.log(value);
     const changed = this.value !== value;
     if (changed) {
       this.date = this.parseDate(value);
@@ -145,7 +167,7 @@ export class UwbCalendarComponent implements OnInit, AfterViewInit, ControlValue
     }
   }
 
-  registerOnChange(fn: (_: string | Date | undefined) => void): void {
+  registerOnChange(fn: (_: string | string[] | Date | Date[] | undefined) => void): void {
     this.onModelChange = fn;
   }
 
