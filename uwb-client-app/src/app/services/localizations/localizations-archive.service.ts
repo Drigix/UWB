@@ -1,0 +1,17 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+@Injectable({providedIn: 'root'})
+export class LocalizationsArchiveService {
+
+  private resourceUrl = '../../../assets/data/data-heatmap-points.json';
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  findAll(): Observable<any> {
+    return this.http.get(this.resourceUrl);
+  }
+}
