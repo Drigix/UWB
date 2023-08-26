@@ -1,8 +1,8 @@
-<ng-container [ngSwitch]="mapWithButtons">
-  <div [class]="styleClass" *ngSwitchCase="false">
+<ng-container [ngSwitch]="mapDisplayType">
+  <div [class]="styleClass" *ngSwitchCase="'normal'">
     <div id="map" class="map"></div>
   </div>
-  <div *ngSwitchCase="true" class="single_map_with_footer">
+  <div *ngSwitchCase="'mapWithButtons'" class="single_map_with_footer">
     <div id="map" class="map"></div>
     <div class="buttons_container_center">
       <p-button
@@ -38,25 +38,44 @@
       ></p-button>
     </div>
   </div>
+  <div [class]="styleClass" *ngSwitchCase="'mapWithBodyInside'">
+    <div id="map" class="map">
+      <uwb-map-panel></uwb-map-panel>
+    </div>
+  </div>
 </ng-container>
 
 <div id="popup" class="overlay">
-  <div *ngIf="selectedMapPoint" class="flex flex-column">
-    <span class="p-1">
-      {{ 'anchor.name' | translate }}: {{ selectedMapPoint.name }}
-    </span>
-    <span class="p-1">
-      {{ 'anchor.x' | translate }}: {{ selectedMapPoint.x }}
-    </span>
-    <span class="p-1">
-      {{ 'anchor.y' | translate }}: {{ selectedMapPoint.y }}
-    </span>
-    <span class="p-1">
-      {{ 'anchor.z' | translate }}: {{ selectedMapPoint.z }}
-    </span>
-  </div>
-  <div class="buttons_container_center">
-    <p-button class="p-2" styleClass="ui-button_size_125" pTooltip="{{ 'global.buttons.edit' | translate }}" icon="pi pi-pencil" (onClick)="emitEditSelectedPoint.emit(selectedMapPoint)"></p-button>
-    <p-button class="p-2" styleClass="ui-button_size_125" pTooltip="{{ 'global.buttons.delete' | translate }}" icon="pi pi-times" (onClick)="emitDeleteSelectedPoint.emit()"></p-button>
-  </div>
+  <ng-container [ngSwitch]="overlayType">
+    <ng-container *ngSwitchCase="'anchor'">
+      <div *ngIf="selectedMapPoint" class="flex flex-column">
+        <span class="p-1">
+          {{ 'anchor.name' | translate }}: {{ selectedMapPoint.name }}
+        </span>
+        <span class="p-1">
+          {{ 'anchor.x' | translate }}: {{ selectedMapPoint.x }}
+        </span>
+        <span class="p-1">
+          {{ 'anchor.y' | translate }}: {{ selectedMapPoint.y }}
+        </span>
+        <span class="p-1">
+          {{ 'anchor.z' | translate }}: {{ selectedMapPoint.z }}
+        </span>
+        <div class="buttons_container_center">
+          <p-button class="p-2" styleClass="ui-button_size_125" pTooltip="{{ 'global.buttons.edit' | translate }}" icon="pi pi-pencil" (onClick)="emitEditSelectedPoint.emit(selectedMapPoint)"></p-button>
+          <p-button class="p-2" styleClass="ui-button_size_125" pTooltip="{{ 'global.buttons.delete' | translate }}" icon="pi pi-times" (onClick)="emitDeleteSelectedPoint.emit()"></p-button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'tag'">
+      <div *ngIf="selectedMapPoint" class="flex flex-column">
+        <span class="p-1">
+          {{ 'localization.tag.x' | translate }}: {{ selectedMapPoint.x }}
+        </span>
+        <span class="p-1">
+          {{ 'localization.tag.y' | translate }}: {{ selectedMapPoint.y }}
+        </span>
+      </div>
+    </ng-container>
+  </ng-container>
 </div>

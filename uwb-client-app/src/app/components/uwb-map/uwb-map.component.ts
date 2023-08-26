@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import ImageLayer from 'ol/layer/Image';
@@ -24,25 +24,21 @@ import { IAnchor } from '@entities/anchor/anchor.model';
 import CircleStyle from 'ol/style/Circle';
 import { anchorMapIconStyle } from '@entities/anchor/anchor-map-style';
 import { localizationMapIconStyle } from '@entities/localization/localization-map.style';
+import { MapDisplayType, MapOverlayType } from '@entities/uwb-map/map-options.type';
 
-
-enum MapPointType {
-  ANCHOR = 'anchor',
-  TAG = 'tag'
-};
 
 @Component({
   selector: 'uwb-map',
   templateUrl: './uwb-map.component.html',
   styleUrls: ['./uwb-map.component.scss'],
 })
-export class UwbMap implements OnInit, OnChanges {
+export class UwbMap implements OnInit, OnChanges, OnDestroy {
   /*INPUT DATA*/
   @Input() background = '';
   @Input() area?: IArea;
   @Input() vertexes: IAreaVertex[] = [];
   @Input() anchors: IAnchor[] = [];
-  @Input() localizations: any[] = [];
+  // @Input() localizations: any[] = [];
   /*BUTTONS OPTION*/
   @Input() drawable = false;
   @Input() drawableLineString = false;
@@ -52,9 +48,11 @@ export class UwbMap implements OnInit, OnChanges {
   @Input() vertexAlfa = '66';
   @Input() vertexBackgroundColor = '#8f8f8f';
   @Input() vertexColor = '#ffcc33';
+  @Input() mapDisplayType: MapDisplayType = 'normal';
   @Input() mapWithButtons = false;
   @Input() disabledMapButtons = false;
   @Input() styleClass = 'h-full';
+  @Input() selectedMapPoint?: any;
   /*INPUT MAP CLICK OPTION */
   @Input() mapClickMode: 'add' | 'else' = 'else';
   @Output() emitLengthLineString = new EventEmitter<number>();
@@ -72,12 +70,11 @@ export class UwbMap implements OnInit, OnChanges {
   drawInteraction?: Draw;
   snap!: Snap;
   modify!: Modify;
-  @Input() selectedMapPoint?: any;
   overlay!: Overlay;
-  overlayVisible = false;
-  pointType?: MapPointType;
+  overlayType?: MapOverlayType;
+  mapInterval?: NodeJS.Timer;
 
-  constructor(private cd: ChangeDetectorRef, private renderer: Renderer2) {}
+  constructor(protected cd: ChangeDetectorRef, protected renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.loadMap();
@@ -87,34 +84,15 @@ export class UwbMap implements OnInit, OnChanges {
     if(changes['background'] && this.background !== '') {
       this.loadMap();
     }
-    if(changes['area']) {
-      this.vertexBackgroundColor = this.area?.color!;
-      this.vertexColor = this.area?.color!;
-      this.loadLayer();
-    }
-    if(changes['vertexes']) {
-      this.loadVertexes();
-    }
-    if(changes['anchors'] || changes['mapClickMode']) {
-      console.log(this.anchors);
-      this.loadPoints(anchorMapIconStyle, MapPointType.ANCHOR);
-      this.loadOnMapClickOptions(anchorMapIconStyle, MapPointType.ANCHOR);
-    }
-    if(changes['selectedMapPoint'] && this.selectedMapPoint) {
-      const feature = this.source.getFeatureById('anchor_' + this.selectedMapPoint.id);
-      const geometry = feature?.getGeometry();
-      if(geometry instanceof Point) {
-        const pointGeometry = geometry as Point;
-        const coordinates = pointGeometry.getCoordinates();
-        this.overlay.setPosition(coordinates);
-        this.cd.detectChanges();
-      }
-    }
-    if(changes['localizations']) {
-      this.loadPoints(localizationMapIconStyle, MapPointType.TAG);
-      this.loadOnMapClickOptions(localizationMapIconStyle, MapPointType.TAG);
-    }
     this.cd.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    if(this.mapInterval) {
+      clearInterval(this.mapInterval);
+    }
+    this.map.setTarget(undefined);
+    this.map.dispose();
   }
 
   loadMap(): void {
@@ -182,76 +160,6 @@ export class UwbMap implements OnInit, OnChanges {
     this.map.render();
   }
 
-  loadVertexes(): void {
-    this.clearVertex();
-    const area = this.vertexes[0].area;
-    const mapVertexes: (any | undefined)[] = [];
-    this.vertexes.forEach((v) => {
-      const mapVertex = JSON.parse('[' + v.x + ',' + v.y + ']');
-      mapVertexes.push(mapVertex);
-    });
-    const newPolygon = new Feature(
-      new Polygon([mapVertexes])
-    );
-    newPolygon.setId('area_' + area?.id);
-    const areaStyle = new Style({
-      fill: new Fill({
-        color: area?.color + this.vertexAlfa
-      }),
-      stroke: new Stroke({
-        color: area?.color,
-        width: 3
-      })
-    });
-    newPolygon.setStyle(areaStyle);
-    this.source.addFeature(newPolygon);
-    this.source.changed();
-  }
-
-  loadPoints(style: Style, pointType: MapPointType): void {
-    this.overlay.setPosition(undefined);
-    this.selectedMapPoint = undefined;
-    this.source.clear();
-    switch(pointType) {
-      case 'anchor': {
-        if(this.mapClickMode === 'else') {
-          this.anchors.forEach((anchor) => {
-            const feature = new Feature(new Point([anchor.xPx!, anchor.yPx!]));
-            if(anchor.id !== null) {
-              feature.setId('anchor_' + anchor.id);
-            } else {
-              feature.setId('anchor_' + 'NEW')
-            }
-            feature.setStyle(
-              style
-            );
-            this.source.addFeature(feature);
-            this.source.changed();
-          });
-        }
-        break;
-      }
-      case 'tag': {
-        setInterval(() => {
-          this.localizations.forEach((localization) => {
-            const feature = new Feature(new Point([localization.xPx!, localization.yPx!]));
-              if(localization.id !== null) {
-                feature.setId('tag_' + localization.id);
-              } else {
-                feature.setId('tag_' + 'NEW')
-              }
-              feature.setStyle(
-                style
-              );
-              this.source.addFeature(feature);
-              this.source.changed();
-          });
-        }, 1000);
-        break;
-      }
-    }
-  }
-
   loadDrawOption(): void {
     this.drawInteraction = new Draw({
       source: this.source,
@@ -309,58 +217,6 @@ export class UwbMap implements OnInit, OnChanges {
   loadModifyOption(): void {
     this.modify = new Modify({ source: this.source });
     this.map.addInteraction(this.modify);
-  }
-
-  loadOnMapClickOptions(style: Style, pointType: MapPointType): void {
-    this.map.on('click', (event) => {
-      switch(pointType) {
-        case 'anchor': {
-          if(this.mapClickMode === 'add') {
-            const existingFeature = this.source.getFeatureById('anchor_NEW');
-            if(existingFeature) {
-              const newCoordinates = this.map.getCoordinateFromPixel(event.pixel);
-              existingFeature.setGeometry(new Point(newCoordinates));
-            } else {
-              const feature = new Feature(new Point([event.pixel[0], event.pixel[1]]));
-              feature.setId('anchor_' + 'NEW')
-              feature.setStyle(
-                style
-              );
-              this.source.addFeature(feature);
-            }
-            this.source.changed();
-            const newAnchor: IAnchor = { x: event.pixel[0], y: event.pixel[1]};
-            this.selectedMapPoint = newAnchor;
-            this.emitNewPoint.emit(this.selectedMapPoint);
-        } else {
-          if(this.map.getFeaturesAtPixel(event.pixel).length > 0) {
-             const id = this.map.getFeaturesAtPixel(event.pixel)[0].getId() as string;
-              if(id.startsWith('anchor_')) {
-                this.selectedMapPoint = this.anchors.find((anchor) => anchor.id === parseInt(id.split('_')[1], 10));
-                this.overlay.setPosition(event.coordinate);
-                this.cd.detectChanges();
-              } else {
-                this.overlay.setPosition(undefined);
-              }
-            }
-          }
-          break;
-        }
-        case 'tag': {
-          if(this.map.getFeaturesAtPixel(event.pixel).length > 0) {
-            const id = this.map.getFeaturesAtPixel(event.pixel)[0].getId() as string;
-             if(id.startsWith('tag_')) {
-               this.selectedMapPoint = this.anchors.find((anchor) => anchor.id === parseInt(id.split('_')[1], 10));
-               this.overlay.setPosition(event.coordinate);
-               this.cd.detectChanges();
-             } else {
-               this.overlay.setPosition(undefined);
-             }
-           }
-          break;
-        }
-      }
-    });
   }
 
   onDrawClick(): void {
