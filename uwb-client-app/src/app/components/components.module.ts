@@ -18,6 +18,10 @@ import { UwbFileUploadComponent } from './uwb-file-upload/uwb-file-upload.compon
 import { UwbDialogComponent } from './uwb-dialog/uwb-dialog.component';
 import { UwbTreeTableComponent } from './uwb-tree-table/uwb-tree-table.component';
 import { UwbTreeSelectComponent } from './uwb-tree-select/uwb-tree-select.component';
+import { UwbMapAnchorsComponent } from './uwb-map/uwb-map-anchors.component';
+import { UwbMapAreasComponent } from './uwb-map/uwb-map-areas.component';
+import { UwbMapLocalizationsComponent } from './uwb-map/uwb-map-localizations.component';
+import { UwbMapPanelComponent } from './uwb-map-panel/uwb-map-panel.component';
 
 
 @NgModule({
@@ -39,11 +43,15 @@ import { UwbTreeSelectComponent } from './uwb-tree-select/uwb-tree-select.compon
     UwbOverlayComponent,
     UwbTableComponent,
     UwbMap,
+    UwbMapAnchorsComponent,
+    UwbMapAreasComponent,
+    UwbMapLocalizationsComponent,
     UwbHeatmapComponent,
     UwbFileUploadComponent,
     UwbDialogComponent,
     UwbTreeTableComponent,
-    UwbTreeSelectComponent
+    UwbTreeSelectComponent,
+    UwbMapPanelComponent
   ],
   declarations: [
     FormComponent,
@@ -57,11 +65,15 @@ import { UwbTreeSelectComponent } from './uwb-tree-select/uwb-tree-select.compon
     UwbOverlayComponent,
     UwbTableComponent,
     UwbMap,
+    UwbMapAnchorsComponent,
+    UwbMapAreasComponent,
+    UwbMapLocalizationsComponent,
     UwbHeatmapComponent,
     UwbFileUploadComponent,
     UwbDialogComponent,
     UwbTreeTableComponent,
-    UwbTreeSelectComponent
+    UwbTreeSelectComponent,
+    UwbMapPanelComponent
   ],
   providers: [],
 })

@@ -31,13 +31,13 @@
     </div>
   </div>
   <div class="col-7">
-    <uwb-map
+    <uwb-map-areas
       class="w-full"
       [background]="selectedBackground?.path!"
       [area]="selectedArea"
       [vertexes]="areaVertexes"
-      [mapWithButtons]="true"
+      [mapDisplayType]="'mapWithButtons'"
       [disabledMapButtons]="selectedArea === undefined"
-    ></uwb-map>
+    ></uwb-map-areas>
   </div>
 </div>

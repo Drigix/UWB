@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class LocalizationsService {
 
-  private resourceUrl = '../../../assets/data/data-heatmap-points.json';
+  private resourceUrl = '../../../assets/data/data-localization.json';
 
   constructor(
     private http: HttpClient

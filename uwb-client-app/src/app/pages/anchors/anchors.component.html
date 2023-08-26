@@ -42,7 +42,7 @@
       [selectedAnchor]="selectedAnchor"
       (emitCloseDialog)="handleDialogResponse($event)"
     ></uwb-anchors-dialog>
-    <uwb-map
+    <uwb-map-anchors
       [class]="isDialogOpen ? 'col-8' : 'col-12'"
       [background]="selectedBackground?.path!"
       [anchors]="anchors"
@@ -51,7 +51,7 @@
       (emitNewPoint)="onAddNewPoint($event)"
       (emitEditSelectedPoint)="openDialog(true, $event)"
       (emitDeleteSelectedPoint)="openDeleteDialog()"
-    ></uwb-map>
+    ></uwb-map-anchors>
   </div>
   <div
     *ngIf="!isDialogOpen"
