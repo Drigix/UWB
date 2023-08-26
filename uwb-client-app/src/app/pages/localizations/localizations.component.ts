@@ -51,8 +51,8 @@ export class LocalizationsComponent implements OnInit {
   loadAnchors(): void {
     this.anchorsService.findAll().subscribe(
       (res) => {
-        this.anchors = res;
-        this.anchors = this.anchors.filter(a => a.background?.id === this.selectedBackground?.id);
+        const anchors: IAnchor[] = res;
+        this.anchors = anchors.filter(a => a.background?.id === this.selectedBackground?.id);
       }
     );
   }
