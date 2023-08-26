@@ -4,3 +4,26 @@
   border: 2px solid var(--uwb-primary);
   border-radius: 15px;
 }
+
+::ng-deep .map .p-button {
+  position: absolute;
+  z-index: 100;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+::ng-deep .ol-control {
+  display: flex;
+  button {
+    background-color: var(--uwb-button-background);
+    color: var(--uwb-button-text-color);
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+  }
+}
+
+::ng-deep .ol-zoom {
+  right: 0.5rem;
+  left: auto;
+}
