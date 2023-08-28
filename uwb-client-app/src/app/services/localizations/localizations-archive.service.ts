@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 export class LocalizationsArchiveService {
 
   private resourceUrl = '../../../assets/data/data-heatmap-points.json';
+  private resourceArchiveUrl = '../../../assets/data/data-localizations-archive.json';
 
   constructor(
     private http: HttpClient
@@ -13,5 +14,9 @@ export class LocalizationsArchiveService {
 
   findAll(): Observable<any> {
     return this.http.get(this.resourceUrl);
+  }
+
+  findAllArchiveData(): Observable<any> {
+    return this.http.get(this.resourceArchiveUrl);
   }
 }
