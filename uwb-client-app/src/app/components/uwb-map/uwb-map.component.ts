@@ -25,6 +25,7 @@ import CircleStyle from 'ol/style/Circle';
 import { anchorMapIconStyle } from '@entities/anchor/anchor-map-style';
 import { localizationMapIconStyle } from '@entities/localization/localization-map.style';
 import { MapDisplayType, MapOverlayType } from '@entities/uwb-map/map-options.type';
+import { Coordinate } from 'ol/coordinate';
 
 
 @Component({
@@ -73,6 +74,7 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
   overlay!: Overlay;
   overlayType?: MapOverlayType;
   mapInterval?: NodeJS.Timer;
+  disabledMapPanelButtons = false;
 
   constructor(protected cd: ChangeDetectorRef, protected renderer: Renderer2) {}
 
@@ -272,4 +274,30 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
       this.map.removeInteraction(this.modify);
     }
   }
+
+  addPointToMap(coordinate: Coordinate, id: string | number, style: Style): void {
+    const feature = new Feature(new Point(coordinate));
+    feature.setId(id);
+    feature.setStyle(style);
+    this.source.addFeature(feature);
+    this.source.changed();
+  }
+
+  removePointFromMap(id: string | number): void {
+    const existPoint = this.source.getFeatureById(id);
+    if(existPoint) {
+      this.source.removeFeature(existPoint);
+      this.source.changed();
+    }
+  }
+
+  goToPreviousPoint(): void {};
+
+  goToNextPoint(): void {};
+
+  goToNextPointAutomatic(): void {};
+
+  stopGoToNextPointAutomatic(): void {};
+
+  onTimeToChangePointChenge(time: number): void {};
 }
