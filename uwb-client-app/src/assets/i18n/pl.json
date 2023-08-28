@@ -114,11 +114,14 @@
     "anchors": "Kotwice",
     "areas": "Obszary",
     "tag": {
+      "name": "Nazwa",
       "x": "X",
-      "y": "Y"
+      "y": "Y",
+      "date": "Data"
     },
     "details": {
-      "mapOptions": "Opcje mapy"
+      "mapOptions": "Opcje mapy",
+      "timeToChangePoint": "Czas zmiany punktów"
     },
     "overlay": {
       "showAnchors": "Pokaż kotwice",
