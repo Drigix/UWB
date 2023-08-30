@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "title": "Powiadomienie do Biura 1",
+    "message": "Zajestrowano wejście do obiektu 'Biuro 1'",
+    "areas": [
+      {
+        "id": 1,
+        "name": "Obszar 1",
+        "color": "#ff0fdf",
+        "background": {
+          "id": 1,
+          "name": "Plan parter",
+          "fileName": "plan_parter.jpg",
+          "fileSize": 1024,
+          "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+        }
+      },
+      {
+        "id": 2,
+        "name": "Obszar 2",
+        "color": "#b1257d",
+        "background": {
+          "id": 2,
+          "name": "Plan piętro",
+          "fileName": "plan_pietro.jpg",
+          "fileSize": 1024,
+          "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428595/source"
+        }
+      },
+      {
+        "id": 3,
+        "name": "Obszar 2",
+        "color": "#870fff",
+        "background": {
+          "id": 1,
+          "name": "Plan parter",
+          "fileName": "plan_parter.jpg",
+          "fileSize": 1024,
+          "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+        }
+      }
+    ],
+    "type": {
+      "id": 1,
+      "name": "Wyjście w obszar"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Powiadomienie do Biura 1",
+    "message": "Zajestrowano wyjście z obiektu 'Biuro 1'",
+    "areas": [
+      {
+        "id": 1,
+        "name": "Obszar 1",
+        "color": "#ff0fdf",
+        "background": {
+          "id": 1,
+          "name": "Plan parter",
+          "fileName": "plan_parter.jpg",
+          "fileSize": 1024,
+          "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+        }
+      },
+      {
+        "id": 2,
+        "name": "Obszar 2",
+        "color": "#b1257d",
+        "background": {
+          "id": 2,
+          "name": "Plan piętro",
+          "fileName": "plan_pietro.jpg",
+          "fileSize": 1024,
+          "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428595/source"
+        }
+      }
+    ],
+    "type": {
+      "id": 2,
+      "name": "Wyjście z obszaru"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Powiadomienie do Biura 1",
+    "message": "Zajestrowano przebywanie po godzinach w obiekcie 'Biuro 1'",
+    "areas": [
+      {
+        "id": 3,
+        "name": "Obszar 2",
+        "color": "#870fff",
+        "background": {
+          "id": 1,
+          "name": "Plan parter",
+          "fileName": "plan_parter.jpg",
+          "fileSize": 1024,
+          "path": "https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source"
+        }
+      }
+    ],
+    "type": {
+      "id": 3,
+      "name": "Przebywanie po godzinach"
+    }
+  }
+]
