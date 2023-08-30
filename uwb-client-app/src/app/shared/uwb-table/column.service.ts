@@ -126,4 +126,53 @@ export class ColumnService {
     ];
     return this.columns;
   }
+
+  getNotificationColumns(): UniversalTableColumn[] {
+    this.columns = [
+      {
+        field: 'title',
+        label: 'title',
+        header: this.translateService.instant('notification.title'),
+      },
+      {
+        field: 'message',
+        label: 'message',
+        header: this.translateService.instant('notification.message'),
+      },
+      {
+        field: 'date',
+        label: 'date',
+        header: this.translateService.instant('notification.date'),
+        dateFormat: 'yyyy-MM-dd HH:mm'
+      },
+      {
+        field: 'objectName',
+        label: 'objectName',
+        header: this.translateService.instant('notification.objectName'),
+      }
+    ];
+    return this.columns;
+  }
+
+  getNotificationTypeColumns(): UniversalTableColumn[] {
+    this.columns = [
+      {
+        field: 'title',
+        label: 'title',
+        header: this.translateService.instant('notification.title'),
+      },
+      {
+        field: 'message',
+        label: 'message',
+        header: this.translateService.instant('notification.message'),
+      },
+      {
+        field: 'type',
+        subField: 'name',
+        label: 'date',
+        header: this.translateService.instant('notification.type'),
+      }
+    ];
+    return this.columns;
+  }
 }
