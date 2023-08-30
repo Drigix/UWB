@@ -12,7 +12,10 @@
         "backgrounds": "Plany pomieszczeń",
         "clients": "Klienci",
         "objects": "Tagi",
-        "anchors": "Kotwice"
+        "anchors": "Kotwice",
+        "occurrence-map": "Mapa występowań",
+        "notifications": "Powiadomienia",
+        "notificationsConfig": "Konfiguracja powiadomień"
       }
     },
     "table": {
@@ -41,7 +44,8 @@
       "login": "Zaloguj",
       "addFile": "Dodaj plik",
       "preview": "Podgląd",
-      "calibrate": "Kalibruj"
+      "calibrate": "Kalibruj",
+      "mapSettings": "Ustawienia mapy"
     }
   },
   "profile": {
@@ -112,15 +116,27 @@
     "anchors": "Kotwice",
     "areas": "Obszary",
     "tag": {
+      "name": "Nazwa",
       "x": "X",
-      "y": "Y"
+      "y": "Y",
+      "date": "Data"
     },
     "details": {
-      "mapOptions": "Opcje mapy"
+      "mapOptions": "Opcje mapy",
+      "timeToChangePoint": "Czas zmiany punktów"
     },
     "overlay": {
       "showAnchors": "Pokaż kotwice",
       "showAreas": "Pokaż obszary"
     }
+  },
+  "notification": {
+    "name": "Nazwa powiadomienia",
+    "title": "Tytuł powiadomienia",
+    "message": "Treść powiadomienia",
+    "date": "Data",
+    "objectName": "Nazwa obiektu",
+    "type": "Typ powiadomienia",
+    "areas": "Obszary"
   }
 }

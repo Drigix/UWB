@@ -41,6 +41,18 @@ import { RouterModule } from '@angular/router';
         {
           path: '',
           loadChildren: () => import('./anchors/anchors.module').then(m => m.AnchorsModule)
+        },
+        {
+          path: '',
+          loadChildren: () => import('./occurence-map/occurence-map.module').then(m => m.OccurenceMapModule)
+        },
+        {
+          path: '',
+          loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule)
+        },
+        {
+          path: '',
+          loadChildren: () => import('./notifications-config/notifications-config.module').then(m => m.NotificationsConfigModule)
         }
       ]
     )

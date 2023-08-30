@@ -1,0 +1,21 @@
+<div class="h-full single_map_with_navbar">
+  <div class="grid">
+    <uwb-single-select
+      class="col"
+      [items]="backgrounds"
+      optionLabel="name"
+      label="{{ 'localization.backgrounds' | translate }}"
+      (modelChange)="onBackgroundSelect($event)"
+      [itemTemplate]="itemTemplate"
+    >
+      <ng-template #itemTemplate let-item="item" pTemplate="item">
+        <div class="flex align-items-center" pTooltip="{{ item.name }}">
+          <img [src]="item.path" style="height: 30px" />
+          {{ item.name }}
+        </div>
+      </ng-template>
+    </uwb-single-select>
+    <uwb-calendar class="col" [rangeMode]="true" [showTime]="true" (modelChange)="onDateChange($event)"></uwb-calendar>
+  </div>
+  <uwb-heatmap [background]="selectedBackground?.path!" [data]="localizations" [pointRadius]="radius" [pointBlur]="blur"></uwb-heatmap>
+</div>

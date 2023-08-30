@@ -1,15 +1,16 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import ImageLayer from 'ol/layer/Image';
 import Static from 'ol/source/ImageStatic.js';
 import Projection from 'ol/proj/Projection.js';
-import ImageStatic from 'ol/source/ImageStatic.js';
 import { getCenter } from 'ol/extent';
 import Heatmap from 'ol/layer/Heatmap';
 import VectorSource from 'ol/source/Vector';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
 
 @Component({
   selector: 'uwb-heatmap',
@@ -23,14 +24,13 @@ export class UwbHeatmapComponent implements OnInit, OnChanges {
   @Input() pointRadius = 10;
   @Input() data: any[] = [];
   map!: Map;
+  source!: VectorSource<Point>;
   extent = [0, 0, 1024, 968];
   projection = new Projection({
     code: 'xkcd-image',
     units: 'pixels',
     extent: this.extent,
   });
-  staticImageSource!: ImageStatic;
-  staticImageLayer!: ImageLayer<ImageStatic>;
   heatmapLayer!: Heatmap;
 
   constructor() { }
@@ -39,36 +39,31 @@ export class UwbHeatmapComponent implements OnInit, OnChanges {
     this.loadHeatmap();
   }
 
-  ngOnChanges(): void {
-    this.loadData();
-    this.updateHeatmapLayer();
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['background']) {
+      this.loadHeatmap();
+    }
+    if(changes['data']) {
+      console.log(this.data);
+      this.loadData();
+    }
   }
 
   loadData(): void {
-    const heatMapSource = this.heatmapLayer.getSource() as VectorSource;
-    const features = this.data.map((dataPoint: any) => {
-      return new Feature({
-        geometry: new Point([dataPoint.x, dataPoint.y]),
-        weight: dataPoint.weight,
-      });
+    this.data.forEach( d => {
+      const feature = new Feature(
+        new Point([d.x, d.y])
+      );
+      this.source.addFeature(feature);
+      this.source.changed();
     });
-    heatMapSource.addFeatures(features);
   }
 
   loadHeatmap(): void {
-    this.staticImageSource = new Static({
-      url: this.background,
-      imageSize: [1000, 1000],
-      projection: this.projection,
-      imageExtent: this.extent,
-    });
-    this.staticImageLayer = new ImageLayer({ source: this.staticImageSource });
-    this.heatmapLayer = this.loadHeatmapOptions();
+    if(this.map) {
+      this.map.dispose();
+    }
     this.map = new Map({
-      layers: [
-        this.staticImageLayer,
-        this.heatmapLayer
-      ],
       target: 'map',
       view: new View({
         projection: this.projection,
@@ -77,35 +72,41 @@ export class UwbHeatmapComponent implements OnInit, OnChanges {
         maxZoom: 8,
       }),
     });
+    this.loadLayer();
   }
 
-  loadHeatmapOptions(): Heatmap {
-    const heatmapData = this.data;
-    const heatMapSource = new VectorSource({
-      features: heatmapData.map((dataPoint: any) => {
-        return new Feature({
-          geometry: new Point([dataPoint.x, dataPoint.y]),
-        });
-      }),
-    });
-    const heatmapLayer = new Heatmap({
-      source: heatMapSource,
+  loadLayer(): void {
+    const raster = new TileLayer({
+      source: new OSM()
+    })
+    this.source = new VectorSource({});
+    this.heatmapLayer = new Heatmap({
+      source: this.source,
       blur: this.pointBlur,
       radius: this.pointRadius,
       opacity: 1,
     });
-    return heatmapLayer;
+    const newLayer = [
+      new ImageLayer({
+        source: new Static({
+          url: this.background,
+          imageSize: [1000, 1000],
+          projection: this.projection,
+          imageExtent: this.extent,
+        })
+      }),
+      this.heatmapLayer,
+      raster
+    ];
+    setTimeout(() => {this.map.updateSize()});
+    this.map.setLayers(newLayer);
+    this.map.render();
   }
 
-  updateHeatmapLayer(): void {
-    if(!this.heatmapLayer) {
-      return;
-    }
-    const updatedHeatmapLayer = this.loadHeatmapOptions();
-    this.map.removeLayer(this.heatmapLayer);
-    this.heatmapLayer = updatedHeatmapLayer;
-    this.map.addLayer(this.heatmapLayer);
-    this.map.render();
+  onHeatmapSettingsChange(): void {
+    this.heatmapLayer.setRadius(this.pointRadius);
+    this.heatmapLayer.setBlur(this.pointBlur);
+    this.heatmapLayer.changed();
   }
 
 }

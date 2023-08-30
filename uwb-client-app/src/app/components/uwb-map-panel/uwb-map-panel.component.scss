@@ -8,8 +8,13 @@
   border-bottom-right-radius: 15px;
   border-top-left-radius: 15px;
   width: 25%;
+  min-height: 6vh;
 }
 
 ::ng-deep .map-panel .p-button {
   border-radius: 50%;
+}
+
+::ng-deep .map-panel input {
+  width: 30px;
 }

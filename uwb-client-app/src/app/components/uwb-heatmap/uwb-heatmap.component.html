@@ -1,1 +1,12 @@
-<div id="map" class="map"></div>
+<div id="map" class="map">
+  <p-button icon="pi pi-cog" (onClick)="ol.toogleOverlay($event)"></p-button>
+</div>
+
+<uwb-overlay #ol>
+  <div class="w-16rem m-2">
+    <p>Promień: {{ pointRadius }}</p>
+    <p-slider [(ngModel)]="pointRadius" (onChange)="onHeatmapSettingsChange()" class="w-full"></p-slider>
+    <p>Blur: {{ pointBlur }}</p>
+    <p-slider [(ngModel)]="pointBlur" (onChange)="onHeatmapSettingsChange()" class="w-full"></p-slider>
+  </div>
+</uwb-overlay>

@@ -63,14 +63,11 @@ export class UwbMapAnchorsComponent
     this.source.clear();
     if (this.mapClickMode === 'else') {
       this.anchors.forEach((anchor) => {
-        const feature = new Feature(new Point([anchor.xPx!, anchor.yPx!]));
+        let id = 'anchor_' + 'NEW';
         if (anchor.id !== null) {
-          feature.setId('anchor_' + anchor.id);
-        } else {
-          feature.setId('anchor_' + 'NEW');
+          id = 'anchor_' + anchor.id;
         }
-        feature.setStyle(style);
-        this.source.addFeature(feature);
+        this.addPointToMap([anchor.xPx!, anchor.yPx!], id, style);
         this.source.changed();
       });
     }
@@ -84,12 +81,7 @@ export class UwbMapAnchorsComponent
           const newCoordinates = this.map.getCoordinateFromPixel(event.pixel);
           existingFeature.setGeometry(new Point(newCoordinates));
         } else {
-          const feature = new Feature(
-            new Point([event.pixel[0], event.pixel[1]])
-          );
-          feature.setId('anchor_' + 'NEW');
-          feature.setStyle(style);
-          this.source.addFeature(feature);
+          this.addPointToMap([event.pixel[0], event.pixel[1]], 'anchor_NEW', style);
         }
         this.source.changed();
         const newAnchor: IAnchor = { x: event.pixel[0], y: event.pixel[1] };

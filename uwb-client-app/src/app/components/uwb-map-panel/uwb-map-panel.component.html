@@ -1,5 +1,11 @@
-<div class="map-panel flex align-items-center p-2">
-  <p-button class="px-3" icon="pi pi-backward" (onClick)="onPreviousClick()"></p-button>
-  <p-button class="px-3" [icon]="isPlay ? 'pi pi-pause' : 'pi pi-play'" (onClick)="isPlay ? onPauseClick() : onPlayClick()"></p-button>
-  <p-button class="px-3" icon="pi pi-forward" (onClick)="onNextClick()"></p-button>
+<div class="map-panel p-2">
+  <div class="grid w-full p-1">
+    <p-button class="col flex justify-content-center" icon="pi pi-backward" [disabled]="disabledButtons" (onClick)="onPreviousClick()"></p-button>
+    <p-button class="col flex justify-content-center" [icon]="isPlay ? 'pi pi-pause' : 'pi pi-play'" [disabled]="disabledButtons" (onClick)="isPlay ? onPauseClick() : onPlayClick()"></p-button>
+    <p-button class="col flex justify-content-center" icon="pi pi-forward" [disabled]="disabledButtons" (onClick)="onNextClick()"></p-button>
+  </div>
+  <div class="grid w-full justify-content-center align-items-center p-1">
+    <label>{{ 'localization.details.timeToChangePoint' | translate }}: </label>
+    <p-inputNumber class="mx-2" inputId="decimal" [(ngModel)]="timeToChangePoint" [min]="minTimeToChangePoint" [max]="maxTimeToChangePoint" [maxFractionDigits]="1" (onBlur)="onTimeToChangePointChange()"> </p-inputNumber>[s]
+  </div>
 </div>

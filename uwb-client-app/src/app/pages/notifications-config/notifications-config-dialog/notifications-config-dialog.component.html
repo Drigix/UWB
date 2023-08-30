@@ -1,0 +1,22 @@
+<uwb-form [formGroup]="formGroup!" (ngSubmit)="onSave()" (cancel)="onCloseDialog()">
+  <uwb-form-grid form-body>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="title" formControlName="title" />
+        <label htmlFor="title">{{ 'notification.title' | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="message" formControlName="message" />
+        <label htmlFor="message">{{ 'notification.message' | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-single-select [items]="dropdownNotificationTypeItems" [optionLabel]="'name'" [itemValue]="'id'" formControlName="type" label="{{ 'notification.type' | translate }}" ></uwb-single-select>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-multi-select [items]="dropdownAreaItems" [optionLabel]="'name'" formControlName="areas" label="{{ 'notification.areas' | translate }}" ></uwb-multi-select>
+    </uwb-form-control>
+  </uwb-form-grid>
+</uwb-form>

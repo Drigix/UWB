@@ -1,0 +1,14 @@
+<div class="single_table_with_navbar">
+  <div class="grid align-items-center">
+    <uwb-calendar class="col-3 flex justify-content-center" [rangeMode]="true" [showTime]="true" (modelChange)="onDateChange($event)"></uwb-calendar>
+    <div class="col-1 flex justify-content-center align-items-end" style="height: 80px;">
+      <p-button icon="pi pi-search" [disabled]="!checkIsAllValid()" (onClick)="onLoadNotifications()"></p-button>
+    </div>
+  </div>
+  <uwb-table
+  [columns]="columns"
+  [values]="notifications"
+  (selectionChange)="onNotificationSelect($event)"
+  >
+  </uwb-table>
+</div>

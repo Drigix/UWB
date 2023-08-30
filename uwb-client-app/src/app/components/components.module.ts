@@ -22,6 +22,7 @@ import { UwbMapAnchorsComponent } from './uwb-map/uwb-map-anchors.component';
 import { UwbMapAreasComponent } from './uwb-map/uwb-map-areas.component';
 import { UwbMapLocalizationsComponent } from './uwb-map/uwb-map-localizations.component';
 import { UwbMapPanelComponent } from './uwb-map-panel/uwb-map-panel.component';
+import { UwbMapLocalizationsArchiveComponent } from './uwb-map/uwb-map-localizations-archive.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { UwbMapPanelComponent } from './uwb-map-panel/uwb-map-panel.component';
     UwbMapAnchorsComponent,
     UwbMapAreasComponent,
     UwbMapLocalizationsComponent,
+    UwbMapLocalizationsArchiveComponent,
     UwbHeatmapComponent,
     UwbFileUploadComponent,
     UwbDialogComponent,
@@ -68,6 +70,7 @@ import { UwbMapPanelComponent } from './uwb-map-panel/uwb-map-panel.component';
     UwbMapAnchorsComponent,
     UwbMapAreasComponent,
     UwbMapLocalizationsComponent,
+    UwbMapLocalizationsArchiveComponent,
     UwbHeatmapComponent,
     UwbFileUploadComponent,
     UwbDialogComponent,

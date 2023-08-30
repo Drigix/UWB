@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'uwb-map-panel',
@@ -8,11 +8,16 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 export class UwbMapPanelComponent implements OnInit {
 
-  isPlay = false;
+  @Input() disabledButtons = false;
   @Output() emitPlayClick = new EventEmitter();
   @Output() emitPauseClick = new EventEmitter();
   @Output() emitPreviousClick = new EventEmitter();
   @Output() emitNextClick = new EventEmitter();
+  @Output() emitTimeToChangePoint = new EventEmitter();
+  isPlay = false;
+  timeToChangePoint = 2;
+  minTimeToChangePoint = 0.1;
+  maxTimeToChangePoint = 5;
 
   constructor() { }
 
@@ -34,5 +39,12 @@ export class UwbMapPanelComponent implements OnInit {
 
   onNextClick(): void {
     this.emitNextClick.emit();
+  }
+
+  onTimeToChangePointChange(): void {
+    if(this.timeToChangePoint === undefined || this.timeToChangePoint === null) {
+      this.timeToChangePoint = 2;
+    }
+    this.emitTimeToChangePoint.emit(this.timeToChangePoint);
   }
 }

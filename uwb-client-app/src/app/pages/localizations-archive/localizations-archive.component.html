@@ -1,9 +1,33 @@
-<div class="h-full localizations-archive-page">
-  <uwb-heatmap [background]="'https://i.wpimg.pl/c/x600/wpcdn.pl/extradom/media/428587/source'" [data]="localizations" [pointRadius]="radius" [pointBlur]="blur"></uwb-heatmap>
-  <div class="w-2 m-2">
-    <p>Promień: {{ radius }}</p>
-    <p-slider [(ngModel)]="radius" class="w-full"></p-slider>
-    <p>Blur: {{ blur }}</p>
-    <p-slider [(ngModel)]="blur" class="w-full"></p-slider>
+<div class="h-full single_map_with_navbar">
+  <div class="grid align-items-center">
+    <uwb-single-select
+      class="col-4"
+      [items]="backgrounds"
+      optionLabel="name"
+      label="{{ 'localization.backgrounds' | translate }}"
+      (modelChange)="onBackgroundSelect($event)"
+      [itemTemplate]="itemTemplate"
+    >
+      <ng-template #itemTemplate let-item="item" pTemplate="item">
+        <div class="flex align-items-center" pTooltip="{{ item.name }}">
+          <img [src]="item.path" style="height: 30px" />
+          {{ item.name }}
+        </div>
+      </ng-template>
+    </uwb-single-select>
+    <uwb-calendar class="col-3 flex justify-content-center" [rangeMode]="true" [showTime]="true" (modelChange)="onDateChange($event)"></uwb-calendar>
+    <uwb-single-select
+        class="col-4"
+        [showClear]="false"
+        [items]="objects"
+        optionLabel="name"
+        label="{{ 'localization.objects' | translate }}"
+        (modelChange)="onObjectSelect($event)"
+      >
+    </uwb-single-select>
+    <div class="col-1 flex justify-content-center align-items-end" style="height: 80px;">
+      <p-button icon="pi pi-search" [disabled]="!checkIsAllValid()" (onClick)="onLoadLocalizationsArchive()"></p-button>
+    </div>
   </div>
+  <uwb-map-localizations-archive [background]="selectedBackground?.path!" [localizations]="localizations" [mapDisplayType]="'mapWithBodyInside'"></uwb-map-localizations-archive>
 </div>

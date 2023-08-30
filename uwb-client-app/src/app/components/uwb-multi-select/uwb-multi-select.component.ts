@@ -28,7 +28,7 @@ export class UwbMultiSelectComponent<T extends { id: number }> implements AfterV
   @Input() showClear = false;
   @Input() label = 'Wybierz opcje';
   @ViewChild(MultiSelect) multiSelect!: MultiSelect;
-  itemValue!: string;
+  @Input() itemValue!: string;
   itemLabel!: string;
   filterBy!: string;
   value!: T[];
