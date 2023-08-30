@@ -13,7 +13,9 @@
         "clients": "Klienci",
         "objects": "Tagi",
         "anchors": "Kotwice",
-        "occurrence-map": "Mapa występowań"
+        "occurrence-map": "Mapa występowań",
+        "notifications": "Powiadomienia",
+        "notificationsConfig": "Konfiguracja powiadomień"
       }
     },
     "table": {
@@ -127,5 +129,14 @@
       "showAnchors": "Pokaż kotwice",
       "showAreas": "Pokaż obszary"
     }
+  },
+  "notification": {
+    "name": "Nazwa powiadomienia",
+    "title": "Tytuł powiadomienia",
+    "message": "Treść powiadomienia",
+    "date": "Data",
+    "objectName": "Nazwa obiektu",
+    "type": "Typ powiadomienia",
+    "areas": "Obszary"
   }
 }
