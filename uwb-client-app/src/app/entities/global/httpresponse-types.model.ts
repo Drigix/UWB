@@ -3,6 +3,9 @@ import { IAnchor } from "@entities/anchor/anchor.model";
 import { IBackground } from "@entities/background/background.model";
 import { IClient } from "@entities/client/client.model";
 import { IIcon } from "@entities/icon/icon.model";
+import { INotificationConfig } from "@entities/notification/notification-config.model";
+import { INotificationType } from "@entities/notification/notification-type.model";
+import { INotification } from "@entities/notification/notification.model";
 import { IObjectType } from "@entities/objects/object-type.model";
 import { IObject } from "@entities/objects/object.model";
 
@@ -23,3 +26,12 @@ export type IconArrayResponseType = HttpResponse<IIcon[]>;
 
 export type AnchorsResponseType = HttpResponse<IAnchor>;
 export type AnchorsArrayResponseType = HttpResponse<IAnchor[]>;
+
+export type NotificationsResponseType = HttpResponse<INotification>;
+export type NotificationsArrayResponseType = HttpResponse<INotification[]>;
+
+export type NotificationsConfigResponseType = HttpResponse<INotificationConfig>;
+export type NotificationsConfigArrayResponseType = HttpResponse<INotificationConfig[]>;
+
+export type NotificationTypesResponseType = HttpResponse<INotificationType>;
+export type NotificationTypesArrayResponseType = HttpResponse<INotificationType[]>;
