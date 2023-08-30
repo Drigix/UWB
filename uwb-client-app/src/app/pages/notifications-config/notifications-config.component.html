@@ -1,0 +1,18 @@
+<div class="single_table_with_5buttons">
+  <uwb-table
+  [columns]="columns"
+  [values]="notifications"
+  (selectionChange)="onNotificationSelect($event)"
+  >
+  </uwb-table>
+  <div class="buttons_container_center">
+    <uwb-footer-buttons
+      [styleClass]="'col px-2'"
+      [disabledEditAndDeleteButton]="selectedNotificationConfig === undefined"
+      (emitAddClick)="openDialog()"
+      (emitEditClick)="openDialog(true)"
+      (emitDeleteClick)="openDeleteDialog()"
+    >
+    </uwb-footer-buttons>
+  </div>
+</div>
