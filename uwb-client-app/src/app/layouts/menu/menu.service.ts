@@ -24,7 +24,9 @@ export class MenuService {
       await this.createMenuItem('fa fa-handshake-o', 'global.menu.pages.clients', 'clients', []),
       await this.createMenuItem('fa fa-bullseye', 'global.menu.pages.objects', 'objects', []),
       await this.createMenuItem('fa fa-anchor', 'global.menu.pages.anchors', 'anchors', []),
-      await this.createMenuItem('pi pi-map', 'global.menu.pages.occurrence-map', 'occurrence-map', [])
+      await this.createMenuItem('pi pi-map', 'global.menu.pages.occurrence-map', 'occurrence-map', []),
+      await this.createMenuItem('fa fa-envelope', 'global.menu.pages.notifications', 'notifications', []),
+      await this.createMenuItem('fa fa-wrench', 'global.menu.pages.notificationsConfig', 'notifications-config', [])
 
     ];
     //items = this.filterTabsByAuth(items);
