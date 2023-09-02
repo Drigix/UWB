@@ -1331,6 +1331,7 @@ p-password.ng-invalid.ng-dirty > .p-password > .p-inputtext {
 
 .p-input-icon-left>i, .p-input-icon-left>.p-icon-wrapper, .p-input-icon-right>i, .p-input-icon-right>.p-icon-wrapper {
   position: relative;
+  color: darkslategray;
   top: 8px;
   right: 2%;
 }
@@ -5325,7 +5326,7 @@ p-dynamicdialog .p-dialog-mask {
 
 .p-tabmenu .p-tabmenu-nav {
   background: #ffffff;
-  border: 1px solid #dee2e6;
+  padding-bottom: 3px;
   border-width: 0 0 2px 0;
 }
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem {

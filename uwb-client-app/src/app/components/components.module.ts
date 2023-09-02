@@ -23,6 +23,9 @@ import { UwbMapAreasComponent } from './uwb-map/uwb-map-areas.component';
 import { UwbMapLocalizationsComponent } from './uwb-map/uwb-map-localizations.component';
 import { UwbMapPanelComponent } from './uwb-map-panel/uwb-map-panel.component';
 import { UwbMapLocalizationsArchiveComponent } from './uwb-map/uwb-map-localizations-archive.component';
+import { UwbProfileSettingsComponent } from './uwb-profile/uwb-profile-settings/uwb-profile-settings.component';
+import { UwbProfilePasswordComponent } from './uwb-profile/uwb-profile-password/uwb-profile-password.component';
+import { UwbProfileProfileComponent } from './uwb-profile/uwb-profile-profile/uwb-profile-profile.component';
 
 
 @NgModule({
@@ -53,7 +56,10 @@ import { UwbMapLocalizationsArchiveComponent } from './uwb-map/uwb-map-localizat
     UwbDialogComponent,
     UwbTreeTableComponent,
     UwbTreeSelectComponent,
-    UwbMapPanelComponent
+    UwbMapPanelComponent,
+    UwbProfileSettingsComponent,
+    UwbProfilePasswordComponent,
+    UwbProfileProfileComponent
   ],
   declarations: [
     FormComponent,
@@ -76,7 +82,10 @@ import { UwbMapLocalizationsArchiveComponent } from './uwb-map/uwb-map-localizat
     UwbDialogComponent,
     UwbTreeTableComponent,
     UwbTreeSelectComponent,
-    UwbMapPanelComponent
+    UwbMapPanelComponent,
+    UwbProfileSettingsComponent,
+    UwbProfilePasswordComponent,
+    UwbProfileProfileComponent
   ],
   providers: [],
 })
