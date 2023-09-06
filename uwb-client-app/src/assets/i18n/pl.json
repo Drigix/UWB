@@ -53,6 +53,23 @@
       "profile": "Profil",
       "password": "Hasło",
       "settings": "Ustawienia"
+    },
+    "password": {
+      "oldPassword": "Stare hasło",
+      "password": "Nowe hasło",
+      "confirmPassword": "Potwierdź hasło"
+    },
+    "settings": {
+      "language": "Język aplikacji",
+      "theme": "Kolorystyka aplikacji"
+    },
+    "language": {
+      "pl": "Polski",
+      "en": "Angielski"
+    },
+    "theme": {
+      "light": "Jasna",
+      "dark": "Ciemna"
     }
   },
   "user": {

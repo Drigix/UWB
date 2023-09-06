@@ -15,22 +15,29 @@ export class UwbProfileComponent implements OnInit {
     private translateService: TranslateService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.items = [
       {
+        id: '1',
         label: this.translateService.instant('profile.menu.profile'),
         icon: 'pi pi-user-edit'
       },
       {
+        id: '2',
         label: this.translateService.instant('profile.menu.password'),
         icon: 'pi pi-lock'
       },
       {
+        id: '3',
         label: this.translateService.instant('profile.menu.settings'),
         icon: 'pi pi-cog'
       }
     ];
     this.activeItem = this.items[0];
+  }
+
+  onActiveItemChange(event: MenuItem): void {
+    this.activeItem = event;
   }
 
 }

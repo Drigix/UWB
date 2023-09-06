@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ITheme } from '@entities/global/theme.model';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -10,9 +12,17 @@ export class ThemeService {
   private LAST_SAVED_THEME_KEY = 'lastSavedColorTheme';
   private DEFAULT_THEME = 'primaryTheme';
 
-  constructor() {
+  constructor(private translateService: TranslateService) {
     this.themeSub = new BehaviorSubject<string>(this.DEFAULT_THEME);
     this.theme$ = this.themeSub.asObservable();
+  }
+
+  getThemes(): ITheme[] {
+    const themes = [
+      this.createThemeItem(1, this.translateService.instant('profile.theme.light'), 'light', 'pi pi-sun'),
+      this.createThemeItem(2, this.translateService.instant('profile.theme.dark'), 'dark', 'pi pi-moon')
+    ];
+    return themes;
   }
 
   switchTheme(accountLogin: string): void {
@@ -45,5 +55,10 @@ export class ThemeService {
   private setUserThemeInLocalStorage(accountLogin: string, themeName: string): void {
     window.localStorage.setItem(`${accountLogin}_colorTheme`, themeName);
     window.localStorage.setItem(this.LAST_SAVED_THEME_KEY, themeName);
+  }
+
+  private createThemeItem(id?: number, name?: string, themeKey?: string, icon?: string) {
+    const themeItem: ITheme = { id, name, themeKey, icon };
+    return themeItem;
   }
 }
