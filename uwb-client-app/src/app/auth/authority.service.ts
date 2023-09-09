@@ -1,58 +1,62 @@
 import { Injectable } from '@angular/core';
+import { IRole } from '@entities/auth/role.model';
+import { IAuthenticationToken } from '@entities/auth/token.model';
 import jwt_decode from 'jwt-decode';
 
 @Injectable({providedIn: 'root'})
 export class AuthorityService {
 
-  private isUserAuthenticate = false;
-  private userRole = '';
-  private accessToken?: any;
+ accessToken?: IAuthenticationToken;
+ userRoles: string[] = [];
 
-  constructor() { }
+ setAccessToken(accessToken: IAuthenticationToken): void {
+    window.localStorage.setItem('access_token', accessToken.token!);
+    const decodeToken: any = jwt_decode(accessToken.token!);
+    this.countTokenTime(decodeToken['exp']);
+ }
 
-  private setAuthenticationProperties(): void {
-    this.setUserAuthenticate(this.checkAuthentication());
-    if(this.isUserAuthenticate) {
-      const decodeAccessToken = this.decodeAccessToken();
-      this.setUserRole(decodeAccessToken['role']);
+ getAccessToken(): string {
+   return window.localStorage.getItem('access_token')!;
+ }
+
+ isAuthenticated(): boolean {
+    return window.localStorage.getItem('access_token') ? true : false;
+ }
+
+ getUserRoles(): string[] {
+    return this.userRoles;
+ }
+
+ setUserRoles(roles: IRole[]): void {
+    this.userRoles = roles.map( role => role.name!);
+ }
+
+ setAutoLogout(): void {
+    const expTimeString = window.localStorage.getItem('access_token_exp')?.split(':');
+
+    const expirationTime = new Date();
+    expirationTime.setHours(parseInt(expTimeString![0], 10));
+    expirationTime.setMinutes(parseInt(expTimeString![1], 10));
+    const currentTime = new Date();
+    const timeRemaining = expirationTime.getTime() - currentTime.getTime();
+    console.log(timeRemaining);
+    if (timeRemaining <= 0) {
+      window.localStorage.clear();
+      window.location.reload();
+    } else {
+      setTimeout(() => {
+        window.localStorage.clear();
+        window.location.reload();
+      }, timeRemaining);
     }
-  }
+ }
 
-  private checkAuthentication(): boolean {
-    this.accessToken = this.getToken();
-    return (this.accessToken !== null && this.accessToken !== undefined && this.accessToken !== '') ?? false;
-  }
-
-  private decodeAccessToken(): any {
-    if(this.accessToken) {
-      return jwt_decode(this.accessToken);
-    }
-  }
-
-  private setUserAuthenticate(auth: boolean): void {
-    this.isUserAuthenticate = auth;
-  }
-
-  private setUserRole(role: string): void {
-    this.userRole = role;
-  }
-
-  setToken(token: string, expirationDate: string): void {
-    window.sessionStorage.setItem('accessToken', token);
-    window.sessionStorage.setItem('expirationDate', expirationDate);
-  }
-
-  getToken(): string {
-    return window.sessionStorage.getItem('accessToken')!;
-  }
-
-  getUserAuthenticate(): boolean {
-    this.setAuthenticationProperties();
-    return this.isUserAuthenticate;
-  }
-
-  getUserRole(): string {
-    return this.userRole;
-  }
+ private countTokenTime(expirationInSeconds: number): void {
+  const expirationDate = new Date(expirationInSeconds * 1000); // Zamień sekundy na milisekundy
+  const hours = expirationDate.getHours();
+  const minutes = expirationDate.getMinutes();
+  const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  window.localStorage.setItem('access_token_exp', formattedTime);
+ }
 
 }

@@ -3,7 +3,7 @@
     <img src="../../../assets/images/uwb_logo.png" />
   </div>
   <div class="col-8 flex justify-content-center align-items-center">
-    <form #formRef="ngForm" (ngSubmit)="login()" autocomplete="off" class="flex flex-column align-items-center">
+    <form [formGroup]="formGroup!" (ngSubmit)="login()" autocomplete="off" class="flex flex-column align-items-center">
       <span class="p-float-label">
         <input pInputText id="email" formControlName="email" />
         <label htmlFor="email">{{ "user.email" | translate }}</label>
