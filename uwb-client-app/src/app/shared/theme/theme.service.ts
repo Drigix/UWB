@@ -9,52 +9,24 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class ThemeService {
   public theme$: Observable<string>;
   private themeSub: BehaviorSubject<string>;
-  private LAST_SAVED_THEME_KEY = 'lastSavedColorTheme';
-  private DEFAULT_THEME = 'primaryTheme';
 
   constructor(private translateService: TranslateService) {
-    this.themeSub = new BehaviorSubject<string>(this.DEFAULT_THEME);
+    const USER_THEME = window.localStorage.getItem('user_theme');
+    this.themeSub = new BehaviorSubject<string>(USER_THEME!);
     this.theme$ = this.themeSub.asObservable();
   }
 
   getThemes(): ITheme[] {
     const themes = [
-      this.createThemeItem(1, this.translateService.instant('profile.theme.light'), 'light', 'pi pi-sun'),
-      this.createThemeItem(2, this.translateService.instant('profile.theme.dark'), 'dark', 'pi pi-moon')
+      this.createThemeItem(1, this.translateService.instant('profile.theme.light'), 'primaryTheme', 'pi pi-sun'),
+      this.createThemeItem(2, this.translateService.instant('profile.theme.dark'), 'darkTheme', 'pi pi-moon')
     ];
     return themes;
   }
 
-  switchTheme(accountLogin: string): void {
-    const currentTheme = this.getUserThemeFromLocalStorage(accountLogin);
+  switchTheme(currentTheme: string): void {
     const newTheme = currentTheme === 'darkTheme' ? 'primaryTheme' : 'darkTheme';
-    this.setUserThemeInLocalStorage(accountLogin, newTheme);
     this.themeSub.next(newTheme);
-  }
-
-  setUserThemeOrDefault(accountLogin: string): void {
-    const userTheme = this.getUserThemeFromLocalStorage(accountLogin);
-    let theme;
-    if (userTheme != null) {
-      theme = userTheme;
-    } else {
-      theme = this.getLastSavedTheme();
-    }
-    this.setUserThemeInLocalStorage(accountLogin, theme);
-    this.themeSub.next(theme);
-  }
-
-  getLastSavedTheme(): string{
-    return window.localStorage.getItem(this.LAST_SAVED_THEME_KEY)??this.DEFAULT_THEME;
-  }
-
-  private getUserThemeFromLocalStorage(accountLogin: string): string | null {
-    return window.localStorage.getItem(`${accountLogin}_colorTheme`);
-  }
-
-  private setUserThemeInLocalStorage(accountLogin: string, themeName: string): void {
-    window.localStorage.setItem(`${accountLogin}_colorTheme`, themeName);
-    window.localStorage.setItem(this.LAST_SAVED_THEME_KEY, themeName);
   }
 
   private createThemeItem(id?: number, name?: string, themeKey?: string, icon?: string) {
