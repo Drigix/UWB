@@ -1,12 +1,12 @@
 <p-tabMenu [model]="items" [activeItem]="activeItem!" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
 <ng-container [ngSwitch]="activeItem!.id">
   <ng-container *ngSwitchCase="'1'">
-    <uwb-profile-profile></uwb-profile-profile>
+    <uwb-profile-profile [account]="account"></uwb-profile-profile>
   </ng-container>
   <ng-container *ngSwitchCase="'2'">
     <uwb-profile-password></uwb-profile-password>
   </ng-container>
   <ng-container *ngSwitchCase="'3'">
-    <uwb-profile-settings></uwb-profile-settings>
+    <uwb-profile-settings [account]="account"></uwb-profile-settings>
   </ng-container>
 </ng-container>

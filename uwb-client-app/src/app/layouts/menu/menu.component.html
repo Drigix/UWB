@@ -2,8 +2,8 @@
   <div class="flex-space">
     <a class="mode-icon" (click)="switchTheme()" pTooltip="{{ 'global.menu.changeStyle' | translate }}" tooltipPosition="right">
       <div class="icon-container">
-        <i [ngClass]="{ 'fade-out': !lighVersion }" class="pi pi-sun text-lg" (click)="lighVersion = !lighVersion"></i>
-        <i [ngClass]="{ 'fade-out': lighVersion }" class="pi pi-moon text-lg" (click)="lighVersion = !lighVersion"></i>
+        <i [ngClass]="{ 'fade-out': !primaryTheme }" class="pi pi-sun text-lg"></i>
+        <i [ngClass]="{ 'fade-out': primaryTheme }" class="pi pi-moon text-lg"></i>
       </div>
     </a>
     <a (click)="toggleMenuVisibility()">
@@ -17,7 +17,7 @@
     </a>
   </div>
   <div class="flex-center user-info" style="margin: 10px;">
-    <label for="user" style="text-align: center;">imie nazwisko</label>
+    <label for="user" style="text-align: center;">{{account?.firstName}} {{account?.lastName}}</label>
   </div>
   <div class="flex-center flex-column mb-1">
     <a class="logout-item flex align-items-center pb-2" (click)="openProfileDialog()" id="logout" data-cy="logout" pTooltip="{{ 'global.menu.profile' | translate }}">

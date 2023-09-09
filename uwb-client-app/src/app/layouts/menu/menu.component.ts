@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMenuItem } from '@entities/menu/menu-item.model';
 import { MenuService } from './menu.service';
@@ -8,6 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from '@shared/theme/theme.service';
 import { Subscription } from 'rxjs';
 import { Themes } from '../themes';
+import { IUser } from '@entities/user/user.model';
+import { AuthenticationService } from 'src/app/auth/authentication.service';
 
 @Component({
   selector: 'uwb-menu',
@@ -15,29 +17,29 @@ import { Themes } from '../themes';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
+  @Input() account?: IUser;
   items: IMenuItem[] = [];
   filteredItems: IMenuItem[] = [];
-  lighVersion = true;
+  primaryTheme = true;
   version: string | null = null;
   isMenuVisible = true;
   filterText = '';
-  login = 'drigix'
   themeSubscription?: Subscription;
   constructor(
     private menuService: MenuService,
     private dialogService: DialogService,
     private router: Router,
     private translateService: TranslateService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private authenticationService: AuthenticationService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    //this.loadAccount();
     this.items = await this.menuService.getMenuItems();
     const currentUrl = window.location.pathname.split('/')[1];
     const currentMenuItem = this.items.find( i => i.routerLink === currentUrl);
     this.filteredItems = this.items;
-    this.lighVersion = this.themeService.getLastSavedTheme() === 'primaryTheme';
+    this.primaryTheme = this.account?.theme === 'darkTheme' ? false : true;
     this.observeAppThemeChange();
     //this.navigateToStartPage();
   }
@@ -45,14 +47,6 @@ export class MenuComponent implements OnInit {
   toggleMenuVisibility(): void {
     this.isMenuVisible = !this.isMenuVisible;
   }
-
-  // loadAccount(): void {
-  //   this.accountService.getAuthenticationState().subscribe(account => {
-  //     if (account) {
-  //       this.account = account;
-  //     }
-  //   });
-  // }
 
   openProfileDialog(): void {
     const ref = this.dialogService.open(UwbProfileComponent, {
@@ -63,8 +57,7 @@ export class MenuComponent implements OnInit {
   }
 
   logout(): void {
-    //this.loginService.logout();
-    //this.router.navigate(['/login']);
+    this.authenticationService.logout();
   }
 
   logoClick(): void {
@@ -79,9 +72,8 @@ export class MenuComponent implements OnInit {
   }
 
   switchTheme(): void {
-    if(this.login) {
-      this.themeService.switchTheme(this.login);
-    }
+    this.themeService.switchTheme(this.primaryTheme ? 'primaryTheme' : 'darkTheme');
+    this.primaryTheme = !this.primaryTheme;
   }
 
   observeAppThemeChange(): void {

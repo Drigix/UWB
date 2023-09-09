@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { IUpdatePassword } from '@entities/auth/password.model';
+import { UsersService } from '@services/users/users.service';
+import { ToastService } from '@shared/toast/toast.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AuthenticationService } from 'src/app/auth/authentication.service';
 
 @Component({
   selector: 'uwb-profile-password',
@@ -11,7 +15,7 @@ export class UwbProfilePasswordComponent implements OnInit {
 
   formGroup!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private ref: DynamicDialogRef) { }
+  constructor(private formBuilder: FormBuilder, private ref: DynamicDialogRef, private authenticationService: AuthenticationService, private toastService: ToastService) { }
 
   ngOnInit() {
     this.loadFormGroup();
@@ -20,7 +24,7 @@ export class UwbProfilePasswordComponent implements OnInit {
   loadFormGroup(): void {
     this.formGroup = this.formBuilder.group({
       oldPassword: [{value: null, disabled: false}, [Validators.required]],
-      password: [{value: null, disabled: false}, [Validators.required, this.passwordValidator]],
+      newPassword: [{value: null, disabled: false}, [Validators.required, this.passwordValidator]],
       confirmPassword: [{value: null, disabled: false}, [Validators.required, this.matchPassword.bind(this)]]
     });
   }
@@ -46,14 +50,27 @@ export class UwbProfilePasswordComponent implements OnInit {
   }
 
   matchPassword(control: FormControl): { [s: string]: boolean } | null {
-    if (this.formGroup && control.value !== this.formGroup.get('password')!.value) {
+    if (this.formGroup && control.value !== this.formGroup.get('newPassword')!.value) {
       return { 'passwordMismatch': true };
     }
     return null;
   }
 
   onSave(): void {
-
+    const value = this.formGroup.getRawValue();
+    value.confirmPassword = undefined;
+    const password: IUpdatePassword = value;
+    this.authenticationService.updatePassword(password).subscribe(
+      {
+        next: () => {
+          this.toastService.showSuccessToast({summary: 'Success', 'detail': 'Pomyślnie edytowano hasło!'})
+          this.onCloseDialog();
+        },
+        error: () => {
+          this.toastService.showErrorToast({summary: 'Error', 'detail': 'Edycja nie powiodła się!'})
+        }
+      }
+    );
   }
 
   onCloseDialog(): void {
