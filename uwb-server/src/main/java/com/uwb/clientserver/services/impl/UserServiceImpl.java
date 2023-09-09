@@ -1,7 +1,10 @@
 package com.uwb.clientserver.services.impl;
 
+import com.uwb.clientserver.exceptions.BadPasswordException;
 import com.uwb.clientserver.mappers.UserMapper;
 import com.uwb.clientserver.models.User;
+import com.uwb.clientserver.models.request.PasswordRequest;
+import com.uwb.clientserver.models.request.UserRequest;
 import com.uwb.clientserver.models.response.UserResponse;
 import com.uwb.clientserver.repositories.UserRepository;
 import com.uwb.clientserver.services.UserService;
@@ -10,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -43,6 +47,15 @@ public class UserServiceImpl implements UserService {
     public UserResponse findCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(auth.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return userMapper.toResponse(user);
+    }
+
+    @Override
+    public UserResponse updateUser(UserRequest request) {
+        User user = userMapper.toEntity(request);
+        String userPassword = userRepository.findById(user.getId()).get().getPassword();
+        user.setPassword(userPassword);
+        user = userRepository.save(user);
         return userMapper.toResponse(user);
     }
 

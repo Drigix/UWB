@@ -10,5 +10,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 public class RoleResponse {
+    private Long id;
     private String name;
 }

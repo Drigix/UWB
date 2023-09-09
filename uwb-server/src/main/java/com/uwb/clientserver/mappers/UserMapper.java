@@ -4,6 +4,7 @@ import com.uwb.clientserver.models.Role;
 import com.uwb.clientserver.models.User;
 import com.uwb.clientserver.models.request.SignUpRequest;
 import com.uwb.clientserver.models.request.SigninRequest;
+import com.uwb.clientserver.models.request.UserRequest;
 import com.uwb.clientserver.models.response.JwtAuthenticationResponse;
 import com.uwb.clientserver.models.response.UserResponse;
 import org.mapstruct.AfterMapping;
@@ -22,6 +23,9 @@ public interface UserMapper {
 
     User toEntity(SigninRequest request);
 
+    @Mapping(source = "roleIds", target = "roles")
+    User toEntity(UserRequest request);
+
     @Mapping(source = "roles", target = "roles")
     UserResponse toResponse(User user);
 
@@ -35,4 +39,16 @@ public interface UserMapper {
         User.builder().id(id);
         return user;
     }
+
+    default User toEntityWithDefaultThemeAndLang(SignUpRequest request) {
+        User user = toEntity(request);
+        if(user.getTheme() == null) {
+            user.setTheme("primaryTheme");
+        }
+        if(user.getLangKey() == null) {
+            user.setLangKey("pl");
+        }
+        return user;
+    }
+
 }
