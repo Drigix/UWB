@@ -1,5 +1,6 @@
 import { HttpResponse } from "@angular/common/http";
 import { IAnchor } from "@entities/anchor/anchor.model";
+import { IAuthenticationToken } from "@entities/auth/token.model";
 import { IBackground } from "@entities/background/background.model";
 import { IClient } from "@entities/client/client.model";
 import { IIcon } from "@entities/icon/icon.model";
@@ -8,6 +9,12 @@ import { INotificationType } from "@entities/notification/notification-type.mode
 import { INotification } from "@entities/notification/notification.model";
 import { IObjectType } from "@entities/objects/object-type.model";
 import { IObject } from "@entities/objects/object.model";
+import { IUser } from "@entities/user/user.model";
+
+export type AuthenticationTokenResponseType = HttpResponse<IAuthenticationToken>;
+
+export type UserResponseType = HttpResponse<IUser>;
+export type UserArrayResponseType = HttpResponse<IUser[]>;
 
 export type BackgroundResponseType = HttpResponse<IBackground>;
 export type BackgroundArrayResponseType = HttpResponse<IBackground[]>;

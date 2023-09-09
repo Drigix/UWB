@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IUser } from '@entities/user/user.model';
 
 @Component({
   selector: 'uwb-profile-profile',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 
 export class UwbProfileProfileComponent implements OnInit {
 
-  account = {name: 'Michał', surname: 'Ławinski', email: 'mlawinsk@gmailcom', orgUnit: 'Politechnika Śląska'};
+  @Input() account?: IUser;
+
   constructor() { }
 
   ngOnInit() { }

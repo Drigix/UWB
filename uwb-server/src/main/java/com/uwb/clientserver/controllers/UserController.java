@@ -1,6 +1,8 @@
 package com.uwb.clientserver.controllers;
 
+import com.uwb.clientserver.models.request.PasswordRequest;
 import com.uwb.clientserver.models.request.SignUpRequest;
+import com.uwb.clientserver.models.request.UserRequest;
 import com.uwb.clientserver.models.response.JwtAuthenticationResponse;
 import com.uwb.clientserver.models.response.UserResponse;
 import com.uwb.clientserver.services.UserService;
@@ -26,7 +28,7 @@ public class UserController {
     /**
      * Endpoint for find all users in the application.
      *
-     * @return list of UserResponse
+     * @return list of UserResponse.
      */
     @GetMapping()
     public List<UserResponse> getAllUsers() {
@@ -37,12 +39,23 @@ public class UserController {
     /**
      * Endpoint for get current user.
      *
-     * @return entity of UserResponse
+     * @return entity of UserResponse.
      */
     @GetMapping("/account")
     public UserResponse getCurrentUser() {
         logger.debug("Request to get current user.");
         return userService.findCurrentUser();
+    }
+
+    /**
+     * Endpoint for update user.
+     *
+     * @return entity of UserResponse.
+     */
+    @PutMapping()
+    public UserResponse updateUser(@RequestBody UserRequest request) {
+        logger.debug("Request to update user.");
+        return userService.updateUser(request);
     }
 
 }

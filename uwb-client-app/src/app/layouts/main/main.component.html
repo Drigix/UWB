@@ -2,7 +2,7 @@
 <ng-container [ngSwitch]="isAuthenticated()">
   <div class="main h-screen" *ngSwitchCase="true">
     <div class="block p-2">
-      <uwb-menu class="w-full"></uwb-menu>
+      <uwb-menu class="w-full" [account]="account"></uwb-menu>
     </div>
     <div class="page h-full w-full pl-1 pr-4">
       <div class="m-2 w-full">

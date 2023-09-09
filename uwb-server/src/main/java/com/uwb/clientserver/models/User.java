@@ -34,6 +34,10 @@ public class User extends BaseEntity implements UserDetails, Serializable {
 
     private String password;
 
+    private String theme;
+
+    private String langKey;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "uwb_user_roles",

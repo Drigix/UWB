@@ -14,14 +14,14 @@ export class UserRouteAccessService {
     }
 
     hasAnyAuthority(authorities: string[] | string): Observable<boolean> {
-      const userRole = this.authorityService.getUserRole();
-      if (!userRole) {
+      const userRoles = this.authorityService.getUserRoles();
+      if (!userRoles) {
         return of(false);
       }
       if (!Array.isArray(authorities)) {
         authorities = [authorities];
       }
-      return of(authorities.some((authority: string) => authority.includes(userRole)));
+      return of(authorities.some((authority: string) => userRoles.includes(authority)));
     }
 }
 

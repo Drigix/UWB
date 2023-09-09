@@ -1,7 +1,7 @@
 <uwb-form [formGroup]="formGroup!" (ngSubmit)="onSave()" (cancel)="onCloseDialog()">
   <uwb-form-grid form-body>
     <uwb-form-control>
-      <uwb-single-select [items]="dropdownLanguageItems" [itemTemplate]="itemLanguageTemplate" [optionLabel]="'name'" formControlName="language" label="{{ 'profile.settings.language' | translate }}" >
+      <uwb-single-select [items]="dropdownLanguageItems" [itemTemplate]="itemLanguageTemplate" [itemValue]="'langKey'" [optionLabel]="'name'" formControlName="language" label="{{ 'profile.settings.language' | translate }}" >
         <ng-template #itemLanguageTemplate let-item="item" pTemplate="item">
           <div class="flex align-items-center" pTooltip="{{ item.name }}">
             <img [src]="item.img" class="mr-1" style="height: 25px; width: 40px;" />
@@ -11,7 +11,7 @@
       </uwb-single-select>
     </uwb-form-control>
     <uwb-form-control>
-      <uwb-single-select [items]="dropdownThemeItems" [itemTemplate]="itemThemeTemplate" [optionLabel]="'name'" formControlName="theme" label="{{ 'profile.settings.theme' | translate }}" >
+      <uwb-single-select [items]="dropdownThemeItems" [itemTemplate]="itemThemeTemplate" [itemValue]="'themeKey'" [optionLabel]="'name'" formControlName="theme" label="{{ 'profile.settings.theme' | translate }}" >
         <ng-template #itemThemeTemplate let-item="item" pTemplate="item">
           <div class="flex align-items-center" pTooltip="{{ item.name }}">
             <i [class]="item.icon" class="mr-1" style="font-size: 20px;"></i>

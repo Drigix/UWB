@@ -1,5 +1,6 @@
-package com.uwb.clientserver.models.response;
+package com.uwb.clientserver.models.request;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -11,19 +12,12 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserResponse {
-
+public class UserRequest {
     private Long id;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private String theme;
-
     private String langKey;
-
-    private List<RoleResponse> roles;
+    private List<Long> roleIds;
 }
