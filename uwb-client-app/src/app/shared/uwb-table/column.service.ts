@@ -11,19 +11,19 @@ export class ColumnService {
   getUserColumns(): UniversalTableColumn[] {
     this.columns = [
       {
-        field: 'name',
-        label: 'Name',
-        header: 'Name',
+        field: 'firstName',
+        label: 'firstName',
+        header: this.translateService.instant('user.firstName')
       },
       {
-        field: 'surname',
-        label: 'Surname',
-        header: 'Surname',
+        field: 'lastName',
+        label: 'lastName',
+        header: this.translateService.instant('user.lastName')
       },
       {
         field: 'email',
-        label: 'Email',
-        header: 'Email',
+        label: 'email',
+        header: this.translateService.instant('user.email')
       },
     ];
     return this.columns;

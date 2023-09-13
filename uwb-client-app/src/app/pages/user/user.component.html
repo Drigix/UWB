@@ -2,10 +2,12 @@
   <uwb-table
   [columns]="columns"
   [values]="users"
+  [(selection)]="selectedUser"
   >
   </uwb-table>
   <div class="buttons_container_center">
     <uwb-footer-buttons
+      [disabledEditAndDeleteButton]="selectedUser === undefined"
       (emitAddClick)="openDialog()"
       (emitEditClick)="openDialog(true)"
       (emitDeleteClick)="openDeleteDialog()"

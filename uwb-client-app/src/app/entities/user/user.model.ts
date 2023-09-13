@@ -8,6 +8,16 @@ export interface IUser {
   langKey?: string;
   theme?: string;
   roles?: IRole[];
+  organizationUnitId?: number;
+}
+
+export interface NewUser {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+  roleIds?: number[];
+  organizationUnitId?: number;
 }
 
 export interface IUpdateUser extends IUser {
