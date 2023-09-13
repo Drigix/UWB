@@ -8,11 +8,11 @@
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <uwb-tree-select
-        [treeSelectValue]="selectedParentClient"
         [options]="treeSelectItems"
         [optionLabel]="'name'"
-        formControlName="orgUnit"
+        formControlName="parentOrganizationUnitId"
         label="{{ 'object.client' | translate }}"
+        (modelChange)="onParentOrganizationUnitSelect($event)"
       ></uwb-tree-select>
     </uwb-form-control>
   </uwb-form-grid>
