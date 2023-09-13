@@ -4310,6 +4310,7 @@ p-dynamicdialog .p-dialog-mask {
 .p-dialog .p-dialog-footer button {
   width: 100px;
   background-color: var(--uwb-button-background);
+  color: var(--uwb-button-text-color);
   border: none;
 }
 .p-dialog.p-confirm-dialog .p-confirm-dialog-icon {

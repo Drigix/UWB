@@ -39,7 +39,6 @@ export class AuthorityService {
     expirationTime.setMinutes(parseInt(expTimeString![1], 10));
     const currentTime = new Date();
     const timeRemaining = expirationTime.getTime() - currentTime.getTime();
-    console.log(timeRemaining);
     if (timeRemaining <= 0) {
       window.localStorage.clear();
       window.location.reload();
@@ -52,7 +51,7 @@ export class AuthorityService {
  }
 
  private countTokenTime(expirationInSeconds: number): void {
-  const expirationDate = new Date(expirationInSeconds * 1000); // Zamień sekundy na milisekundy
+  const expirationDate = new Date(expirationInSeconds * 1000);
   const hours = expirationDate.getHours();
   const minutes = expirationDate.getMinutes();
   const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;

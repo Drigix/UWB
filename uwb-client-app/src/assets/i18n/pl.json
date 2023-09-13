@@ -30,6 +30,14 @@
       "deleteHeader": "Usuwanie elementu",
       "deleteMessage": "Czy na pewno chcesz usunąć podany element?"
     },
+    "toast": {
+      "header": {
+        "success": "Sukces",
+        "error": "Błąd",
+        "info": "Informacja",
+        "warning": "Ostrzeżenie"
+      }
+    },
     "buttons": {
       "add": "Dodaj",
       "edit": "Edytuj",
@@ -47,6 +55,9 @@
       "calibrate": "Kalibruj",
       "mapSettings": "Ustawienia mapy"
     }
+  },
+  "login": {
+    "loginError": "Nieprawidłowy email lub hasło!"
   },
   "profile": {
     "menu": {
@@ -73,13 +84,22 @@
     }
   },
   "user": {
-    "name": "Imie",
-    "surname": "Nazwisko",
+    "firstName": "Imie",
+    "lastName": "Nazwisko",
     "email": "Email",
     "dayOfBirth": "Data urodzenia",
     "password": "Hasło",
     "confirmPassword": "Potwierdź hasło",
-    "organizationUnit": "Jednostka organizacyjna"
+    "organizationUnit": "Jednostka organizacyjna",
+    "roles": "Role użytkownika",
+    "dialog": {
+      "addSuccess": "Dodano nowego użytkownika!",
+      "addError": "Dodanie nowego użytkownika nie powiodło się!",
+      "editSuccess": "Edytowano użytkownika!",
+      "editError": "Edycja użytkownika nie powiodło się!",
+      "deleteSuccess": "Usunięto użytkownika!",
+      "deleteError": "Usunięcie użytkownika nie powiodło się!"
+    }
   },
   "area": {
     "name": "Nazwa",
@@ -97,7 +117,15 @@
   "client": {
     "name": "Nazwa klienta",
     "clients": "Klienci",
-    "orgUnit": "Jednostka organizacyjna"
+    "orgUnit": "Jednostka organizacyjna",
+    "dialog": {
+      "addSuccess": "Dodano nową jednostkę organizacyjną!",
+      "addError": "Dodanie nowej jednostki organizacyjnej nie powiodło się!",
+      "editSuccess": "Edytowano jednostkę organizacyjną!",
+      "editError": "Edycja jednostki organizacyjnej nie powiodło się!",
+      "deleteSuccess": "Usunięto jednostkę organizayjną! ",
+      "deleteError": "Usunięcie jednostki organizacyjnej nie powiodło się!"
+    }
   },
   "object": {
     "name": "Nazwa",

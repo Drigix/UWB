@@ -1,7 +1,7 @@
 <span class="p-float-label">
   <p-multiSelect
     [(ngModel)]="value"
-    [dataKey]="'id'"
+    [dataKey]="itemValue ==='id' ? '' : 'id'"
     [options]="items"
     [optionValue]="itemValue"
     [optionLabel]="optionLabel"

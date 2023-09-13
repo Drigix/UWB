@@ -6,6 +6,8 @@ import { ConfirmDialogService } from '@shared/confirm-dialog/confirm-dialog.serv
 import { UniversalTableColumn } from '@entities/uwb-table/uwb-column.model';
 import { UsersService } from '@services/users/users.service';
 import { ColumnService } from '@shared/uwb-table/column.service';
+import { IUser } from '@entities/user/user.model';
+import { ToastService } from '@shared/toast/toast.service';
 
 @Component({
   selector: 'app-user',
@@ -15,16 +17,16 @@ import { ColumnService } from '@shared/uwb-table/column.service';
 export class UserComponent implements OnInit {
 
   columns: UniversalTableColumn[] = [];
-  users: any[] = [];
-  date = new Date();
-  selectedUser?: any;
+  users: IUser[] = [];
+  selectedUser?: IUser;
 
   constructor(
     private dialogService: DialogService,
-    private transalteService: TranslateService,
+    private translateService: TranslateService,
     private confirmDialogService: ConfirmDialogService,
     private usersService: UsersService,
-    private columnService: ColumnService
+    private columnService: ColumnService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -43,7 +45,7 @@ export class UserComponent implements OnInit {
 
   openDialog(edit = false): void {
     const ref = this.dialogService.open(UserDialogComponent, {
-      header: this.transalteService.instant(edit ? 'global.dialog.editHeader' : 'global.dialog.addHeader'),
+      header: this.translateService.instant(edit ? 'global.dialog.editHeader' : 'global.dialog.addHeader'),
       data: {
         edit,
         selectedUser: this.selectedUser
@@ -59,10 +61,24 @@ export class UserComponent implements OnInit {
   }
 
   handleDialogResponse(response: any) {
-
+    if(response) {
+      this.selectedUser = undefined;
+      this.loadUsers();
+    }
   }
 
   handleDeleteDialog(): void {
-    console.log('DELETE');
+    this.usersService.delete(this.selectedUser?.id!).subscribe(
+      {
+        next: () => {
+          this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('user.dialog.deleteSuccess')});
+          this.handleDialogResponse(true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('user.dialog.deleteError')});
+        }
+      }
+    );
   }
 }

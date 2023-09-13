@@ -1,11 +1,6 @@
+import { IClient } from "./client.model";
+
 export interface IClientUnit {
-  data: {
-    id: number;
-    name: string;
-    parentOrgUnit: number;
-    treePath: string;
-    userLimit: number;
-    deleted: boolean;
-  };
+  data: IClient;
   children: IClientUnit[];
 }

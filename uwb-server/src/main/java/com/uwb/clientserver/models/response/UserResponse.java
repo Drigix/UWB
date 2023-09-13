@@ -26,4 +26,6 @@ public class UserResponse {
     private String langKey;
 
     private List<RoleResponse> roles;
+
+    private Long organizationUnitId;
 }

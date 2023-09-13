@@ -8,6 +8,9 @@ import { ConfirmDialogService } from '@shared/confirm-dialog/confirm-dialog.serv
 import { ColumnService } from '@shared/uwb-table/column.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ClientsDialogComponent } from './clients-dialog/clients-dialog.component';
+import { IClientUnit } from '@entities/client/client-unit.model';
+import { HttpResponse } from '@angular/common/http';
+import { ToastService } from '@shared/toast/toast.service';
 
 @Component({
   selector: 'uwb-clients',
@@ -18,6 +21,7 @@ export class ClientsComponent implements OnInit {
 
   columns: UniversalTableColumn[] = [];
   clients: IClient[] = [];
+  clientTree: IClientUnit[] = [];
   selectedClient?: IClient;
   parentOfSelectedClient?: number;
 
@@ -27,7 +31,8 @@ export class ClientsComponent implements OnInit {
     private translateService: TranslateService,
     private confirmDialogService: ConfirmDialogService,
     private clientsService: ClientsService,
-    private clientUnitsService: ClientUnitsService
+    private clientUnitsService: ClientUnitsService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -36,9 +41,9 @@ export class ClientsComponent implements OnInit {
   }
 
   loadClientUnits(): void {
-    this.clientUnitsService.findAll().subscribe(
-      (res) => {
-        this.clients = res;
+    this.clientsService.findTree().subscribe(
+      (res: HttpResponse<IClientUnit[]>) => {
+        this.clientTree = res.body ?? [];
       }
     );
   }
@@ -75,6 +80,17 @@ export class ClientsComponent implements OnInit {
   }
 
   handleDeleteDialog(): void {
-    console.log('DELETE');
+    this.clientsService.delete(this.selectedClient?.id!).subscribe(
+      {
+        next: () => {
+          this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('client.dialog.deleteSuccess')});
+          this.handleDialogResponse(true);
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('client.dialog.deleteError')});
+        }
+      }
+    );
   }
 }

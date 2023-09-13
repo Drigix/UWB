@@ -2,6 +2,7 @@ import { HttpResponse } from "@angular/common/http";
 import { IAnchor } from "@entities/anchor/anchor.model";
 import { IAuthenticationToken } from "@entities/auth/token.model";
 import { IBackground } from "@entities/background/background.model";
+import { IClientUnit } from "@entities/client/client-unit.model";
 import { IClient } from "@entities/client/client.model";
 import { IIcon } from "@entities/icon/icon.model";
 import { INotificationConfig } from "@entities/notification/notification-config.model";
@@ -20,7 +21,9 @@ export type BackgroundResponseType = HttpResponse<IBackground>;
 export type BackgroundArrayResponseType = HttpResponse<IBackground[]>;
 
 export type ClientResponseType = HttpResponse<IClient>;
+export type ClientUnitResponseType = HttpResponse<IClientUnit>;
 export type ClientArrayResponseType = HttpResponse<IClient[]>;
+export type ClientUnitArrayResponseType = HttpResponse<IClientUnit[]>;
 
 export type ObjectResponseType = HttpResponse<IObject>;
 export type ObjectArrayResponseType = HttpResponse<IObject[]>;
