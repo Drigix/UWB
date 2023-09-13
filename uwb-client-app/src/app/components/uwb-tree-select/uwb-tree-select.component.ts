@@ -27,7 +27,7 @@ export class UwbTreeSelectComponent<T> implements OnChanges, AfterViewInit, Cont
   @Input() label = 'Wybierz opcje';
   @Input() optionLabel = 'name';
   @Input() treeSelectValue?: any;
-  @Input() itemValue!: string;
+  @Input() itemValue?: string;
   @Input() styleClass = '';
   @Input() selectionMode: 'multiple' | 'single' | 'checkbox' = 'single';
 
@@ -67,7 +67,7 @@ export class UwbTreeSelectComponent<T> implements OnChanges, AfterViewInit, Cont
     const filteredNodes: IClientUnit[] = [];
 
     for (const node of nodes) {
-      if (node?.data && node.data['name'].toLowerCase().includes(query) && !filteredNodes.find(fn => fn.data.id === node.data.id)) {
+      if (node?.data && node.data!.name!.toLowerCase().includes(query) && !filteredNodes.find(fn => fn.data.id === node.data.id)) {
         filteredNodes.push(node);
       }
 
@@ -102,7 +102,7 @@ export class UwbTreeSelectComponent<T> implements OnChanges, AfterViewInit, Cont
   }
 
   emitItemChange(event: { value: number | T | undefined }): void {
-    const selectedItem = event.value ? this.options.find((item: any) => item?.[this.itemValue] === event.value) : undefined;
+    const selectedItem = event.value ? this.options.find((item: any) => item?.[this.itemValue!] === event.value) : undefined;
     this.itemChange.emit(Object.assign({}, event, { item: selectedItem ?? null }));
   }
 }

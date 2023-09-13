@@ -34,6 +34,7 @@ export class UwbMultiSelectComponent<T extends { id: number }> implements AfterV
   value!: T[];
   isDisabled = false;
   @Output() emitSelectedOption = new EventEmitter<any>();
+  @Output() itemChange = new EventEmitter();
 
   onModelChange: (_: T[]) => void = () => noop;
   onModelTouched: () => void = () => noop;
@@ -62,6 +63,12 @@ export class UwbMultiSelectComponent<T extends { id: number }> implements AfterV
   emitAndUpdate(event: { value: T[] }): void {
     this.value = event.value;
     this.emitSelectedOption.emit(event.value[event.value.length - 1]);
+    // this.emitItemChange(event);
+  }
+
+  emitItemChange(event: { value: number | T[] | undefined }): void {
+    const selectedItem = event.value ? this.items.find((item: any) => item?.[this.itemValue] === event.value) : undefined;
+    this.itemChange.emit(Object.assign({}, event, { item: selectedItem ?? null }));
   }
 
   sort(): void {
