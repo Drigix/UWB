@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    
     @Override
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
@@ -40,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponse> findAll() {
-        return userMapper.toResponseList(userRepository.findAll());
+        return userMapper.toResponseList(userRepository.findAllByDeletedFalse());
     }
 
     @Override
@@ -51,12 +53,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse updateUser(UserRequest request) {
+    public UserResponse update(UserRequest request) {
         User user = userMapper.toEntity(request);
-        String userPassword = userRepository.findById(user.getId()).get().getPassword();
-        user.setPassword(userPassword);
-        user = userRepository.save(user);
-        return userMapper.toResponse(user);
+        User existUser = userRepository.findById(user.getId()).get();
+        User userToSave = setMissingValues(user, existUser);
+        return userMapper.toResponse(userRepository.save(userToSave));
     }
 
+    @Override
+    public void delete(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        user.ifPresent( u -> {
+            u.setDeleted(true);
+            userRepository.save(u);
+        });
+    }
+
+    private User setMissingValues(User request, User userData) {
+        request.setCreatedBy(userData.getCreatedBy());
+        request.setCreatedDate(userData.getCreatedDate());
+        request.setPassword(userData.getPassword());
+        if(request.getLangKey() == null) {
+            request.setLangKey(userData.getLangKey());
+        }
+        if(request.getTheme() == null) {
+            request.setTheme(userData.getTheme());
+        }
+        return request;
+    }
 }

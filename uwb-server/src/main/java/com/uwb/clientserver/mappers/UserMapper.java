@@ -15,18 +15,21 @@ import org.mapstruct.MappingTarget;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = { RoleMapper.class })
+@Mapper(componentModel = "spring", uses = { RoleMapper.class, OrganizationUnitMapper.class })
 public interface UserMapper {
 
     @Mapping(source = "roleIds", target = "roles")
+    @Mapping(source = "organizationUnitId", target = "organizationUnit")
     User toEntity(SignUpRequest request);
 
     User toEntity(SigninRequest request);
 
     @Mapping(source = "roleIds", target = "roles")
+    @Mapping(source = "organizationUnitId", target = "organizationUnit")
     User toEntity(UserRequest request);
 
     @Mapping(source = "roles", target = "roles")
+    @Mapping(source = "organizationUnit", target = "organizationUnitId")
     UserResponse toResponse(User user);
 
     List<UserResponse> toResponseList(List<User> users);

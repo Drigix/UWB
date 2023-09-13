@@ -46,6 +46,10 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     )
     private List<Role> roles;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "organization_unit_id", nullable = false)
+    private OrganizationUnit organizationUnit;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(roles == null) {

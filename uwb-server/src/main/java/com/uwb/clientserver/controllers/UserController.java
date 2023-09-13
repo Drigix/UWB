@@ -5,6 +5,7 @@ import com.uwb.clientserver.models.request.SignUpRequest;
 import com.uwb.clientserver.models.request.UserRequest;
 import com.uwb.clientserver.models.response.JwtAuthenticationResponse;
 import com.uwb.clientserver.models.response.UserResponse;
+import com.uwb.clientserver.services.AuthenticationService;
 import com.uwb.clientserver.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,22 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
-    private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
+    private final AuthenticationService authenticationService;
+
+    /**
+     * Endpoint for user registration.
+     *
+     * @param request The request body containing user registration data.
+     * @return ResponseEntity with a JWT authentication response upon successful registration or
+     * @exception MethodArgumentNotValidException in case of validation errors
+     */
+    @PostMapping()
+    public ResponseEntity<JwtAuthenticationResponse> signup(@Valid @RequestBody SignUpRequest request) throws MethodArgumentNotValidException  {
+        logger.debug("Request to signup new user: {}", request);
+        return ResponseEntity.ok(authenticationService.signup(request));
+    }
 
     /**
      * Endpoint for find all users in the application.
@@ -55,7 +70,14 @@ public class UserController {
     @PutMapping()
     public UserResponse updateUser(@RequestBody UserRequest request) {
         logger.debug("Request to update user.");
-        return userService.updateUser(request);
+        return userService.update(request);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        logger.debug("Request to delete user: {}.", id);
+        userService.delete(id);
+        return ResponseEntity.ok("User has been deleted!");
     }
 
 }

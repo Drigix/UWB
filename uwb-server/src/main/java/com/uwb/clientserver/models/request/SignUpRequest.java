@@ -1,9 +1,9 @@
 package com.uwb.clientserver.models.request;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -22,6 +22,8 @@ public class SignUpRequest {
     private String email;
     @NotEmpty(message = "The password is required.")
     private String password;
-
+    @NotEmpty(message = "Role or roles is required.")
     private List<Long> roleIds;
+    @NotNull(message = "The organizationUnitId is required.")
+    private Long organizationUnitId;
 }

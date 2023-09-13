@@ -20,4 +20,5 @@ public class UserRequest {
     private String theme;
     private String langKey;
     private List<Long> roleIds;
+    private Long organizationUnitId;
 }
