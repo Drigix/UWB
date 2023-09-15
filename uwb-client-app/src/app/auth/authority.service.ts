@@ -41,7 +41,6 @@ export class AuthorityService {
     const timeRemaining = expirationTime.getTime() - currentTime.getTime();
     if (timeRemaining <= 0) {
       window.localStorage.clear();
-      window.location.reload();
     } else {
       setTimeout(() => {
         window.localStorage.clear();

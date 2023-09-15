@@ -26,11 +26,11 @@ export class MainComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.firstLoad = true;
     if(this.authorityService.isAuthenticated()) {
+      this.authorityService.setAutoLogout();
       this.usersService.getAccount().subscribe(
         (res: HttpResponse<IUser>) => {
           this.account = res.body ?? undefined;
           this.authorityService.setUserRoles(this.account?.roles!);
-          this.authorityService.setAutoLogout();
           window.localStorage.setItem('user_theme', this.account?.theme!);
         }
       );
