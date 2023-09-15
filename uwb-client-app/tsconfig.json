@@ -41,6 +41,9 @@
       ],
       "@services/*": [
         "src/app/services/*"
+      ],
+      "@auth/*": [
+        "src/app/auth/*"
       ]
     }
   },

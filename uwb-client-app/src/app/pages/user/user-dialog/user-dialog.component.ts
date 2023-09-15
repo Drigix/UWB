@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IRole, RoleTableConst } from '@entities/auth/role.model';
+import { IRole } from '@entities/auth/role.model';
 import { IClientUnit } from '@entities/client/client-unit.model';
 import { IUser } from '@entities/user/user.model';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,6 +10,7 @@ import { ClientsService } from '@services/clients/clients.service';
 import { UsersService } from '@services/users/users.service';
 import { ToastService } from '@shared/toast/toast.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { RoleTableConst } from 'src/app/auth/role-access.type';
 
 @Component({
   selector: 'uwb-user-dialog',
