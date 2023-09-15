@@ -1,6 +1,7 @@
 package com.uwb.clientserver.services.impl;
 
 import com.uwb.clientserver.exceptions.BadPasswordException;
+import com.uwb.clientserver.exceptions.ItemNotExistException;
 import com.uwb.clientserver.mappers.UserMapper;
 import com.uwb.clientserver.models.User;
 import com.uwb.clientserver.models.request.PasswordRequest;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    
+
     @Override
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
@@ -55,18 +56,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse update(UserRequest request) {
         User user = userMapper.toEntity(request);
-        User existUser = userRepository.findById(user.getId()).get();
+        User existUser = userRepository.findById(user.getId()).orElseThrow(() -> new ItemNotExistException(user.getId()));
         User userToSave = setMissingValues(user, existUser);
         return userMapper.toResponse(userRepository.save(userToSave));
     }
 
     @Override
     public void delete(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        user.ifPresent( u -> {
-            u.setDeleted(true);
-            userRepository.save(u);
-        });
+        User user = userRepository.findById(id).orElseThrow(() -> new ItemNotExistException(id));
+        user.setDeleted(true);
+        userRepository.save(user);
     }
 
     private User setMissingValues(User request, User userData) {
