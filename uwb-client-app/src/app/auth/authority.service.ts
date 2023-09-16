@@ -8,6 +8,7 @@ export class AuthorityService {
 
  accessToken?: IAuthenticationToken;
  userRoles: string[] = [];
+ userOrganizationUnitId?: number;
 
  setAccessToken(accessToken: IAuthenticationToken): void {
     window.localStorage.setItem('access_token', accessToken.token!);
@@ -29,6 +30,14 @@ export class AuthorityService {
 
  setUserRoles(roles: IRole[]): void {
     this.userRoles = roles.map( role => role.name!);
+ }
+
+ getUserOrganizationUnitId(): number {
+    return this.userOrganizationUnitId!;
+ }
+
+ setUserOrganizationUnitId(organizationUnitId: number): void {
+    this.userOrganizationUnitId = organizationUnitId;
  }
 
  setAutoLogout(): void {

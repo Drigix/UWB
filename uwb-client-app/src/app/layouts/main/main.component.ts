@@ -31,6 +31,7 @@ export class MainComponent implements OnInit, AfterViewInit {
         (res: HttpResponse<IUser>) => {
           this.account = res.body ?? undefined;
           this.authorityService.setUserRoles(this.account?.roles!);
+          this.authorityService.setUserOrganizationUnitId(this.account?.organizationUnitId!);
           window.localStorage.setItem('user_theme', this.account?.theme!);
         }
       );
