@@ -1,35 +1,96 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IBackground, NewBackground } from '@entities/background/background.model';
-import { BackgroundResponseType } from '@entities/global/httpresponse-types.model';
-import { Observable } from 'rxjs';
+import { API_URL } from '@config/api-url.constans';
+import {
+  IBackground,
+  NewBackground,
+} from '@entities/background/background.model';
+import {
+  BackgroundArrayResponseType,
+  BackgroundResponseType,
+} from '@entities/global/httpresponse-types.model';
+import { UploadEvent } from '@entities/uwb-file-upload/upload-event.model';
+import { Observable, map } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class BackgroundsService {
+  private resourceUrl = API_URL + 'background';
 
-  private resourceUrl = '../../../assets/data/data-backgrounds.json';
-
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   findAll(): Observable<any> {
     return this.http.get(this.resourceUrl);
+  }
+
+  // findAll(): Observable<BackgroundArrayResponseType> {
+  //   return this.http.get<IBackground[]>(this.resourceUrl, { observe: 'response' });
+  // }
+
+  findAllByUserOrganizationUnit(id: number): Observable<BackgroundArrayResponseType> {
+    return this.http
+      .get<IBackground[]>(`${this.resourceUrl}/user-organization-unit/${id}`, {
+        observe: 'response',
+      })
+      .pipe(
+        map((response) => {
+          const backgrounds = response.body || [];
+          backgrounds.forEach((background) => {
+            if (background.pathArrayBuffer) {
+              const arrayBuffer = this.stringArrayBufferToArrayBuffer(background.pathArrayBuffer);
+              background.fullPath = this.arrayBufferToImage(arrayBuffer);
+            }
+          });
+          return response;
+        })
+      );
   }
 
   findById(id: number): Observable<BackgroundResponseType> {
     return this.http.get(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  save(background: NewBackground): Observable<BackgroundResponseType> {
-    return this.http.post(this.resourceUrl, background, { observe: 'response' });
+  create(background: NewBackground): Observable<BackgroundResponseType> {
+    return this.http.post(this.resourceUrl, background, {
+      observe: 'response',
+    });
+  }
+
+  uploadFile(file: File): Observable<string> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http
+      .post(`${this.resourceUrl}/upload-file`, formData, {
+        observe: 'response',
+        responseType: 'text',
+      })
+      .pipe(map((response) => response.body as string));
   }
 
   update(background: IBackground): Observable<BackgroundResponseType> {
     return this.http.put(this.resourceUrl, background, { observe: 'response' });
   }
 
-  delete(id: number): Observable<BackgroundResponseType> {
-    return this.http.get(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  delete(id: number): Observable<string> {
+    return this.http
+      .delete(`${this.resourceUrl}/${id}`, {
+        observe: 'response',
+        responseType: 'text',
+      })
+      .pipe(map((response) => response.body as string));
+  }
+
+  private stringArrayBufferToArrayBuffer(stringArrayBuffer: string): ArrayBuffer {
+    const binaryString = atob(stringArrayBuffer);
+    const uint8Array = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      uint8Array[i] = binaryString.charCodeAt(i);
+    }
+    return uint8Array.buffer;
+  }
+
+  private arrayBufferToImage(arrayBuffer: ArrayBuffer): string {
+    const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
+    const url = URL.createObjectURL(blob);
+    return url;
   }
 }

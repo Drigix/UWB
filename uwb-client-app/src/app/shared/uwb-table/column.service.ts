@@ -48,10 +48,15 @@ export class ColumnService {
         header: this.translateService.instant('background.name'),
       },
       {
-        field: 'client',
-        label: 'client',
-        header: this.translateService.instant('background.client'),
+        field: 'scale',
+        label: 'scale',
+        header: this.translateService.instant('background.scale'),
       },
+      {
+        field: 'fullPath',
+        label: 'fullPath',
+        header: this.translateService.instant('background.image'),
+      }
     ];
     return this.columns;
   }
