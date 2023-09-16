@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { API_URL } from '@config/api-url.constans';
+import { IBackground } from '@entities/background/background.model';
 import { UploadEvent } from '@entities/uwb-file-upload/upload-event.model';
 
 @Component({
@@ -12,21 +14,34 @@ export class UwbFileUploadComponent implements OnInit {
   @Input() showCancelButton = true;
   @Input() fileSize = 1000000;
   @Input() multiple = false;
+  @Input() requestName = 'file';
+  @Input() urlPath = '';
+  @Input() urlMethod = 'post';
+  @Output() emitSelectBackgrouds = new EventEmitter<IBackground[]>();
+  @Output() emitSelectBackgroud = new EventEmitter<IBackground>();
+  @Output() emitUploadedItems = new EventEmitter<any>();
   uploadedFiles: any[] = [];
+  url = API_URL;
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.url += this.urlPath;
+  }
 
   onUpload(event: UploadEvent) {
-    // for(let file of event.currentFiles) {
-    //     this.uploadedFiles.push(file);
-    // }
+    for(let file of event.currentFiles) {
+        this.uploadedFiles.push(file);
+    }
   }
 
   onSelect(event: UploadEvent): void {
     this.uploadedFiles = event.currentFiles;
-    console.log(this.uploadedFiles);
+    if(!this.multiple) {
+      const uploadedBackground = this.changeFileToBackground(this.uploadedFiles[0]);
+      this.emitSelectBackgroud.emit(uploadedBackground);
+      this.emitUploadedItems.emit(this.uploadedFiles[0]);
+    }
   }
 
   onRemove(event: any): void {
@@ -38,5 +53,10 @@ export class UwbFileUploadComponent implements OnInit {
       }
     });
     console.log(this.uploadedFiles);
+  }
+
+  private changeFileToBackground(uploadedFile: any): IBackground {
+    const background = { fileName: uploadedFile.name, fileSize: uploadedFile.size };
+    return background;
   }
 }

@@ -1,9 +1,10 @@
-<span class="p-float-label">
+<span [class]="floatLabel ? 'p-float-label' : ''">
   <p-treeSelect
     [(ngModel)]="treeSelectValue"
     [options]="options"
     placeholder=""
     appendTo="body"
+    [placeholder]="placeholder"
     [style]="{ width: '100%' }"
     [class]="styleClass"
     [selectionMode]="selectionMode"
@@ -18,8 +19,11 @@
       </div>
     </ng-template>
     <ng-template pTemplate="value" let-node>
-      <span>
+      <span *ngIf="node?.data">
         {{ node?.data[optionLabel] }}
+      </span>
+      <span *ngIf="!node?.data && !floatLabel">
+        {{ placeholder }}
       </span>
     </ng-template>
     <ng-template let-node pTemplate="default">
