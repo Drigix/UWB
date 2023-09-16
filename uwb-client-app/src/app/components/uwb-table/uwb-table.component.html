@@ -42,7 +42,7 @@
           </span>
           <!-- <swz-refresher *ngIf="refreshRate !== null" [rate]="refreshRate" (refresh)="onRefresh()"></swz-refresher> -->
         </div>
-        <div class="col flex caption p-1" *ngIf="showCalendar" [ngClass]="{ 'justify-content-center': tableWidth < '500' }">
+        <div class="col flex caption p-1" *ngIf="showCalendar || showHeaderSelect" [ngClass]="{ 'justify-content-center': tableWidth < '500' }">
           <ng-content></ng-content>
         </div>
         <div
@@ -182,7 +182,7 @@
               [ngStyle]="{color: ((col.subfield ? rowData[col.field][col.subField] : rowData[col.field]) ? 'rgb(24, 206, 0)' : 'rgb(206, 0, 0)')}"></i>
         </ng-container>
         <ng-container *ngSwitchCase="'IMG'">
-          <img [src]="col.subField ? rowData[col.field][col.subField] : rowData[col.field]" type="image/svg+xml" width="20" height="20"/>
+          <img [src]="col.subField ? rowData[col.field][col.subField] : rowData[col.field]" type="image/svg+xml" width="20" height="20" (click)="onImageClick(col.subField ? rowData[col.field][col.subField] : rowData[col.field])"/>
         </ng-container>
         <ng-container *ngSwitchDefault>
           <ng-container *ngIf="col?.isLineColor || col?.isFontColor; else default">
@@ -272,3 +272,14 @@
     </ng-container>
   </ng-template>
 </p-table>
+
+<uwb-dialog
+  [visible]="imageDialogVisible"
+  [header]="'background.dialog.header'"
+  [width]="'60%'"
+  (emitClose)="imageDialogVisible = false"
+>
+  <div class="image-preview flex justify-content-center">
+    <img [src]="imageDialogUrl" />
+  </div>
+</uwb-dialog>
