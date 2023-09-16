@@ -78,6 +78,12 @@ public class UserController {
         return userService.update(request);
     }
 
+    /**
+     * Endpoint for delete user.
+     *
+     * @param id The id of user.
+     * @return HttpStatus.OK .
+     */
     @DeleteMapping("/{id}")
     @PreAuthorize(ADMIN_PREAUTHORIZE)
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {

@@ -28,4 +28,7 @@ public class OrganizationUnit extends BaseEntity implements Serializable {
 
     @OneToMany(mappedBy = "organizationUnit")
     private List<User> users;
+
+    @OneToMany(mappedBy = "organizationUnit")
+    private List<Background> backgrounds;
 }
