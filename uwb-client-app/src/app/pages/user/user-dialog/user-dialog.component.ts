@@ -129,11 +129,11 @@ export class UserDialogComponent implements OnInit {
       this.usersService.create(value).subscribe(
         {
           next: () => {
-            this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('user.dialog.editSuccess')});
+            this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('user.dialog.addSuccess')});
             this.onCloseDialog(true);
           },
           error: () => {
-            this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('user.dialog.editError')});
+            this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('user.dialog.addError')});
           }
         }
       );
