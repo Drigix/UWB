@@ -1,7 +1,7 @@
 <div class="calibrate-map">
   <uwb-map
         class="w-full"
-        [background]="selectedBackground?.path!"
+        [background]="selectedBackground?.fullPath!"
         [drawableLineString]="true"
         (emitLengthLineString)="onDrawLineStringLengthChange($event)"
   ></uwb-map>

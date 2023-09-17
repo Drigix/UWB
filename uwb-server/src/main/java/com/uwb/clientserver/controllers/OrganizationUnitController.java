@@ -11,9 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
+import static com.uwb.clientserver.security.AuthoritiesConstants.*;
 import java.util.List;
 
 @RestController
@@ -32,8 +33,9 @@ public class OrganizationUnitController {
      * @exception MethodArgumentNotValidException in case of validation errors.
      */
     @PostMapping()
+    @PreAuthorize(ADMIN_PREAUTHORIZE)
     public OrganizationUnitResponse createOrganizationUnit(@Valid @RequestBody OrganizationUnitRequest request) throws MethodArgumentNotValidException  {
-        logger.debug("Request to create new organization unit: {}", request);
+        logger.info("Request to create new organization unit: {}", request);
         return organizationUnitService.create(request);
     }
 
@@ -43,8 +45,9 @@ public class OrganizationUnitController {
      * @return list of organization units response.
      */
     @GetMapping()
+    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public List<OrganizationUnitResponse> getAllOrganizationUnits() {
-        logger.debug("Request to get all organization units.");
+        logger.info("Request to get all organization units.");
         return organizationUnitService.findAll();
     }
 
@@ -54,8 +57,9 @@ public class OrganizationUnitController {
      * @return tree of organization unit tree response.
      */
     @GetMapping("/tree")
+    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public List<OrganizationUnitTreeResponse> getTreeOrganizationUnits() {
-        logger.debug("Request to get tree organization units.");
+        logger.info("Request to get tree organization units.");
         return organizationUnitService.findTree();
     }
 
@@ -67,8 +71,9 @@ public class OrganizationUnitController {
      * @exception MethodArgumentNotValidException in case of validation errors.
      */
     @PutMapping()
+    @PreAuthorize(ADMIN_PREAUTHORIZE)
     public OrganizationUnitResponse updateOrganizationUnit(@Valid @RequestBody OrganizationUnitRequest request) throws MethodArgumentNotValidException  {
-        logger.debug("Request to update organization unit: {}", request);
+        logger.info("Request to update organization unit: {}", request);
         return organizationUnitService.update(request);
     }
 
@@ -79,8 +84,9 @@ public class OrganizationUnitController {
      * @return HttpStatus.OK .
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize(ADMIN_PREAUTHORIZE)
     public ResponseEntity<String> deleteOrganizationUnit(@PathVariable Long id) {
-        logger.debug("Request to delete organization unit: {}", id);
+        logger.info("Request to delete organization unit: {}", id);
         organizationUnitService.delete(id);
         return ResponseEntity.ok("Organization unit has been deleted!");
     }

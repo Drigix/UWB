@@ -108,10 +108,20 @@
   },
   "background": {
     "name": "Nazwa planu",
-    "client": "Klient",
+    "scale": "Skala",
+    "image": "Plan pomieszczenia",
+    "organizationUnit": "Jednostka organizacyjna",
     "realValue": "Rzeczywista wartość",
     "dialog": {
-      "header": "Podgląd planu"
+      "header": "Podgląd planu",
+      "addSuccess": "Dodano nowy plan pomieszczenia!",
+      "addError": "Dodanie nowego planu pomieszczenia nie powiodło się!",
+      "editSuccess": "Edytowano plan pomieszczenia!",
+      "editError": "Edycja planu pomieszczenia nie powiodło się!",
+      "editScaleSuccess": "Pomyślnie przeskalowano plan pomieszczenia!",
+      "editScaleError": "Skalowanie planu pomieszczeń nie powiodło się!",
+      "deleteSuccess": "Usunięto plan pomieszczenia! ",
+      "deleteError": "Usunięcie planu pomieszczenia nie powiodło się!"
     }
   },
   "client": {

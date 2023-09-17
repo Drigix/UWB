@@ -30,7 +30,8 @@ export class UwbTreeSelectComponent<T> implements OnChanges, AfterViewInit, Cont
   @Input() itemValue?: string;
   @Input() styleClass = '';
   @Input() selectionMode: 'multiple' | 'single' | 'checkbox' = 'single';
-
+  @Input() floatLabel = true;
+  @Input() placeholder = '';
   @Output() modelChange = new EventEmitter();
   @Output() itemChange = new EventEmitter();
 

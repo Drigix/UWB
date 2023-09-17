@@ -13,9 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
+import static com.uwb.clientserver.security.AuthoritiesConstants.*;
 import java.util.List;
 
 @RestController
@@ -35,8 +36,9 @@ public class UserController {
      * @exception MethodArgumentNotValidException in case of validation errors
      */
     @PostMapping()
+    @PreAuthorize(ADMIN_PREAUTHORIZE)
     public ResponseEntity<JwtAuthenticationResponse> signup(@Valid @RequestBody SignUpRequest request) throws MethodArgumentNotValidException  {
-        logger.debug("Request to signup new user: {}", request);
+        logger.info("Request to signup new user: {}", request);
         return ResponseEntity.ok(authenticationService.signup(request));
     }
 
@@ -46,8 +48,9 @@ public class UserController {
      * @return list of UserResponse.
      */
     @GetMapping()
+    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public List<UserResponse> getAllUsers() {
-        logger.debug("Request to get all users");
+        logger.info("Request to get all users");
         return userService.findAll();
     }
 
@@ -57,8 +60,9 @@ public class UserController {
      * @return entity of UserResponse.
      */
     @GetMapping("/account")
+    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public UserResponse getCurrentUser() {
-        logger.debug("Request to get current user.");
+        logger.info("Request to get current user.");
         return userService.findCurrentUser();
     }
 
@@ -68,14 +72,22 @@ public class UserController {
      * @return entity of UserResponse.
      */
     @PutMapping()
+    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public UserResponse updateUser(@RequestBody UserRequest request) {
-        logger.debug("Request to update user.");
+        logger.info("Request to update user.");
         return userService.update(request);
     }
 
+    /**
+     * Endpoint for delete user.
+     *
+     * @param id The id of user.
+     * @return HttpStatus.OK .
+     */
     @DeleteMapping("/{id}")
+    @PreAuthorize(ADMIN_PREAUTHORIZE)
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
-        logger.debug("Request to delete user: {}.", id);
+        logger.info("Request to delete user: {}.", id);
         userService.delete(id);
         return ResponseEntity.ok("User has been deleted!");
     }

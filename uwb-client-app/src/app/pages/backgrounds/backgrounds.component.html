@@ -1,9 +1,17 @@
 <div class="single_table_with_5buttons">
   <uwb-table
-  [columns]="columns"
-  [values]="backgrounds"
-  (selectionChange)="onBackgroundSelect($event)"
+    [columns]="columns"
+    [values]="backgrounds"
+    [showHeaderSelect]="true"
+    (selectionChange)="onBackgroundSelect($event)"
   >
+    <uwb-tree-select
+      [options]="treeSelectItems"
+      [optionLabel]="'name'"
+      [floatLabel]="false"
+      [placeholder]="'background.organizationUnit' | translate"
+      (modelChange)="onOrganizationUnitSelect($event)"
+    ></uwb-tree-select>
   </uwb-table>
   <div class="buttons_container_center">
     <uwb-footer-buttons
@@ -14,24 +22,11 @@
       (emitDeleteClick)="openDeleteDialog()"
     >
       <p-button
-      class="col px-2"
-      [disabled]="selectedBackground === undefined"
-      label="{{ 'global.buttons.preview' | translate }}"
-      (onClick)="openPreviewBackgroundDialog()"
-      ></p-button>
-      <p-button
-      class="col px-2"
-      [disabled]="selectedBackground === undefined"
-      label="{{ 'global.buttons.calibrate' | translate }}"
-      (onClick)="openCalibrateBackgroundDialog()"
+        class="col px-2"
+        [disabled]="selectedBackground === undefined"
+        label="{{ 'global.buttons.calibrate' | translate }}"
+        (onClick)="openCalibrateBackgroundDialog()"
       ></p-button>
     </uwb-footer-buttons>
   </div>
 </div>
-
-
-<uwb-dialog [visible]="showPreviewBackgroundDialog" [header]="'background.dialog.header'" [width]="'60%'" (emitClose)="showPreviewBackgroundDialog = false">
-  <div class="background-preview flex justify-content-center">
-    <img [src]="selectedBackground?.path">
-  </div>
-</uwb-dialog>

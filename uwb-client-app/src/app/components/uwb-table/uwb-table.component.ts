@@ -78,6 +78,7 @@ export class UwbTableComponent<T> implements OnChanges, AfterViewInit {
   @Input() showCaption = true;
   @Input() showHeader = true;
   @Input() showCalendar = false;
+  @Input() showHeaderSelect = false;
   @Input() showFooter = true;
   @Input() showTableName = false;
   @Input() tableName: string | null = null;
@@ -112,6 +113,7 @@ export class UwbTableComponent<T> implements OnChanges, AfterViewInit {
   @Output() dragged = new EventEmitter<T>();
   @Input() loading = false;
   @Input() parseHTML = false;
+  @Input() imageDialogVisible = false;
   @Input()
   get selection(): any | any[] {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -133,6 +135,7 @@ export class UwbTableComponent<T> implements OnChanges, AfterViewInit {
   defaultFormat = 'yyyy-MM-dd';
   IMG_URL = '';
   tableWidth = '';
+  imageDialogUrl = '';
 
   filterGlobal = debounce(
     (filterString: string, columnField?: string) => {
@@ -303,7 +306,7 @@ export class UwbTableComponent<T> implements OnChanges, AfterViewInit {
     if (typeof value === 'boolean') {
       return 'BOOLEAN';
     }
-    if(value.includes('.svg') || value.includes('.png') || value.includes('.jpg')) {
+    if(typeof value === 'string' && (value.includes('.svg') || value.includes('.png') || value.includes('.jpg') || value.includes('blob:'))) {
       return 'IMG';
     }
     return 'UNKNOWN';
@@ -361,6 +364,11 @@ export class UwbTableComponent<T> implements OnChanges, AfterViewInit {
     const txt = document.createElement('textarea');
     txt.innerHTML = html;
     return txt.value;
+  }
+
+  onImageClick(url: string): void {
+    this.imageDialogUrl = url;
+    this.imageDialogVisible = true;
   }
 
   private handleCustomSort(event: SortEvent): void {

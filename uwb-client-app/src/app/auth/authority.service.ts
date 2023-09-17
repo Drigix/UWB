@@ -8,6 +8,7 @@ export class AuthorityService {
 
  accessToken?: IAuthenticationToken;
  userRoles: string[] = [];
+ userOrganizationUnitId?: number;
 
  setAccessToken(accessToken: IAuthenticationToken): void {
     window.localStorage.setItem('access_token', accessToken.token!);
@@ -31,6 +32,14 @@ export class AuthorityService {
     this.userRoles = roles.map( role => role.name!);
  }
 
+ getUserOrganizationUnitId(): number {
+    return this.userOrganizationUnitId!;
+ }
+
+ setUserOrganizationUnitId(organizationUnitId: number): void {
+    this.userOrganizationUnitId = organizationUnitId;
+ }
+
  setAutoLogout(): void {
     const expTimeString = window.localStorage.getItem('access_token_exp')?.split(':');
 
@@ -41,7 +50,6 @@ export class AuthorityService {
     const timeRemaining = expirationTime.getTime() - currentTime.getTime();
     if (timeRemaining <= 0) {
       window.localStorage.clear();
-      window.location.reload();
     } else {
       setTimeout(() => {
         window.localStorage.clear();

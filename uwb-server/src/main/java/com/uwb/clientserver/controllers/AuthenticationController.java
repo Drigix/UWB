@@ -11,8 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import static com.uwb.clientserver.security.AuthoritiesConstants.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -56,6 +58,7 @@ public class AuthenticationController {
      * @return entity of UserResponse.
      */
     @PutMapping("/password")
+    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public UserResponse updateUserPassword(@RequestBody PasswordRequest request) {
         logger.debug("Request to update user password.");
         return authenticationService.updatePassword(request);

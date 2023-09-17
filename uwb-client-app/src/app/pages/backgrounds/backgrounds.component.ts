@@ -8,6 +8,12 @@ import { ColumnService } from '@shared/uwb-table/column.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { BackgroundsDialogComponent } from './backgrounds-dialog/backgrounds-dialog.component';
 import { CalibrateDialogComponent } from './calibrate-dialog/calibrate-dialog.component';
+import { HttpResponse } from '@angular/common/http';
+import { ToastService } from '@shared/toast/toast.service';
+import { IClientUnit } from '@entities/client/client-unit.model';
+import { ClientsService } from '@services/clients/clients.service';
+import { IClient } from '@entities/client/client.model';
+import { AuthorityService } from '@auth/authority.service';
 
 @Component({
   selector: 'uwb-backgrounds',
@@ -18,28 +24,49 @@ export class BackgroundsComponent implements OnInit {
 
   columns: UniversalTableColumn[] = [];
   backgrounds: IBackground[] = [];
+  treeSelectItems: IClientUnit[] = [];
   selectedBackground?: IBackground;
-  showPreviewBackgroundDialog = false;
+  selectedOrganizationUnit?: IClient;
+  userOrganizationUnitId?: number;
 
   constructor(
     private backgroundsService: BackgroundsService,
     private columnService: ColumnService,
     private dialogService: DialogService,
     private translateService: TranslateService,
-    private confirmDialogService: ConfirmDialogService
+    private confirmDialogService: ConfirmDialogService,
+    private toastService: ToastService,
+    private clientsService: ClientsService,
+    private authorityService: AuthorityService
     ) {}
 
   ngOnInit() {
+    this.userOrganizationUnitId = this.authorityService.getUserOrganizationUnitId();
     this.columns = this.columnService.getBackgroundColumns();
+    this.loadOrganizationUnits();
     this.loadBackgrounds();
   }
 
-  loadBackgrounds(): void {
-    this.backgroundsService.findAll().subscribe(
-      (res) => {
-        this.backgrounds = res;
+  loadOrganizationUnits(): void {
+    this.clientsService.findTree().subscribe(
+      (res: HttpResponse<IClientUnit[]>) => {
+        this.treeSelectItems = res.body ?? [];
       }
     );
+  }
+
+  loadBackgrounds(): void {
+    this.backgroundsService.findAllByUserOrganizationUnit(this.selectedOrganizationUnit?.id ?? this.userOrganizationUnitId!).subscribe(
+      (res: HttpResponse<IBackground[]>) => {
+        this.backgrounds = res.body ?? [];
+      }
+    );
+  }
+
+  onOrganizationUnitSelect(organizationUnit: IClient): void {
+    this.selectedOrganizationUnit = organizationUnit;
+    this.selectedBackground = undefined;
+    this.loadBackgrounds();
   }
 
   onBackgroundSelect(background: IBackground): void {
@@ -61,10 +88,6 @@ export class BackgroundsComponent implements OnInit {
       },
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
-  }
-
-  openPreviewBackgroundDialog(): void {
-    this.showPreviewBackgroundDialog = true;
   }
 
   openCalibrateBackgroundDialog(): void {
@@ -94,6 +117,16 @@ export class BackgroundsComponent implements OnInit {
   }
 
   handleDeleteDialog(): void {
-    console.log('DELETE');
+    this.backgroundsService.delete(this.selectedBackground?.id!).subscribe(
+      {
+        next: () => {
+          this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('background.dialog.deleteSuccess')});
+          this.handleDialogResponse(true);
+        },
+        error: (err) => {
+          this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('background.dialog.deleteError')});
+        }
+      }
+    );
   }
 }

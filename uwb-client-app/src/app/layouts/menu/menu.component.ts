@@ -36,6 +36,7 @@ export class MenuComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.items = await this.menuService.getMenuItems();
+    this.items = this.menuService.filterTabsByAuth(this.items, this.account?.roles!);
     const currentUrl = window.location.pathname.split('/')[1];
     const currentMenuItem = this.items.find( i => i.routerLink === currentUrl);
     this.filteredItems = this.items;

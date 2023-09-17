@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IRole, RoleTableConst } from '@entities/auth/role.model';
+import { IRole } from '@entities/auth/role.model';
 import { IClientUnit } from '@entities/client/client-unit.model';
 import { IUser } from '@entities/user/user.model';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,6 +10,7 @@ import { ClientsService } from '@services/clients/clients.service';
 import { UsersService } from '@services/users/users.service';
 import { ToastService } from '@shared/toast/toast.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { RoleTableConst } from 'src/app/auth/role-access.type';
 
 @Component({
   selector: 'uwb-user-dialog',
@@ -128,11 +129,11 @@ export class UserDialogComponent implements OnInit {
       this.usersService.create(value).subscribe(
         {
           next: () => {
-            this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('user.dialog.editSuccess')});
+            this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('user.dialog.addSuccess')});
             this.onCloseDialog(true);
           },
           error: () => {
-            this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('user.dialog.editError')});
+            this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('user.dialog.addError')});
           }
         }
       );

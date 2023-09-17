@@ -1,5 +1,6 @@
 package com.uwb.clientserver.services.impl;
 
+import com.uwb.clientserver.exceptions.ItemNotExistException;
 import com.uwb.clientserver.mappers.OrganizationUnitMapper;
 import com.uwb.clientserver.models.OrganizationUnit;
 import com.uwb.clientserver.models.User;
@@ -73,7 +74,7 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService {
     @Override
     public OrganizationUnitResponse update(OrganizationUnitRequest request) {
         OrganizationUnit organizationUnit = organizationUnitMapper.toEntity(request);
-        OrganizationUnit existOrganizationUnit = organizationUnitRepository.findById(organizationUnit.getId()).get();
+        OrganizationUnit existOrganizationUnit = organizationUnitRepository.findById(organizationUnit.getId()).orElseThrow(() -> new ItemNotExistException(organizationUnit.getId()));
         OrganizationUnit organizationUnitToSave = setMissingValues(organizationUnit, existOrganizationUnit);
         return organizationUnitMapper.toResponse(organizationUnitRepository.save(organizationUnitToSave));
     }
