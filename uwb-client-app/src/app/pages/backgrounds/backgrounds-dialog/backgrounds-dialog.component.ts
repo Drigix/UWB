@@ -6,7 +6,6 @@ import { IClientUnit } from '@entities/client/client-unit.model';
 import { UploadEvent } from '@entities/uwb-file-upload/upload-event.model';
 import { TranslateService } from '@ngx-translate/core';
 import { BackgroundsService } from '@services/backgrounds/backgrounds.service';
-import { ClientUnitsService } from '@services/clients/client-units.service';
 import { ClientsService } from '@services/clients/clients.service';
 import { ToastService } from '@shared/toast/toast.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -30,7 +29,6 @@ export class BackgroundsDialogComponent implements OnInit {
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private clientsService: ClientsService,
-    private clientsUnitService: ClientUnitsService,
     private backgroundsService: BackgroundsService,
     private toastService: ToastService,
     private translateService: TranslateService
@@ -65,7 +63,7 @@ export class BackgroundsDialogComponent implements OnInit {
       (res: HttpResponse<IClientUnit[]>) => {
         this.treeSelectItems = res.body ?? [];
         if(this.edit) {
-          const serachOrgUnit = this.clientsUnitService.findByClientId(this.treeSelectItems[0], this.selectedBackground?.organizationUnitId!);
+          const serachOrgUnit = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedBackground?.organizationUnitId!);
           this.formGroup?.get('organizationUnitId')?.setValue(serachOrgUnit);
         }
       }

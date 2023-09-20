@@ -14,6 +14,7 @@ import { IClientUnit } from '@entities/client/client-unit.model';
 import { ClientsService } from '@services/clients/clients.service';
 import { IClient } from '@entities/client/client.model';
 import { AuthorityService } from '@auth/authority.service';
+import { ArrayBufferService } from '@shared/array-buffer-converter/array-buffer.service';
 
 @Component({
   selector: 'uwb-backgrounds',
@@ -28,6 +29,7 @@ export class BackgroundsComponent implements OnInit {
   selectedBackground?: IBackground;
   selectedOrganizationUnit?: IClient;
   userOrganizationUnitId?: number;
+  loading = false;
 
   constructor(
     private backgroundsService: BackgroundsService,
@@ -37,10 +39,12 @@ export class BackgroundsComponent implements OnInit {
     private confirmDialogService: ConfirmDialogService,
     private toastService: ToastService,
     private clientsService: ClientsService,
-    private authorityService: AuthorityService
+    private authorityService: AuthorityService,
+    private arrayBufferService: ArrayBufferService
     ) {}
 
   ngOnInit() {
+    this.loading = true;
     this.userOrganizationUnitId = this.authorityService.getUserOrganizationUnitId();
     this.columns = this.columnService.getBackgroundColumns();
     this.loadOrganizationUnits();
@@ -56,9 +60,12 @@ export class BackgroundsComponent implements OnInit {
   }
 
   loadBackgrounds(): void {
+    this.loading = true;
     this.backgroundsService.findAllByUserOrganizationUnit(this.selectedOrganizationUnit?.id ?? this.userOrganizationUnitId!).subscribe(
       (res: HttpResponse<IBackground[]>) => {
         this.backgrounds = res.body ?? [];
+        this.backgrounds.forEach(b => b.fullPath = this.arrayBufferService.convertImage(b.pathArrayBuffer!));
+        this.loading = false;
       }
     );
   }

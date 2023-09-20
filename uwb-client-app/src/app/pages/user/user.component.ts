@@ -19,6 +19,7 @@ export class UserComponent implements OnInit {
   columns: UniversalTableColumn[] = [];
   users: IUser[] = [];
   selectedUser?: IUser;
+  loading = false;
 
   constructor(
     private dialogService: DialogService,
@@ -30,15 +31,18 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loading = true;
     this.columns = this.columnService.getUserColumns();
     this.loadUsers();
   }
 
 
   loadUsers(): void {
+    this.loading = true;
     this.usersService.findAll().subscribe(
       (response) => {
         this.users = response;
+        this.loading = false;
       }
     );
   }
