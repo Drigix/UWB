@@ -4,37 +4,30 @@ import com.uwb.clientserver.config.ApplicationPaths;
 import com.uwb.clientserver.exceptions.ItemNotExistException;
 import com.uwb.clientserver.mappers.BackgroundMapper;
 import com.uwb.clientserver.models.Background;
-import com.uwb.clientserver.models.OrganizationUnit;
-import com.uwb.clientserver.models.User;
 import com.uwb.clientserver.models.request.BackgroundRequest;
 import com.uwb.clientserver.models.response.BackgroundResponse;
 import com.uwb.clientserver.repositories.BackgroundRepository;
 import com.uwb.clientserver.repositories.UserRepository;
 import com.uwb.clientserver.services.BackgroundService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BackgroundServiceImpl implements BackgroundService {
 
     private final BackgroundMapper backgroundMapper;
     private final BackgroundRepository backgroundRepository;
-    private final UserRepository userRepository;
     private final ApplicationPaths applicationPaths;
     @Override
     public BackgroundResponse create(BackgroundRequest request) {

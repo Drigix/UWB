@@ -1,5 +1,6 @@
 package com.uwb.clientserver.models;
 
+import com.uwb.clientserver.models.object.UwbObjectType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -7,7 +8,6 @@ import lombok.experimental.SuperBuilder;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,4 +31,7 @@ public class OrganizationUnit extends BaseEntity implements Serializable {
 
     @OneToMany(mappedBy = "organizationUnit")
     private List<Background> backgrounds;
+
+    @OneToMany(mappedBy = "organizationUnit")
+    private List<UwbObjectType> uwbObjectTypes;
 }

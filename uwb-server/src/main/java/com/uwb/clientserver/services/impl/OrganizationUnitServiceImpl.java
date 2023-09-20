@@ -21,6 +21,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrganizationUnitServiceImpl implements OrganizationUnitService {
 
     private final OrganizationUnitMapper organizationUnitMapper;
