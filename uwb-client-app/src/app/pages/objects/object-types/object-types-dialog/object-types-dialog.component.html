@@ -14,10 +14,27 @@
       <uwb-tree-select
         [treeSelectValue]="selectedClient"
         [options]="treeSelectItems"
-        formControlName="client"
-        label="{{ 'objectType.client' | translate }}"
-        (modelChange)="onClientSelected($event)"
+        formControlName="organizationUnitId"
+        label="{{ 'objectType.organizationUnit' | translate }}"
+        (modelChange)="onOrganizationUnitSelected($event)"
       ></uwb-tree-select>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-single-select
+        [items]="dropdownItems"
+        [optionLabel]="'name'"
+        [itemValue]="'id'"
+        formControlName="uwbObjectIconId"
+        label="{{ 'objectType.icon' | translate }}"
+        [itemTemplate]="itemTemplate"
+      >
+      <ng-template #itemTemplate let-item="item" pTemplate="item">
+        <div class="flex align-items-center" pTooltip="{{ item.name }}">
+          <img [src]="item.fullPath" style="height: 30px" class="pr-2" />
+          {{ item.name }}
+        </div>
+      </ng-template>
+    </uwb-single-select>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <span class="flex justify-content-center align-items-center">

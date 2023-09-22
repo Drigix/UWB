@@ -2,15 +2,26 @@
   <uwb-table
     [columns]="columns"
     [values]="objectTypes"
+    [loading]="loading"
+    [showHeaderSelect]="true"
     (selectionChange)="onObjectTypeSelected($event)"
-    >
-    </uwb-table>
+  >
+    <uwb-tree-select
+      [treeSelectValue]="treeSelectItemSelected"
+      [options]="treeSelectItems"
+      [optionLabel]="'name'"
+      [floatLabel]="false"
+      [placeholder]="'background.organizationUnit' | translate"
+      (modelChange)="onOrganizationUnitSelect($event)"
+    ></uwb-tree-select>
+  </uwb-table>
   <div class="buttons_container_center buttons_container_scale">
     <uwb-footer-buttons
-        [disabledEditAndDeleteButton]="selectedObjectType === undefined"
-        (emitAddClick)="openDialog()"
-        (emitEditClick)="openDialog(true)"
-        (emitDeleteClick)="openDeleteDialog()">
+      [disabledEditAndDeleteButton]="selectedObjectType === undefined"
+      (emitAddClick)="openDialog()"
+      (emitEditClick)="openDialog(true)"
+      (emitDeleteClick)="openDeleteDialog()"
+    >
     </uwb-footer-buttons>
   </div>
 </div>
