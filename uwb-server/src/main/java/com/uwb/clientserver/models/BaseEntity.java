@@ -1,5 +1,6 @@
 package com.uwb.clientserver.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.*;
@@ -22,9 +23,11 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdDate;
 
     @CreatedBy
+    @Column(updatable = false)
     private String createdBy;
 
     @LastModifiedDate
