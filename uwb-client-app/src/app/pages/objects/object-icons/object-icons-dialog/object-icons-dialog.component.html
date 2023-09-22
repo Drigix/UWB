@@ -7,16 +7,15 @@
     <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
         <input pInputText id="name" formControlName="name" />
-        <label htmlFor="name">{{ "background.name" | translate }}</label>
+        <label htmlFor="name">{{ "icon.name" | translate }}</label>
       </span>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <uwb-tree-select
-        [treeSelectValue]="selectedClient"
         [options]="treeSelectItems"
         [optionLabel]="'name'"
-        formControlName="client"
-        label="{{ 'background.client' | translate }}"
+        formControlName="organizationUnitId"
+        label="{{ 'background.organizationUnit' | translate }}"
       ></uwb-tree-select>
     </uwb-form-control>
     <uwb-form-control *ngIf="!edit" [styleClass]="'col-12'">
@@ -24,6 +23,8 @@
         [showUploadButton]="false"
         [showCancelButton]="false"
         [fileSize]="1000000000"
+        (emitSelectItem)="onIconSelected($event)"
+        (emitUploadedItems)="onIconUploaded($event)"
       ></uwb-file-upload>
     </uwb-form-control>
   </uwb-form-grid>
