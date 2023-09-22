@@ -5,13 +5,11 @@ import { IIcon } from "@entities/icon/icon.model";
 export interface IObject {
   id?: number;
   name?: string;
-  lastName?: string;
+  secondName?: string;
   tagId?: number;
   hexTagId?: string;
-  icon?: IIcon;
   configuration?: string;
-  client?: IClient;
-  type?: IObjectType
+  uwbObjectType?: IObjectType
 }
 
 export type NewObject = Omit<IObject, 'id'>;

@@ -1,14 +1,15 @@
+import { HttpResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IClientUnit } from '@entities/client/client-unit.model';
 import { IClient } from '@entities/client/client.model';
-import { IIcon } from '@entities/icon/icon.model';
 import { IObjectType } from '@entities/objects/object-type.model';
 import { IObject } from '@entities/objects/object.model';
-import { ClientUnitsService } from '@services/clients/client-units.service';
+import { TranslateService } from '@ngx-translate/core';
 import { ClientsService } from '@services/clients/clients.service';
-import { IconsService } from '@services/icon/icons.service';
 import { ObjectTypesService } from '@services/objects/object-types.service';
+import { ObjectsService } from '@services/objects/objects.service';
+import { ToastService } from '@shared/toast/toast.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -22,97 +23,114 @@ export class ObjectsDialogComponent implements OnInit {
   edit = false;
   selectedObject?: IObject;
   dropdownObjectTypeItems: IObjectType[] = [];
-  dropdownIconItems: IIcon[] = [];
-  treeSelectClientItems: IClientUnit[] = [];
-  selectedClient?: IClientUnit;
+  treeSelectItems: IClientUnit[] = [];
+  selectedOrganizationUnit?: IClientUnit;
+  pageSelectedOrganizationUnit?: IClient;
 
   constructor(
     private formBuilder: FormBuilder,
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
-    private iconsService: IconsService,
-    private clientUnitsService: ClientUnitsService,
-    private objectTypesService: ObjectTypesService,
-    private cd: ChangeDetectorRef
+    private clientsService: ClientsService,
+    private objectsService: ObjectsService,
+    private toastService: ToastService,
+    private translateService: TranslateService,
+    private objectTypesService: ObjectTypesService
     ) { }
 
   ngOnInit() {
     this.loadPageData();
     this.loadFormGroup();
-    this.loadClients();
-    if(this.edit) {
-      this.loadIcons();
-      this.loadObjectTypes();
-    }
+    this.loadOrganizationUnits();
   }
 
   loadPageData(): void {
     this.edit = this.config.data.edit;
     this.selectedObject = this.config.data.selectedObject;
+    this.pageSelectedOrganizationUnit = this.config.data.selectedOrganizationUnit;
   }
 
   loadFormGroup(): void {
     this.formGroup = this.formBuilder.group({
       name: [{value: null, disabled: false}, [Validators.required]],
-      lastName: [{value: null, disabled: false}, [Validators.required]],
+      secondName: [{value: null, disabled: false}, [Validators.required]],
       hexTagId: [{value: null, disabled: false}, [Validators.required]],
-      type: [{value: null, disabled: false}, [Validators.required]],
-      icon: [{value: null, disabled: false}, [Validators.required]],
-      client: [{value: null, disabled: false}, [Validators.required]],
+      uwbObjectTypeId: [{value: null, disabled: false}, [Validators.required]],
     });
     if(this.edit) {
+      this.loadObjectTypes(this.selectedObject?.uwbObjectType?.organizationUnitId!);
       this.formGroup.patchValue({
         name: this.selectedObject?.name,
-        lastName: this.selectedObject?.lastName,
+        secondName: this.selectedObject?.secondName,
         hexTagId: this.selectedObject?.hexTagId,
-        type: this.selectedObject?.type,
-        icon: this.selectedObject?.icon
+        uwbObjectTypeId: this.selectedObject?.uwbObjectType?.id,
       });
     }
   }
 
-  loadClients(): void {
-    this.clientUnitsService.findAll().subscribe(
-      (res) => {
-        this.treeSelectClientItems = res;
+  loadOrganizationUnits(): void {
+    this.clientsService.findTree().subscribe(
+      (res: HttpResponse<IClientUnit[]>) => {
+        this.treeSelectItems = res.body ?? [];
         if(this.edit) {
-            this.selectedClient = this.clientUnitsService.findByClientId(this.treeSelectClientItems[0], this.selectedObject?.client?.id!)!;
-            this.formGroup?.get('client')?.patchValue(this.selectedClient);
+          this.selectedOrganizationUnit = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedObject?.uwbObjectType?.organizationUnitId!)!;
+        } else {
+          this.selectedOrganizationUnit = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.pageSelectedOrganizationUnit?.id!)!;
+          this.loadObjectTypes(this.selectedOrganizationUnit.data.id!);
         }
       }
     );
   }
 
-  loadObjectTypes(): void {
-    this.objectTypesService.findAll().subscribe(
-      (res) => {
-        this.dropdownObjectTypeItems = res;
+  loadObjectTypes(organizationUnitId: number): void {
+    this.objectTypesService.findAllByUserOrganizationUnit(organizationUnitId).subscribe(
+      (res: HttpResponse<IObjectType[]>) => {
+        this.dropdownObjectTypeItems = res.body ?? [];
+        if(this.dropdownObjectTypeItems.length === 1) {
+          this.formGroup?.get('uwbObjectTypeId')?.setValue(this.dropdownObjectTypeItems[0].id);
+        }
       }
     );
   }
 
-  loadIcons(): void {
-    this.iconsService.findAll().subscribe(
-      (res) => {
-        this.dropdownIconItems = res;
-      }
-    );
-  }
-
-  onClientSelected(client?: IClient): void {
-    if(client) {
-      this.loadObjectTypes();
-      this.loadIcons();
+  onOrganizationUnitSelected(organizationUnit: IClient) {
+    if(organizationUnit) {
+      this.loadObjectTypes(organizationUnit.id!);
     }
   }
 
   onSave(): void {
     const value = this.formGroup?.getRawValue();
     console.log(value);
+    if(this.edit) {
+      value.id = this.selectedObject?.id;
+      this.objectsService.update(value).subscribe(
+        {
+          next: () => {
+            this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('object.dialog.editSuccess')});
+            this.onCloseDialog(true);
+          },
+          error: () => {
+            this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('object.dialog.editError')});
+          }
+        }
+      );
+    } else {
+      this.objectsService.create(value).subscribe(
+        {
+          next: () => {
+            this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('object.dialog.addSuccess')});
+            this.onCloseDialog(true);
+          },
+          error: () => {
+            this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('object.dialog.addError')});
+          }
+        }
+      );
+    }
   }
 
-  onCloseDialog(): void {
-    console.log('close');
-    this.ref.close();
+  onCloseDialog(response?: any): void {
+    this.ref.close(response);
   }
 }
