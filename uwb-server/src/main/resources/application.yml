@@ -28,3 +28,4 @@ springdoc:
 
 application:
   backgroundPath: D:\Users\michr\source\repos\UWB_DETAILS\
+  objectIconPath: D:\Users\michr\source\repos\UWB_DETAILS\object_icons\
