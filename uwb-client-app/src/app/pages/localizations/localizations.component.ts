@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IAnchor } from '@entities/anchor/anchor.model';
 import { IArea } from '@entities/area/area.model';
@@ -58,8 +59,8 @@ export class LocalizationsComponent implements OnInit {
   }
 
   loadObjects(): void {
-    this.objectsService.findAll().subscribe((res) => {
-      this.objects = res;
+    this.objectsService.findAll().subscribe((res: HttpResponse<IObject[]>) => {
+      this.objects = res.body ?? [];
     });
   }
 

@@ -36,5 +36,5 @@
       </span>
     </ng-template>
   </p-treeSelect>
-  <label for="label">{{ label }}</label>
+  <label *ngIf="floatLabel" for="label">{{ label }}</label>
 </span>

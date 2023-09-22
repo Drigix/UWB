@@ -2,8 +2,17 @@
   <uwb-table
     [columns]="columns"
     [values]="icons"
+    [showHeaderSelect]="true"
     (selectionChange)="onIconSelected($event)"
     >
+      <uwb-tree-select
+        [treeSelectValue]="treeSelectItemSelected"
+        [options]="treeSelectItems"
+        [optionLabel]="'name'"
+        [floatLabel]="false"
+        [placeholder]="'background.organizationUnit' | translate"
+        (modelChange)="onOrganizationUnitSelect($event)"
+      ></uwb-tree-select>
     </uwb-table>
   <div class="buttons_container_center buttons_container_scale">
     <uwb-footer-buttons

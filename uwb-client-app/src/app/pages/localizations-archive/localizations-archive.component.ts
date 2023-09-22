@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IBackground } from '@entities/background/background.model';
 import { ILocalizationArchive } from '@entities/localization/localization-archive.model';
@@ -35,8 +36,8 @@ export class LocalizationsArchiveComponent implements OnInit {
   }
 
   loadObjects(): void {
-    this.objectsService.findAll().subscribe((res) => {
-      this.objects = res;
+    this.objectsService.findAll().subscribe((res: HttpResponse<IObject[]>) => {
+      this.objects = res.body ?? [];
     });
   }
 
@@ -47,7 +48,7 @@ export class LocalizationsArchiveComponent implements OnInit {
         this.localizations = localizations.filter((loc: any) => loc.objectId && loc.objectId === this.selectedObject?.hexTagId);
           this.localizations.forEach(item => {
           const serachObject = this.objects.find(o => o.hexTagId === item.objectId);
-          item.name = serachObject!.name! + ' ' + serachObject!.lastName;
+          item.name = serachObject!.name! + ' ' + serachObject!.secondName;
           item.xPx = item.x! * this.selectedBackground?.scale!;
           item.yPx = item.y! * this.selectedBackground?.scale!;
         });

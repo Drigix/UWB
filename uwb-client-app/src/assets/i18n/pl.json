@@ -138,24 +138,48 @@
     }
   },
   "object": {
-    "name": "Nazwa",
-    "lastName": "Druga nazwa",
+    "name": "Imie/Nazwa",
+    "secondName": "Nazwisko/Druga nazwa",
     "hexTagId": "Identyfikator tagu",
-    "icon": "Ikona",
-    "client": "Klient",
-    "type": "Typ tagu",
+    "organizationUnit": "Jednostka organizacyjna",
+    "uwbObjectType": "Typ tagu",
     "objects": "Tagi",
-    "objectTypes": "Typy tagów",
-    "icons": "Ikony"
+    "uwbObjectTypes": "Typy tagów",
+    "icons": "Ikony",
+    "dialog": {
+      "addSuccess": "Dodano nowy tag!",
+      "addError": "Dodanie nowego tagu nie powiodło się!",
+      "editSuccess": "Edytowano tag!",
+      "editError": "Edycja tagu nie powiodło się!",
+      "deleteSuccess": "Usunięto tag! ",
+      "deleteError": "Usunięcie tagu nie powiodło się!"
+    }
   },
   "objectType": {
     "name": "Nazwa typu",
-    "client": "Klient",
-    "adminOnly": "Dla administratorów"
+    "organizationUnit": "Jednostka organizacyjna",
+    "icon": "Ikona",
+    "adminOnly": "Dla administratorów",
+    "dialog": {
+      "addSuccess": "Dodano nowy typ tagu!",
+      "addError": "Dodanie nowego typu tagu nie powiodło się!",
+      "editSuccess": "Edytowano typ tagu!",
+      "editError": "Edycja typu tagu nie powiodło się!",
+      "deleteSuccess": "Usunięto typ tagu! ",
+      "deleteError": "Usunięcie typu tagu nie powiodło się!"
+    }
   },
   "icon": {
     "name": "Nazwa ikony",
-    "icon": "Ikona"
+    "icon": "Ikona",
+    "dialog": {
+      "addSuccess": "Dodano nową ikonę tagu!",
+      "addError": "Dodanie nowej ikony tagu nie powiodło się!",
+      "editSuccess": "Edytowano ikonę tagu!",
+      "editError": "Edycja ikony tagu nie powiodło się!",
+      "deleteSuccess": "Usunięto ikonę tagu! ",
+      "deleteError": "Usunięcie ikony tagu nie powiodło się!"
+    }
   },
   "anchor": {
     "anchors": "Kotwice",

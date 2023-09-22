@@ -3,12 +3,10 @@ package com.uwb.clientserver.models;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor

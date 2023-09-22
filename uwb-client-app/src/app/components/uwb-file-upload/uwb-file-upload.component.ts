@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { API_URL } from '@config/api-url.constans';
 import { IBackground } from '@entities/background/background.model';
+import { IIcon } from '@entities/icon/icon.model';
 import { UploadEvent } from '@entities/uwb-file-upload/upload-event.model';
 
 @Component({
@@ -17,8 +18,8 @@ export class UwbFileUploadComponent implements OnInit {
   @Input() requestName = 'file';
   @Input() urlPath = '';
   @Input() urlMethod = 'post';
-  @Output() emitSelectBackgrouds = new EventEmitter<IBackground[]>();
-  @Output() emitSelectBackgroud = new EventEmitter<IBackground>();
+  @Output() emitSelectItems = new EventEmitter<IBackground[] | IIcon[]>();
+  @Output() emitSelectItem = new EventEmitter<IBackground | IIcon>();
   @Output() emitUploadedItems = new EventEmitter<any>();
   uploadedFiles: any[] = [];
   url = API_URL;
@@ -39,7 +40,7 @@ export class UwbFileUploadComponent implements OnInit {
     this.uploadedFiles = event.currentFiles;
     if(!this.multiple) {
       const uploadedBackground = this.changeFileToBackground(this.uploadedFiles[0]);
-      this.emitSelectBackgroud.emit(uploadedBackground);
+      this.emitSelectItem.emit(uploadedBackground);
       this.emitUploadedItems.emit(this.uploadedFiles[0]);
     }
   }

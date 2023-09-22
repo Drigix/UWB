@@ -6,7 +6,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
-@Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor

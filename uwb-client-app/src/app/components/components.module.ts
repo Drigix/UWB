@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PrimeNGLibsModule } from '@shared/primeng-libs.module';
-import { SharedModule } from 'primeng/api';
 import { FormComponent } from './form/form.component';
 import { FormControlComponent } from './form/form-control/form-control.component';
 import { FormGridComponent } from './form/form-grid/form-grid.component';
@@ -26,6 +25,7 @@ import { UwbMapLocalizationsArchiveComponent } from './uwb-map/uwb-map-localizat
 import { UwbProfileSettingsComponent } from './uwb-profile/uwb-profile-settings/uwb-profile-settings.component';
 import { UwbProfilePasswordComponent } from './uwb-profile/uwb-profile-password/uwb-profile-password.component';
 import { UwbProfileProfileComponent } from './uwb-profile/uwb-profile-profile/uwb-profile-profile.component';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({

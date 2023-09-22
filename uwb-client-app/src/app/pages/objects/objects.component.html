@@ -13,12 +13,12 @@
     <span
       class="col-4 page-mode"
       [ngClass]="{ 'selection-page-mode': pageMode === 'object-types' }"
-      pTooltip="{{ 'object.objectTypes' | translate }}"
+      pTooltip="{{ 'object.uwbObjectTypes' | translate }}"
       tooltipPosition="bottom"
       (click)="onPageModeChange('object-types')"
     >
       <i class="fa fa-clone mr-2"></i>
-      <h2 *ngIf="!isSmallScreen">{{ "object.objectTypes" | translate }}</h2>
+      <h2 *ngIf="!isSmallScreen">{{ "object.uwbObjectTypes" | translate }}</h2>
     </span>
     <span
       class="col-4 page-mode"
@@ -33,21 +33,59 @@
   </div>
   <ng-container [ngSwitch]="pageMode">
     <div class="object-table" *ngSwitchCase="'objects'">
-      <uwb-table [columns]="columns" [values]="objects" (selectionChange)="onObjectSelected($event)"> </uwb-table>
+      <uwb-table
+        [columns]="columns"
+        [values]="objects"
+        [loading]="loading"
+        [showHeaderSelect]="true"
+        [showFilterOption]="true"
+        (selectionChange)="onObjectSelected($event)"
+      >
+        <uwb-tree-select
+          [treeSelectValue]="treeSelectItemSelected"
+          [options]="treeSelectItems"
+          [optionLabel]="'name'"
+          [floatLabel]="false"
+          [placeholder]="'background.organizationUnit' | translate"
+          (modelChange)="onOrganizationUnitSelect($event)"
+        ></uwb-tree-select>
+        <div filter class="w-11rem m-2">
+          <uwb-single-select
+            [items]="dropdownFilterObjectTypeItems"
+            [optionLabel]="'name'"
+            [itemValue]="'id'"
+            label="{{ 'object.uwbObjectType' | translate }}"
+            (modelChange)="onObjectTypeFilterSelected($event)"
+          ></uwb-single-select>
+        </div>
+      </uwb-table>
       <div class="buttons_container_center buttons_container_scale">
         <uwb-footer-buttons
-        [disabledEditAndDeleteButton]="selectedObject === undefined"
-        (emitAddClick)="openDialog()"
-        (emitEditClick)="openDialog(true)"
-        (emitDeleteClick)="openDeleteDialog()">
+          [disabledEditAndDeleteButton]="selectedObject === undefined"
+          (emitAddClick)="openDialog()"
+          (emitEditClick)="openDialog(true)"
+          (emitDeleteClick)="openDeleteDialog()"
+        >
         </uwb-footer-buttons>
       </div>
     </div>
     <div *ngSwitchCase="'object-types'">
-      <uwb-object-types></uwb-object-types>
+      <uwb-object-types
+        [userOrganizationUnitId]="userOrganizationUnitId"
+        [treeSelectItems]="treeSelectItems"
+        [treeSelectItemSelected]="treeSelectItemSelected"
+        [selectedOrganizationUnit]="treeSelectItemSelected?.data"
+        (emitTreeSelectItem)="onEmitTreeSelectItem($event)"
+      ></uwb-object-types>
     </div>
     <div *ngSwitchCase="'object-icons'">
-      <uwb-object-icons></uwb-object-icons>
+      <uwb-object-icons
+        [userOrganizationUnitId]="userOrganizationUnitId"
+        [treeSelectItems]="treeSelectItems"
+        [treeSelectItemSelected]="treeSelectItemSelected"
+        [selectedOrganizationUnit]="treeSelectItemSelected?.data"
+        (emitTreeSelectItem)="onEmitTreeSelectItem($event)"
+      ></uwb-object-icons>
     </div>
   </ng-container>
 </div>

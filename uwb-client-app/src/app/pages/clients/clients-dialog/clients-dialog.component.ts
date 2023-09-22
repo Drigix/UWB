@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IClientUnit } from '@entities/client/client-unit.model';
 import { IClient, NewClient } from '@entities/client/client.model';
 import { TranslateService } from '@ngx-translate/core';
-import { ClientUnitsService } from '@services/clients/client-units.service';
 import { ClientsService } from '@services/clients/clients.service';
 import { ToastService } from '@shared/toast/toast.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -27,7 +26,6 @@ export class ClientsDialogComponent implements OnInit {
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private clientsService: ClientsService,
-    private clientUnitsService: ClientUnitsService,
     private toastService: ToastService,
     private translateService: TranslateService
   ) { }
@@ -62,11 +60,11 @@ export class ClientsDialogComponent implements OnInit {
       (res: HttpResponse<IClientUnit[]>) => {
         this.treeSelectItems = res.body ?? [];
         if(this.edit) {
-          const currentOrganizationUnit = this.clientUnitsService.findByClientId(this.treeSelectItems[0], this.selectedClient?.parentOrganizationUnitId!);
+          const currentOrganizationUnit = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedClient?.parentOrganizationUnitId!);
           this.formGroup?.get('parentOrganizationUnitId')?.setValue(currentOrganizationUnit);
           this.onParentOrganizationUnitSelect(currentOrganizationUnit!.data);
         } else if(this.selectedClient) {
-          const currentOrganizationUnit = this.clientUnitsService.findByClientId(this.treeSelectItems[0], this.selectedClient?.id!);
+          const currentOrganizationUnit = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedClient?.id!);
           this.formGroup?.get('parentOrganizationUnitId')?.setValue(currentOrganizationUnit);
           this.onParentOrganizationUnitSelect(currentOrganizationUnit!.data);
         }

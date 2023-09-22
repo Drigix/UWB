@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IClient } from '@entities/client/client.model';
 import { UniversalTableColumn } from '@entities/uwb-table/uwb-column.model';
 import { TranslateService } from '@ngx-translate/core';
-import { ClientUnitsService } from '@services/clients/client-units.service';
 import { ClientsService } from '@services/clients/clients.service';
 import { ConfirmDialogService } from '@shared/confirm-dialog/confirm-dialog.service';
 import { ColumnService } from '@shared/uwb-table/column.service';
@@ -31,7 +30,6 @@ export class ClientsComponent implements OnInit {
     private translateService: TranslateService,
     private confirmDialogService: ConfirmDialogService,
     private clientsService: ClientsService,
-    private clientUnitsService: ClientUnitsService,
     private toastService: ToastService
   ) { }
 

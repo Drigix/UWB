@@ -27,6 +27,21 @@ export class ClientsService {
     return this.http.get(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  findByIdFromUnits(root: IClientUnit, id: number): IClientUnit | null {
+    if (root.data.id === id) {
+      return root;
+    }
+
+    for (const child of root.children) {
+      const found = this.findByIdFromUnits(child, id);
+      if (found) {
+        return found;
+      }
+    }
+
+    return null;
+  }
+
   save(client: NewClient): Observable<ClientResponseType> {
     return this.http.post(this.resourceUrl, client, { observe: 'response' });
   }

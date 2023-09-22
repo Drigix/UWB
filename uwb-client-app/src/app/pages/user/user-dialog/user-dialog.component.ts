@@ -5,7 +5,6 @@ import { IRole } from '@entities/auth/role.model';
 import { IClientUnit } from '@entities/client/client-unit.model';
 import { IUser } from '@entities/user/user.model';
 import { TranslateService } from '@ngx-translate/core';
-import { ClientUnitsService } from '@services/clients/client-units.service';
 import { ClientsService } from '@services/clients/clients.service';
 import { UsersService } from '@services/users/users.service';
 import { ToastService } from '@shared/toast/toast.service';
@@ -33,7 +32,6 @@ export class UserDialogComponent implements OnInit {
     private usersService: UsersService,
     private toastService: ToastService,
     private translateService: TranslateService,
-    private clientsUnitService: ClientUnitsService
   ) { }
 
   ngOnInit() {
@@ -74,7 +72,7 @@ export class UserDialogComponent implements OnInit {
       (res: HttpResponse<IClientUnit[]>) => {
         this.treeSelectItems = res.body ?? [];
         if(this.edit) {
-          const serachOrgUnit = this.clientsUnitService.findByClientId(this.treeSelectItems[0], this.selectedUser?.organizationUnitId!);
+          const serachOrgUnit = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedUser?.organizationUnitId!);
           this.formGroup?.get('organizationUnitId')?.setValue(serachOrgUnit);
         }
       }

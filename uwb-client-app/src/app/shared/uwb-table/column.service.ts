@@ -80,26 +80,26 @@ export class ColumnService {
         header: this.translateService.instant('object.name'),
       },
       {
-        field: 'lastName',
-        label: 'lastName',
-        header: this.translateService.instant('object.lastName'),
+        field: 'secondName',
+        label: 'secondName',
+        header: this.translateService.instant('object.secondName'),
       },
       {
         field: 'hexTagId',
         label: 'hexTagId',
         header: this.translateService.instant('object.hexTagId'),
       },
+      // {
+      //   field: 'icon',
+      //   subField: 'path',
+      //   label: 'path',
+      //   header: this.translateService.instant('object.imgUrl'),
+      // },
       {
-        field: 'icon',
-        subField: 'path',
-        label: 'path',
-        header: this.translateService.instant('object.imgUrl'),
-      },
-      {
-        field: 'type',
+        field: 'uwbObjectType',
         subField: 'name',
-        label: 'type',
-        header: this.translateService.instant('object.type'),
+        label: 'uwbObjectType',
+        header: this.translateService.instant('object.uwbObjectType'),
       }
     ];
     return this.columns;
@@ -110,7 +110,18 @@ export class ColumnService {
       {
         field: 'name',
         label: 'name',
-        header: this.translateService.instant('object.name'),
+        header: this.translateService.instant('objectType.name'),
+      },
+      {
+        field: 'uwbObjectIcon',
+        subField: 'fullPath',
+        label: 'uwbObjectIcon',
+        header: this.translateService.instant('objectType.icon'),
+      },
+      {
+        field: 'adminOnly',
+        label: 'adminOnly',
+        header: this.translateService.instant('objectType.adminOnly'),
       }
     ];
     return this.columns;
@@ -124,8 +135,8 @@ export class ColumnService {
         header: this.translateService.instant('icon.name'),
       },
       {
-        field: 'path',
-        label: 'path',
+        field: 'fullPath',
+        label: 'fullPath',
         header: this.translateService.instant('icon.icon'),
       }
     ];

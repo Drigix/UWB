@@ -2,7 +2,6 @@ package com.uwb.clientserver.controllers;
 
 import com.uwb.clientserver.models.request.BackgroundRequest;
 import com.uwb.clientserver.models.response.BackgroundResponse;
-import com.uwb.clientserver.models.response.OrganizationUnitResponse;
 import com.uwb.clientserver.services.BackgroundService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +14,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 
 import static com.uwb.clientserver.security.AuthoritiesConstants.*;
 
@@ -58,7 +55,7 @@ public class BackgroundController {
     public ResponseEntity<String> uploadBackground(@RequestBody MultipartFile file) throws URISyntaxException, IOException {
         logger.info("Request to upload background file to server!");
         backgroundService.uploadFile(file);
-        return ResponseEntity.created(new URI("/api/background")).body("File has been uplaoded!");
+        return ResponseEntity.created(new URI("/api/background")).body("File has been uploaded!");
     }
 
     /**
