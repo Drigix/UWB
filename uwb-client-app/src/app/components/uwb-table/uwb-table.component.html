@@ -54,6 +54,10 @@
             'justify-content-center': tableWidth < '500'
           }"
         >
+        <span class="search-filter flex align-items-center">
+          <span *ngIf="showFilterOption" class="px-3">
+            <i class="pi pi-filter filter" (click)="filterOverlay.toogleOverlay($event)"></i>
+          </span>
           <span class="p-input-icon-left search-input">
             <i class="pi pi-search"></i>
             <input
@@ -64,6 +68,7 @@
               [disabled]="!storagedData || storagedData.length === 0"
             />
           </span>
+        </span>
           <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
           <!-- <swz-refresher *ngIf="refreshRate !== null" [rate]="refreshRate" (refresh)="onRefresh()"></swz-refresher> -->
         </div>
@@ -253,23 +258,25 @@
   </ng-template>
 
   <ng-template *ngIf="showFooter" pTemplate="footer" let-columns="columns">
-    <tr *ngIf="footerTemplate && values?.length! > 0">
-      <td [attr.colspan]="getColspan()">
-        <ng-container *ngTemplateOutlet="footerTemplate; context: { columns: columns }"></ng-container>
+    <tr *ngIf="loading; else noLoading">
+      <td [attr.colspan]="getColspan()" class="spinner">
+        <div *uwbSpinner="true"></div>
       </td>
     </tr>
-    <ng-container *ngIf="values?.length === 0">
-      <tr *ngIf="!loading">
-        <td [attr.colspan]="getColspan()" style="width: 100%; text-align: center; justify-content: center">
-          {{ 'global.table.noData' | translate }}
+    <ng-template #noLoading>
+      <tr *ngIf="footerTemplate && values?.length! > 0">
+        <td [attr.colspan]="getColspan()">
+          <ng-container *ngTemplateOutlet="footerTemplate; context: { columns: columns }"></ng-container>
         </td>
       </tr>
-      <tr *ngIf="loading">
-        <td [attr.colspan]="getColspan()" class="spinner">
-          <div *uwbSpinner="true"></div>
-        </td>
-      </tr>
-    </ng-container>
+      <ng-container *ngIf="values?.length === 0">
+        <tr>
+          <td [attr.colspan]="getColspan()" style="width: 100%; text-align: center; justify-content: center">
+            {{ 'global.table.noData' | translate }}
+          </td>
+        </tr>
+      </ng-container>
+    </ng-template>
   </ng-template>
 </p-table>
 
@@ -283,3 +290,7 @@
     <img [src]="imageDialogUrl" />
   </div>
 </uwb-dialog>
+
+<uwb-overlay #filterOverlay>
+  <ng-content select="[filter]" class="w-10"></ng-content>
+</uwb-overlay>

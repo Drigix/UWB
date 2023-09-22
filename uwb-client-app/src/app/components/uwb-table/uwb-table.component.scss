@@ -77,3 +77,12 @@
     width: calc(100% - 100px);
   }
 }
+
+.filter {
+  color: var(--uwb-button-text-color);
+  font-size: 20px;
+}
+
+::ng-deep .p-overlaypanel-content {
+  width: 200px;
+}

@@ -114,6 +114,7 @@ export class UwbTableComponent<T> implements OnChanges, AfterViewInit {
   @Input() loading = false;
   @Input() parseHTML = false;
   @Input() imageDialogVisible = false;
+  @Input() showFilterOption = false;
   @Input()
   get selection(): any | any[] {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
