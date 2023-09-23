@@ -58,10 +58,12 @@ export class ObjectIconsComponent implements OnInit {
   }
 
   onOrganizationUnitSelect(organizationUnit: IClient): void {
-    this.selectedOrganizationUnit = organizationUnit;
-    this.selectedIcon = undefined;
-    this.loadObjectIcons();
-    this.emitTreeSelectItem.emit(this.selectedOrganizationUnit);
+    if(this.selectedOrganizationUnit?.id !== organizationUnit.id) {
+      this.selectedOrganizationUnit = organizationUnit;
+      this.selectedIcon = undefined;
+      this.loadObjectIcons();
+      this.emitTreeSelectItem.emit(this.selectedOrganizationUnit);
+    }
   }
 
   onIconSelected(icon?: IIcon): void {

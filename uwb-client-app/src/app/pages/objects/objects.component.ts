@@ -109,11 +109,13 @@ export class ObjectsComponent implements OnInit {
   }
 
   onOrganizationUnitSelect(organizationUnit: IClient): void {
-    this.selectedOrganizationUnit = organizationUnit;
-    this.handleSelectedOrganizationUnit = organizationUnit;
-    this.treeSelectItemSelected = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedOrganizationUnit.id!)!;
-    this.selectedObject = undefined;
-    this.loadObjects();
+    if(this.selectedOrganizationUnit?.id !== organizationUnit.id) {
+      this.selectedOrganizationUnit = organizationUnit;
+      this.handleSelectedOrganizationUnit = organizationUnit;
+      this.treeSelectItemSelected = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedOrganizationUnit.id!)!;
+      this.selectedObject = undefined;
+      this.loadObjects();
+    }
   }
 
   onObjectTypeFilterSelected(objectTypeId?: number): void {
