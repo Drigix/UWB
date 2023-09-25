@@ -61,9 +61,7 @@ public class UwbObjectTypeServiceImpl implements UwbObjectTypeService {
 
     @Override
     public void delete(Long id) {
-        UwbObjectType uwbObjectType = uwbObjectTypeRepository.findById(id).orElseThrow(() -> new ItemNotExistException(id));
-        uwbObjectType.setDeleted(true);
-        uwbObjectTypeRepository.save(uwbObjectType);
+        uwbObjectTypeRepository.softDelete(id);
     }
 
 }

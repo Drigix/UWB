@@ -85,8 +85,7 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService {
         String formattedStringId = ";" + id.toString() + ";";
         List<OrganizationUnit> organizationUnits = organizationUnitRepository.findAllForUser(formattedStringId, id);
         for(OrganizationUnit organizationUnit: organizationUnits) {
-            organizationUnit.setDeleted(true);
-            organizationUnitRepository.save(organizationUnit);
+            organizationUnitRepository.softDelete(organizationUnit.getId());
         }
     }
 

@@ -65,9 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new ItemNotExistException(id));
-        user.setDeleted(true);
-        userRepository.save(user);
+       userRepository.softDelete(id);
     }
 
     private User setMissingValues(User request, User userData) {

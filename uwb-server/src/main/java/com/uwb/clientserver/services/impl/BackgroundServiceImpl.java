@@ -75,9 +75,7 @@ public class BackgroundServiceImpl implements BackgroundService {
 
     @Override
     public void delete(Long id) {
-        Background background = backgroundRepository.findById(id).orElseThrow(() -> new ItemNotExistException(id));
-        background.setDeleted(true);
-        backgroundRepository.save(background);
+       backgroundRepository.softDelete(id);
     }
 
     private Background setMissingValues(Background request, Background backgroundData) {

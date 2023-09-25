@@ -2,6 +2,7 @@ package com.uwb.clientserver.models;
 
 import com.uwb.clientserver.models.object.UwbObjectType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
