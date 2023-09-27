@@ -11,7 +11,7 @@
         "areaTypes": "Typy obszarów",
         "areas": "Obszary",
         "backgrounds": "Plany pomieszczeń",
-        "clients": "Klienci",
+        "clients": "Jednostki organizacyjne",
         "objects": "Tagi",
         "anchors": "Kotwice",
         "occurrence-map": "Mapa występowań",
@@ -164,9 +164,11 @@
     }
   },
   "client": {
-    "name": "Nazwa klienta",
+    "name": "Nazwa jednostki organizacyjnej",
     "clients": "Klienci",
     "orgUnit": "Jednostka organizacyjna",
+    "parentOrganizationUnit": "Jednostka organizacyjna nadrzędna",
+    "orgUnits": "Jednostki organizacyjne",
     "dialog": {
       "addSuccess": "Dodano nową jednostkę organizacyjną!",
       "addError": "Dodanie nowej jednostki organizacyjnej nie powiodło się!",
