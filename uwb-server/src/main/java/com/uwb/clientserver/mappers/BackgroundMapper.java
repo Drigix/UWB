@@ -1,17 +1,15 @@
 package com.uwb.clientserver.mappers;
 
 import com.uwb.clientserver.models.Background;
-import com.uwb.clientserver.models.OrganizationUnit;
 import com.uwb.clientserver.models.request.BackgroundRequest;
 import com.uwb.clientserver.models.response.BackgroundResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-import java.util.List;
 
 @Mapper(componentModel = "spring", uses = { OrganizationUnitMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface BackgroundMapper {
+public interface BackgroundMapper extends EntityMapper<BackgroundRequest, Background, BackgroundResponse> {
 
     @Mapping(source = "organizationUnitId", target = "organizationUnit")
     Background toEntity(BackgroundRequest request);
@@ -19,7 +17,6 @@ public interface BackgroundMapper {
     @Mapping(source = "organizationUnit", target = "organizationUnitId")
     BackgroundResponse toResponse(Background background);
 
-    List<BackgroundResponse> toResponseList(List<Background> backgrounds);
     default Background fromId (Long id) {
         if (id == null) {
             return null;
