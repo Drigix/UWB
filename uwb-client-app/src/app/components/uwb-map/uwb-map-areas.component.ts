@@ -10,11 +10,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { UwbMap } from './uwb-map.component';
-import { IAnchor } from '@entities/anchor/anchor.model';
-import { Fill, Stroke, Style } from 'ol/style';
-import { anchorMapIconStyle } from '@entities/anchor/anchor-map-style';
+import { Fill, Stroke, Style, Text } from 'ol/style';
 import { Feature } from 'ol';
-import { Point, Polygon } from 'ol/geom';
+import { Polygon } from 'ol/geom';
 import { IArea } from '@entities/area/area.model';
 import { IAreaVertex, NewAreaVertex } from '@entities/area/area-vertex.model';
 import { chunk } from 'lodash';
@@ -65,6 +63,17 @@ export class UwbMapAreasComponent extends UwbMap implements OnInit, OnChanges {
     if (this.vertexes.length > 0) {
       if(this.selectedaAreas.length > 0) {
         this.selectedaAreas.forEach( area => {
+          const labelStyle = new Style({
+            text: new Text({
+              text: area?.name!,
+              font: '25px Arial',
+              fill: new Fill({ color: area?.color }),
+              stroke: new Stroke({
+                color: 'black',
+                width: 3,
+              })
+            })
+          });
         const mapVertexes: (any | undefined)[] = [];
         const currentAreaVertexes = this.vertexes.filter(v => v.areaId === area.id);
         currentAreaVertexes.forEach((v) => {
@@ -82,12 +91,23 @@ export class UwbMapAreasComponent extends UwbMap implements OnInit, OnChanges {
             width: 3,
           }),
         });
-        newPolygon.setStyle(areaStyle);
+        newPolygon.setStyle([areaStyle, labelStyle]);
         this.source.addFeature(newPolygon);
       });
       this.source.changed();
       } else {
         const area = this.area;
+        const labelStyle = new Style({
+          text: new Text({
+            text: area?.name!,
+            font: '30px Arial',
+            fill: new Fill({ color: area?.color }),
+            stroke: new Stroke({
+              color: 'black',
+              width: 2,
+            })
+          })
+        });
         const mapVertexes: (any | undefined)[] = [];
         this.vertexes.forEach((v) => {
           const mapVertex = JSON.parse('[' + v.x + ',' + v.y + ']');
@@ -104,7 +124,7 @@ export class UwbMapAreasComponent extends UwbMap implements OnInit, OnChanges {
             width: 3,
           }),
         });
-        newPolygon.setStyle(areaStyle);
+        newPolygon.setStyle([areaStyle, labelStyle]);
         this.source.addFeature(newPolygon);
         this.source.changed();
       }
