@@ -60,4 +60,12 @@ public class UwbObjectServiceImpl implements UwbObjectService {
     public void delete(Long id) {
         uwbObjectRepository.softDelete(id);
     }
+
+    @Override
+    public void deleteList(List<Long> ids) {
+        for(Long id: ids) {
+            delete(id);
+        }
+    }
+
 }

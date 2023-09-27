@@ -25,4 +25,8 @@ public interface BackgroundMapper {
         }
         return Background.builder().id(id).build();
     }
+
+    default Long mapBackgroundToBackgroundId(Background background) {
+        return background != null ? background.getId() : null;
+    }
 }

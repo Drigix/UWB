@@ -19,4 +19,6 @@ public interface BackgroundService {
     BackgroundResponse update(BackgroundRequest request);
 
     void delete(Long id);
+
+    void deleteList(List<Long> ids);
 }

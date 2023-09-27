@@ -1,10 +1,12 @@
 package com.uwb.clientserver.models;
 
+import com.uwb.clientserver.models.area.Area;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -20,10 +22,13 @@ public class Background extends BaseEntity implements Serializable {
 
     private String name;
 
+    @Column(updatable = false)
     private String fileName;
 
+    @Column(updatable = false)
     private Double fileSize;
 
+    @Column(updatable = false)
     private String path;
 
     private Double scale;
@@ -31,4 +36,7 @@ public class Background extends BaseEntity implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organization_unit_id", nullable = false)
     private OrganizationUnit organizationUnit;
+
+    @OneToMany(mappedBy = "background")
+    private List<Area> areas;
 }
