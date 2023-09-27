@@ -16,4 +16,6 @@ public interface UwbObjectTypeService {
     UwbObjectTypeResponse update(UwbObjectTypeRequest request);
 
     void delete(Long id);
+
+    void deleteList(List<Long> ids);
 }
