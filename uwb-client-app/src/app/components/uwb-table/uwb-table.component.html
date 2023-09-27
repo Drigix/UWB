@@ -189,6 +189,9 @@
         <ng-container *ngSwitchCase="'IMG'">
           <img [src]="col.subField ? rowData[col.field][col.subField] : rowData[col.field]" type="image/svg+xml" width="20" height="20" (click)="onImageClick(col.subField ? rowData[col.field][col.subField] : rowData[col.field])"/>
         </ng-container>
+        <ng-container *ngSwitchCase="'COLOR'">
+          <div [style]="{'background-color': col.subField ? rowData[col.field][col.subField] : rowData[col.field], 'width':'20px', 'height': '20px'}"></div>
+        </ng-container>
         <ng-container *ngSwitchDefault>
           <ng-container *ngIf="col?.isLineColor || col?.isFontColor; else default">
             <ng-container *ngIf="col?.isLineColor">

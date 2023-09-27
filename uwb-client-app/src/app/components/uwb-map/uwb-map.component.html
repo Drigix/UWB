@@ -5,37 +5,47 @@
   <div *ngSwitchCase="'mapWithButtons'" class="single_map_with_footer">
     <div id="map" class="map"></div>
     <div class="buttons_container_center">
-      <p-button
-        class="px-2"
-        styleClass="ui-button_size_125"
-        [disabled]="disabledMapButtons"
-        label="{{
-          (drawable ? 'global.buttons.stopDraw' : 'global.buttons.draw')
-            | translate
-        }}"
-        (onClick)="onDrawClick()"
-      ></p-button>
-      <p-button
-        class="px-2"
-        styleClass="ui-button_size_125"
-        [disabled]="disabledMapButtons"
-        label="{{ 'global.buttons.save' | translate }}"
-        (onClick)="saveVertex()"
-      ></p-button>
-      <p-button
-        class="px-2"
-        styleClass="ui-button_size_125"
-        [disabled]="disabledMapButtons"
-        label="{{ 'global.buttons.edit' | translate }}"
-        (onClick)="onModifyClick()"
-      ></p-button>
-      <p-button
-        class="px-2"
-        styleClass="ui-button_size_125"
-        [disabled]="disabledMapButtons"
-        label="{{ 'global.buttons.clear' | translate }}"
-        (onClick)="clearVertex()"
-      ></p-button>
+      <div *ngIf="modified === false && drawable === false; else saveTemplate">
+        <p-button
+          *ngIf="vertexes.length === 0"
+          class="px-2"
+          styleClass="ui-button_size_125"
+          [disabled]="disabledMapButtons"
+          label="{{ 'global.buttons.draw'| translate }}"
+          (onClick)="onDrawClick()"
+        ></p-button>
+        <p-button
+          *ngIf="vertexes.length > 0"
+          class="px-2"
+          styleClass="ui-button_size_125"
+          [disabled]="disabledMapButtons"
+          label="{{ 'global.buttons.edit' | translate }}"
+          (onClick)="onModifyClick()"
+        ></p-button>
+        <p-button
+          class="px-2"
+          styleClass="ui-button_size_125"
+          [disabled]="disabledMapButtons"
+          label="{{ 'global.buttons.clear' | translate }}"
+          (onClick)="deleteVertex()"
+        ></p-button>
+      </div>
+      <ng-template #saveTemplate>
+        <p-button
+          class="px-2"
+          styleClass="ui-button_size_125"
+          [disabled]="disabledMapButtons"
+          label="{{ 'global.buttons.save' | translate }}"
+          (onClick)="saveVertex()"
+        ></p-button>
+        <p-button
+          styleClass="ui-button_size_125"
+          type="button"
+          label="{{ 'global.buttons.cancel' | translate }}"
+          data-dismiss="modal"
+          (onClick)="loadVertexes()"
+        ></p-button>
+      </ng-template>
     </div>
   </div>
   <div [class]="styleClass" *ngSwitchCase="'mapWithBodyInside'">

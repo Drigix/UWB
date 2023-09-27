@@ -1,24 +1,50 @@
-<div class="grid">
-  <div class="col-5 single_table_with_navbar_and_buttons">
-    <uwb-single-select
-      [items]="backgrounds"
-      optionLabel="name"
-      (modelChange)="onBackgroundSelect($event)"
-      [itemTemplate]="itemTemplate"
-    >
-      <ng-template #itemTemplate let-item="item" pTemplate="item">
-        <div class="flex align-items-center" pTooltip="{{ item.name }}">
-          <img [src]="item.path" style="height: 30px" />
-          {{ item.name }}
-        </div>
-      </ng-template>
-    </uwb-single-select>
+<div class="area grid">
+  <div class="col-5 area_table_with_navbar_and_buttons">
+    <div class="grid px-2">
+      <uwb-tree-select
+        class="col-12 p-0"
+        [treeSelectValue]="treeSelectItemSelected"
+        [options]="treeSelectItems"
+        [optionLabel]="'name'"
+        [floatLabel]="false"
+        [placeholder]="'background.organizationUnit' | translate"
+        (modelChange)="onOrganizationUnitSelect($event)"
+      ></uwb-tree-select>
+      <uwb-single-select
+        class="col-12 p-0"
+        [items]="backgrounds"
+        optionLabel="name"
+        label="{{ 'area.areaType' | translate }}"
+        (modelChange)="onBackgroundSelect($event)"
+        [itemTemplate]="itemTemplate"
+      >
+        <ng-template #itemTemplate let-item="item" pTemplate="item">
+          <div class="flex align-items-center" pTooltip="{{ item.name }}">
+            <img [src]="item.path" style="height: 30px" />
+            {{ item.name }}
+          </div>
+        </ng-template>
+      </uwb-single-select>
+    </div>
     <uwb-table
       class="w-full"
       [columns]="columns"
       [values]="areas"
+      [loading]="loading"
+      [showFilterOption]="true"
+      [showHeaderSelect]="true"
       (selectionChange)="onAreaSelect($event)"
     >
+    <p-button class="px-2" [disabled]="selectedBackground === undefined || selectedArea !== undefined || areas.length === 0" label="{{ 'global.buttons.showAll' | translate }}" (onClick)="onShowAllAreasClick()"></p-button>
+      <div filter class="w-11rem m-2">
+        <uwb-single-select
+          [items]="dropdownFilterAreaTypeItems"
+          [optionLabel]="'name'"
+          [itemValue]="'id'"
+          label="{{ 'object.uwbObjectType' | translate }}"
+          (modelChange)="onAreaTypeFilterSelected($event)"
+        ></uwb-single-select>
+      </div>
     </uwb-table>
     <div class="buttons_container_center">
       <uwb-footer-buttons
@@ -33,11 +59,13 @@
   <div class="col-7">
     <uwb-map-areas
       class="w-full"
-      [background]="selectedBackground?.path!"
+      [background]="selectedBackground?.fullPath!"
       [area]="selectedArea"
+      [selectedaAreas]="selectedArea === undefined ? selectedAreas : []"
       [vertexes]="areaVertexes"
       [mapDisplayType]="'mapWithButtons'"
       [disabledMapButtons]="selectedArea === undefined"
+      (emitChangeVertexes)="onSaveVertexes($event)"
     ></uwb-map-areas>
   </div>
 </div>

@@ -5,8 +5,8 @@ export interface IArea {
   id?: number;
   name?: string;
   color?: string;
-  type?: IAreaType;
-  background?: IBackground;
+  areaType?: IAreaType;
+  backgroundId?: number;
 }
 
 export type NewArea = Omit<IArea, 'id'>;

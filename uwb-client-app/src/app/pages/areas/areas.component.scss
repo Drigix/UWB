@@ -1,5 +1,5 @@
 @media (max-width:700px) {
-  ::ng-deep .single_table_with_navbar_and_buttons {
+  ::ng-deep .area_table_with_navbar_and_buttons {
     button {
       width: 70px;
       height: 30px;
@@ -15,7 +15,7 @@
   }
 }
 @media (min-width: 701px) {
-  ::ng-deep .single_table_with_navbar_and_buttons {
+  ::ng-deep .area_table_with_navbar_and_buttons {
     button {
       width: 90px;
       height: 30px;
@@ -31,7 +31,7 @@
   }
 }
 @media (min-width: 1200px) {
-  ::ng-deep .single_table_with_navbar_and_buttons {
+  ::ng-deep .area_table_with_navbar_and_buttons {
     button {
       width: 125px;
       height: 30px;
@@ -45,3 +45,11 @@
   }
 }
 
+::ng-deep .area .p-treeselect {
+  width: 100%;
+}
+
+.area_table_with_navbar_and_buttons {
+  display: grid;
+  grid-template-rows: 125px calc(100vh - 225px) 75px;
+}

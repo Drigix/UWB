@@ -26,7 +26,7 @@ export function tableFactory<T>(wrapper: UwbTableComponent<T>): Table | undefine
   return wrapper.table;
 }
 
-type DataType = 'DATE' | 'BOOLEAN' | 'IMG' | 'ARRAY' | 'NULL' | 'UNKNOWN';
+type DataType = 'DATE' | 'BOOLEAN' | 'IMG' | 'ARRAY' | 'COLOR' | 'NULL' | 'UNKNOWN';
 type FilterMode = 'single' | 'multiple' | 'none';
 type SelectMode = 'single' | 'multiple' | 'checkbox' | '';
 
@@ -309,6 +309,9 @@ export class UwbTableComponent<T> implements OnChanges, AfterViewInit {
     }
     if(typeof value === 'string' && (value.includes('.svg') || value.includes('.png') || value.includes('.jpg') || value.includes('blob:'))) {
       return 'IMG';
+    }
+    if(typeof value === 'string' && (value.includes('#'))) {
+      return 'COLOR'
     }
     return 'UNKNOWN';
   }
