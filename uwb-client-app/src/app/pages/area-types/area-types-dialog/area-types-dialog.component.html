@@ -1,0 +1,27 @@
+<uwb-form
+  [formGroup]="formGroup!"
+  (ngSubmit)="onSave()"
+  (cancel)="onCloseDialog()"
+>
+  <uwb-form-grid form-body>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" />
+        <label htmlFor="name">{{ "areaType.name" | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <span class="p-float-label">
+        <input pInputText id="color" formControlName="color" type="color" />
+        <label htmlFor="color">{{ "areaType.color" | translate }}</label>
+      </span>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-tree-select
+        [options]="treeSelectItems"
+        formControlName="organizationUnitId"
+        label="{{ 'areaType.organizationUnit' | translate }}"
+      ></uwb-tree-select>
+    </uwb-form-control>
+  </uwb-form-grid>
+</uwb-form>

@@ -48,6 +48,14 @@ import { ADMIN_ACCESS, LOGGED_USER_ACCESS } from '@auth/role-access.type';
           data: {
             authorities: LOGGED_USER_ACCESS
           },
+          loadChildren: () => import('./area-types/area-types.module').then(m => m.AreaTypesModule),
+          canActivate: [authGuard]
+        },
+        {
+          path: '',
+          data: {
+            authorities: LOGGED_USER_ACCESS
+          },
           loadChildren: () => import('./backgrounds/backgrounds.module').then(m => m.BackgroundsModule),
           canActivate: [authGuard]
         },

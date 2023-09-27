@@ -1,0 +1,28 @@
+<div class="single_table_with_buttons">
+  <uwb-table
+  [columns]="columns"
+  [values]="areaTypes"
+  [loading]="loading"
+  [showHeaderSelect]="true"
+  [(selection)]="selectedAreaType"
+  >
+    <uwb-tree-select
+    [treeSelectValue]="treeSelectItemSelected"
+    [options]="treeSelectItems"
+    [optionLabel]="'name'"
+    [floatLabel]="false"
+    [placeholder]="'background.organizationUnit' | translate"
+    (modelChange)="onOrganizationUnitSelect($event)"
+    ></uwb-tree-select>
+  </uwb-table>
+  <div class="buttons_container_center">
+    <uwb-footer-buttons
+      [styleClass]="'col px-2'"
+      [disabledEditAndDeleteButton]="selectedAreaType === undefined"
+      (emitAddClick)="openDialog()"
+      (emitEditClick)="openDialog(true)"
+      (emitDeleteClick)="openDeleteDialog()"
+    >
+    </uwb-footer-buttons>
+  </div>
+</div>
