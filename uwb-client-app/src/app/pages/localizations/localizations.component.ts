@@ -8,6 +8,7 @@ import { AnchorsService } from '@services/anchors/anchors.service';
 import { BackgroundsService } from '@services/backgrounds/backgrounds.service';
 import { LocalizationsService } from '@services/localizations/localizations.service';
 import { ObjectsService } from '@services/objects/objects.service';
+import { ArrayBufferService } from '@shared/array-buffer-converter/array-buffer.service';
 
 @Component({
   selector: 'uwb-localizations',
@@ -36,7 +37,8 @@ export class LocalizationsComponent implements OnInit {
     private backgroundsService: BackgroundsService,
     private objectsService: ObjectsService,
     private localizationsService: LocalizationsService,
-    private anchorsService: AnchorsService
+    private anchorsService: AnchorsService,
+    private arrayBufferService: ArrayBufferService
   ) { }
 
   ngOnInit() {
@@ -46,6 +48,7 @@ export class LocalizationsComponent implements OnInit {
   loadBackgrounds(): void {
     this.backgroundsService.findAll().subscribe((res) => {
       this.backgrounds = res;
+      this.backgrounds.forEach(b => b.fullPath = this.arrayBufferService.convertImage(b.pathArrayBuffer!));
     });
   }
 

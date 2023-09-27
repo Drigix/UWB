@@ -39,7 +39,7 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService {
 
     @Override
     public OrganizationUnitResponse create(OrganizationUnitRequest request) {
-        OrganizationUnit organizationUnit = organizationUnitMapper.toNewEntity(request);
+        OrganizationUnit organizationUnit = organizationUnitMapper.toEntity(request);
         return organizationUnitMapper.toResponse(organizationUnitRepository.save(organizationUnit));
     }
 

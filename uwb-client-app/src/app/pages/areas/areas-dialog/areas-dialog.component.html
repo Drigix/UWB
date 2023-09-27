@@ -1,16 +1,16 @@
 
 <uwb-form [formGroup]="formGroup!" (ngSubmit)="onSave()" (cancel)="onCloseDialog()">
   <uwb-form-grid form-body>
-    <uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
         <input pInputText id="name" formControlName="name" />
         <label htmlFor="name">{{ 'area.name' | translate }}</label>
       </span>
     </uwb-form-control>
-    <uwb-form-control>
-      <uwb-single-select [items]="dropdownItems" [optionLabel]="'name'" formControlName="areaType" label="{{ 'area.areaType' | translate }}" (modelChange)="onAreaTypeChange($event)"></uwb-single-select>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-single-select [items]="dropdownItems" [optionLabel]="'name'" [itemValue]="'id'" formControlName="areaTypeId" label="{{ 'area.areaType' | translate }}" (modelChange)="onAreaTypeChange($event)"></uwb-single-select>
     </uwb-form-control>
-    <uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
         <input pInputText id="color" type="color" formControlName="color" />
         <label htmlFor="color">{{ 'area.color' | translate }}</label>

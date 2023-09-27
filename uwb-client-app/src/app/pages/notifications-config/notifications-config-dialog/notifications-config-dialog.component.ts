@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IArea } from '@entities/area/area.model';
@@ -67,8 +68,8 @@ export class NotificationsConfigDialogComponent implements OnInit {
 
   loadAreas(): void {
     this.areasService.findAll().subscribe(
-      (res) => {
-        this.dropdownAreaItems = res;
+      (res: HttpResponse<IArea[]>) => {
+        this.dropdownAreaItems = res.body ?? [];
       }
     );
   }

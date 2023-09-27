@@ -162,6 +162,8 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
     this.map.render();
   }
 
+  loadVertexes(): void {}
+
   loadDrawOption(): void {
     this.drawInteraction = new Draw({
       source: this.source,
@@ -230,27 +232,9 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  onModifyClick(): void {
-    this.modified = !this.modified;
-    if(this.modified) {
-      this.loadModifyOption();
-    } else {
-      this.clearModifyInteractions();
-    }
-  }
+  onModifyClick(): void {}
 
-  saveVertex(): void {
-    const feature = this.source.getFeatures()[0];
-    const area = this.area;
-    if(feature != null) {
-      const coordinates = feature.getProperties()['geometry'].getFlatCoordinates();
-      const vertexList = chunk(coordinates, 2).map((coord3857: any[], index) => {
-        const vertex: NewAreaVertex = { lp: index, x: coord3857[0], y: coord3857[1], area};
-        return vertex;
-      });
-      console.log(vertexList);
-    }
-  }
+  saveVertex(): void {}
 
   clearVertex(): void {
     if(this.source != null) {
@@ -262,7 +246,10 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  deleteVertex(): void {}
+
   clearDrawInteractions(): void {
+    this.drawable = false;
     if(this.map != null) {
       this.map.removeInteraction(this.drawInteraction!);
       this.map.removeInteraction(this.snap);
@@ -270,6 +257,7 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
   }
 
   clearModifyInteractions(): void {
+    this.modified = false;
     if(this.map != null) {
       this.map.removeInteraction(this.modify);
     }

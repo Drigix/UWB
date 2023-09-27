@@ -6,21 +6,22 @@ import java.util.List;
 
  
 Contract for a generic dto to entity mapper.*
-@param <D> - DTO type parameter.
+    @param <RQ> - request type parameter.
 
- 
-@param <E> - Entity type parameter.
 
+    @param <E> - Entity type parameter.
+
+    @param <RE> - response type parameter.
  */
 
- public interface EntityMapper <D, E> {
+ public interface EntityMapper <RQ, E, RE> {
 
-    E toEntity(D dto);
+    E toEntity(RQ request);
 
-    D toResponse(E entity);
+    RE toResponse(E entity);
 
-     List<E> toEntity(List<D> dtoList);
+     List<E> toEntityList(List<RQ> requestList);
 
-     List <D> toResponse(List<E> entityList);
+     List <RE> toResponseList(List<E> entityList);
 
 }

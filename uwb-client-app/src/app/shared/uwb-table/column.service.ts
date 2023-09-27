@@ -33,9 +33,37 @@ export class ColumnService {
     this.columns = [
       {
         field: 'name',
-        label: 'Name',
-        header: 'Name',
+        label: 'name',
+        header: this.translateService.instant('area.name')
       },
+      {
+        field: 'areaType',
+        subField: 'name',
+        label: 'areaType',
+        header: this.translateService.instant('area.areaType')
+      },
+      {
+        field: 'color',
+        label: 'color',
+        style: {'width': '20%'},
+        header: this.translateService.instant('area.color')
+      },
+    ];
+    return this.columns;
+  }
+
+  getAreaTypeColumns(): UniversalTableColumn[] {
+    this.columns = [
+      {
+        field: 'name',
+        label: 'name',
+        header: this.translateService.instant('areaType.name')
+      },
+      {
+        field: 'color',
+        label: 'color',
+        header: this.translateService.instant('areaType.color')
+      }
     ];
     return this.columns;
   }

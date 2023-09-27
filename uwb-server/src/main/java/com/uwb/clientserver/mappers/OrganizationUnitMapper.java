@@ -10,13 +10,8 @@ import org.mapstruct.ReportingPolicy;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface OrganizationUnitMapper {
+public interface OrganizationUnitMapper extends EntityMapper<OrganizationUnitRequest, OrganizationUnit, OrganizationUnitResponse> {
 
-    OrganizationUnit toEntity(OrganizationUnitRequest request);
-
-    OrganizationUnitResponse toResponse(OrganizationUnit organizationUnit);
-
-    List<OrganizationUnitResponse> toResponseList(List<OrganizationUnit> organizationUnits);
 
     default OrganizationUnit fromId (Long id) {
         if (id == null) {
@@ -26,11 +21,5 @@ public interface OrganizationUnitMapper {
     }
     default Long mapOrganizationUnitToId(OrganizationUnit organizationUnit) {
         return organizationUnit != null ? organizationUnit.getId() : null;
-    }
-
-    default OrganizationUnit toNewEntity(OrganizationUnitRequest request) {
-        OrganizationUnit organizationUnit = toEntity(request);
-        organizationUnit.setDeleted(false);
-        return organizationUnit;
     }
 }

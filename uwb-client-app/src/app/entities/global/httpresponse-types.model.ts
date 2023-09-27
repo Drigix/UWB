@@ -1,5 +1,8 @@
 import { HttpResponse } from "@angular/common/http";
 import { IAnchor } from "@entities/anchor/anchor.model";
+import { IAreaType } from "@entities/area/area-type.model";
+import { IAreaVertex } from "@entities/area/area-vertex.model";
+import { IArea } from "@entities/area/area.model";
 import { IAuthenticationToken } from "@entities/auth/token.model";
 import { IBackground } from "@entities/background/background.model";
 import { IClientUnit } from "@entities/client/client-unit.model";
@@ -33,6 +36,15 @@ export type ObjectTypeArrayResponseType = HttpResponse<IObjectType[]>;
 
 export type IconResponseType = HttpResponse<IIcon>;
 export type IconArrayResponseType = HttpResponse<IIcon[]>;
+
+export type AreaTypeResponseType = HttpResponse<IAreaType>;
+export type AreaTypeArrayResponseType = HttpResponse<IAreaType[]>;
+
+export type AreaResponseType = HttpResponse<IArea>;
+export type AreaArrayResponseType = HttpResponse<IArea[]>;
+
+export type AreaVertexResponseType = HttpResponse<IAreaVertex>;
+export type AreaVertexArrayResponseType = HttpResponse<IAreaVertex[]>;
 
 export type AnchorsResponseType = HttpResponse<IAnchor>;
 export type AnchorsArrayResponseType = HttpResponse<IAnchor[]>;
