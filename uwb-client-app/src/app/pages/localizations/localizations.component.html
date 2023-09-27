@@ -19,7 +19,7 @@
       <p-button icon="pi pi-cog" [disabled]="selectedBackground === undefined" pTooltip="{{ 'localization.details.mapOptions' | translate }}" (onClick)="ol.toogleOverlay($event)"></p-button>
     </div>
   </div>
-  <uwb-map-localizations [background]="selectedBackground?.path!" [localizations]="localizations" [anchors]="anchors"></uwb-map-localizations>
+  <uwb-map-localizations [background]="selectedBackground?.fullPath!" [localizations]="localizations" [anchors]="anchors"></uwb-map-localizations>
 </div>
 
 <uwb-overlay #ol>

@@ -92,7 +92,12 @@ export class ObjectsComponent implements OnInit {
 
   loadObjectTypes(): void {
     const filteredObjects: IObject[] = this.objects.filter(o => (o.uwbObjectType !== undefined));
-    const uniqueObjectTypes: IObjectType[] = [...new Set(filteredObjects.map(o => o!.uwbObjectType!))];
+    const uniqueObjectTypes: IObjectType[] = [];
+    filteredObjects.forEach(o => {
+      if(!uniqueObjectTypes.some(ot => ot.id === o.uwbObjectType?.id)) {
+        uniqueObjectTypes.push(o.uwbObjectType!);
+      }
+    });
     this.dropdownFilterObjectTypeItems = uniqueObjectTypes;
   }
 
