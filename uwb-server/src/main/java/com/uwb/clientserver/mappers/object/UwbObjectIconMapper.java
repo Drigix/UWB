@@ -5,10 +5,11 @@ import com.uwb.clientserver.models.object.UwbObjectIcon;
 import com.uwb.clientserver.models.request.object.UwbObjectIconRequest;
 import com.uwb.clientserver.models.response.object.UwbObjectIconResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UwbObjectIconMapper {
 
     UwbObjectIcon toEntity(UwbObjectIconRequest request);

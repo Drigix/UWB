@@ -6,10 +6,11 @@ import com.uwb.clientserver.models.request.BackgroundRequest;
 import com.uwb.clientserver.models.response.BackgroundResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = { OrganizationUnitMapper.class })
+@Mapper(componentModel = "spring", uses = { OrganizationUnitMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BackgroundMapper {
 
     @Mapping(source = "organizationUnitId", target = "organizationUnit")

@@ -7,10 +7,11 @@ import com.uwb.clientserver.models.request.object.UwbObjectTypeRequest;
 import com.uwb.clientserver.models.response.object.UwbObjectTypeResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = { OrganizationUnitMapper.class, UwbObjectIconMapper.class })
+@Mapper(componentModel = "spring", uses = { OrganizationUnitMapper.class, UwbObjectIconMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UwbObjectTypeMapper {
 
     @Mapping(source = "organizationUnitId", target = "organizationUnit")
