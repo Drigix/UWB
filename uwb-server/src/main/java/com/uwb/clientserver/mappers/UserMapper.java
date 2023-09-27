@@ -7,15 +7,12 @@ import com.uwb.clientserver.models.request.SigninRequest;
 import com.uwb.clientserver.models.request.UserRequest;
 import com.uwb.clientserver.models.response.JwtAuthenticationResponse;
 import com.uwb.clientserver.models.response.UserResponse;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = { RoleMapper.class, OrganizationUnitMapper.class })
+@Mapper(componentModel = "spring", uses = { RoleMapper.class, OrganizationUnitMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
     @Mapping(source = "roleIds", target = "roles")

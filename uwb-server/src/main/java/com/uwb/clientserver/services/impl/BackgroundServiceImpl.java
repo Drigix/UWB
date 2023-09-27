@@ -1,13 +1,11 @@
 package com.uwb.clientserver.services.impl;
 
 import com.uwb.clientserver.config.ApplicationPaths;
-import com.uwb.clientserver.exceptions.ItemNotExistException;
 import com.uwb.clientserver.mappers.BackgroundMapper;
 import com.uwb.clientserver.models.Background;
 import com.uwb.clientserver.models.request.BackgroundRequest;
 import com.uwb.clientserver.models.response.BackgroundResponse;
 import com.uwb.clientserver.repositories.BackgroundRepository;
-import com.uwb.clientserver.repositories.UserRepository;
 import com.uwb.clientserver.services.BackgroundService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +27,7 @@ public class BackgroundServiceImpl implements BackgroundService {
     private final BackgroundMapper backgroundMapper;
     private final BackgroundRepository backgroundRepository;
     private final ApplicationPaths applicationPaths;
+
     @Override
     public BackgroundResponse create(BackgroundRequest request) {
         Background background = backgroundMapper.toEntity(request);
@@ -68,25 +67,19 @@ public class BackgroundServiceImpl implements BackgroundService {
     @Override
     public BackgroundResponse update(BackgroundRequest request) {
         Background background = backgroundMapper.toEntity(request);
-        Background existBackground = backgroundRepository.findById(background.getId()).orElseThrow(() -> new ItemNotExistException(background.getId()));
-        Background backgroundToSave = setMissingValues(background, existBackground);
-        return backgroundMapper.toResponse(backgroundRepository.save(backgroundToSave));
+        return backgroundMapper.toResponse(backgroundRepository.save(background));
     }
 
     @Override
     public void delete(Long id) {
-        Background background = backgroundRepository.findById(id).orElseThrow(() -> new ItemNotExistException(id));
-        background.setDeleted(true);
-        backgroundRepository.save(background);
+        backgroundRepository.softDelete(id);
     }
 
-    private Background setMissingValues(Background request, Background backgroundData) {
-        request.setPath(backgroundData.getPath());
-        request.setFileName(backgroundData.getFileName());
-        request.setFileSize(backgroundData.getFileSize());
-        request.setCreatedBy(backgroundData.getCreatedBy());
-        request.setCreatedDate(backgroundData.getCreatedDate());
-        request.setDeleted(backgroundData.getDeleted());
-        return request;
+    @Override
+    public void deleteList(List<Long> ids) {
+        for(Long id: ids) {
+            delete(id);
+        }
     }
+
 }

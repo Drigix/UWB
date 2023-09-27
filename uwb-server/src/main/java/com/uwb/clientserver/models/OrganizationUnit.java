@@ -1,7 +1,9 @@
 package com.uwb.clientserver.models;
 
+import com.uwb.clientserver.models.area.AreaType;
 import com.uwb.clientserver.models.object.UwbObjectType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -34,4 +36,7 @@ public class OrganizationUnit extends BaseEntity implements Serializable {
 
     @OneToMany(mappedBy = "organizationUnit")
     private List<UwbObjectType> uwbObjectTypes;
+
+    @OneToMany(mappedBy = "organizationUnit")
+    private List<AreaType> areaTypes;
 }

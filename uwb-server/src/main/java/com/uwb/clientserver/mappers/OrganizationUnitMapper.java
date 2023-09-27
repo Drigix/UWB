@@ -5,10 +5,11 @@ import com.uwb.clientserver.models.User;
 import com.uwb.clientserver.models.request.OrganizationUnitRequest;
 import com.uwb.clientserver.models.response.OrganizationUnitResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface OrganizationUnitMapper {
 
     OrganizationUnit toEntity(OrganizationUnitRequest request);

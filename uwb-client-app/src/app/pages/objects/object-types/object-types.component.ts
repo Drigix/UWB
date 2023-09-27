@@ -61,10 +61,12 @@ export class ObjectTypesComponent implements OnInit {
   }
 
   onOrganizationUnitSelect(organizationUnit: IClient): void {
-    this.selectedOrganizationUnit = organizationUnit;
-    this.selectedObjectType = undefined;
-    this.loadObjectTypes();
-    this.emitTreeSelectItem.emit(this.selectedOrganizationUnit);
+    if(this.selectedOrganizationUnit?.id !== organizationUnit.id) {
+      this.selectedOrganizationUnit = organizationUnit;
+      this.selectedObjectType = undefined;
+      this.loadObjectTypes();
+      this.emitTreeSelectItem.emit(this.selectedOrganizationUnit);
+    }
   }
 
   onObjectTypeSelected(objectType?: IObjectType): void {

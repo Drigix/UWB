@@ -2,14 +2,20 @@ package com.uwb.clientserver.services.impl;
 
 import com.uwb.clientserver.exceptions.ItemNotExistException;
 import com.uwb.clientserver.mappers.OrganizationUnitMapper;
+import com.uwb.clientserver.models.Background;
 import com.uwb.clientserver.models.OrganizationUnit;
 import com.uwb.clientserver.models.User;
+import com.uwb.clientserver.models.area.AreaType;
+import com.uwb.clientserver.models.object.UwbObjectType;
 import com.uwb.clientserver.models.request.OrganizationUnitRequest;
 import com.uwb.clientserver.models.response.OrganizationUnitResponse;
 import com.uwb.clientserver.models.response.OrganizationUnitTreeResponse;
 import com.uwb.clientserver.repositories.OrganizationUnitRepository;
 import com.uwb.clientserver.repositories.UserRepository;
+import com.uwb.clientserver.services.BackgroundService;
 import com.uwb.clientserver.services.OrganizationUnitService;
+import com.uwb.clientserver.services.area.AreaTypeService;
+import com.uwb.clientserver.services.object.UwbObjectTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +33,9 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService {
     private final OrganizationUnitMapper organizationUnitMapper;
     private final OrganizationUnitRepository organizationUnitRepository;
     private final UserRepository userRepository;
+    private final BackgroundService backgroundService;
+    private final AreaTypeService areaTypeService;
+    private final UwbObjectTypeService uwbObjectTypeService;
 
     @Override
     public OrganizationUnitResponse create(OrganizationUnitRequest request) {
@@ -75,9 +84,7 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService {
     @Override
     public OrganizationUnitResponse update(OrganizationUnitRequest request) {
         OrganizationUnit organizationUnit = organizationUnitMapper.toEntity(request);
-        OrganizationUnit existOrganizationUnit = organizationUnitRepository.findById(organizationUnit.getId()).orElseThrow(() -> new ItemNotExistException(organizationUnit.getId()));
-        OrganizationUnit organizationUnitToSave = setMissingValues(organizationUnit, existOrganizationUnit);
-        return organizationUnitMapper.toResponse(organizationUnitRepository.save(organizationUnitToSave));
+        return organizationUnitMapper.toResponse(organizationUnitRepository.save(organizationUnit));
     }
 
     @Override
@@ -85,16 +92,26 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService {
         String formattedStringId = ";" + id.toString() + ";";
         List<OrganizationUnit> organizationUnits = organizationUnitRepository.findAllForUser(formattedStringId, id);
         for(OrganizationUnit organizationUnit: organizationUnits) {
-            organizationUnit.setDeleted(true);
-            organizationUnitRepository.save(organizationUnit);
+            List<Long> backgroundIds = organizationUnit.getBackgrounds()
+                    .stream()
+                    .mapToLong(Background::getId)
+                    .boxed()
+                    .toList();
+            List<Long> areaTypeIds = organizationUnit.getAreaTypes()
+                    .stream()
+                    .mapToLong(AreaType::getId)
+                    .boxed()
+                    .toList();
+            List<Long> uwbObjectTypeIds = organizationUnit.getUwbObjectTypes()
+                    .stream()
+                    .mapToLong(UwbObjectType::getId)
+                    .boxed()
+                    .toList();
+            backgroundService.deleteList(backgroundIds);
+            areaTypeService.deleteList(areaTypeIds);
+            uwbObjectTypeService.deleteList(uwbObjectTypeIds);
+            organizationUnitRepository.softDelete(organizationUnit.getId());
         }
-    }
-
-    private OrganizationUnit setMissingValues(OrganizationUnit request, OrganizationUnit unitData) {
-        request.setCreatedBy(unitData.getCreatedBy());
-        request.setCreatedDate(unitData.getCreatedDate());
-        request.setDeleted(unitData.getDeleted());
-        return request;
     }
 
 }
