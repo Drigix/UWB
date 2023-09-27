@@ -8,6 +8,7 @@
         "users": "Użytkownicy",
         "localizations": "Lokalizacje",
         "localizationsArchive": "Archiwum lokalizacji",
+        "areaTypes": "Typy obszarów",
         "areas": "Obszary",
         "backgrounds": "Plany pomieszczeń",
         "clients": "Klienci",
@@ -53,7 +54,8 @@
       "addFile": "Dodaj plik",
       "preview": "Podgląd",
       "calibrate": "Kalibruj",
-      "mapSettings": "Ustawienia mapy"
+      "mapSettings": "Ustawienia mapy",
+      "showAll": "Pokaż wszystko"
     }
   },
   "login": {
@@ -102,9 +104,46 @@
     }
   },
   "area": {
-    "name": "Nazwa",
+    "name": "Nazwa obszaru",
     "areaType": "Typ obszaru",
-    "color": "Kolor obszaru"
+    "color": "Kolor obszaru",
+    "dialog": {
+      "addSuccess": "Dodano nowy obszar!",
+      "addError": "Dodanie nowego obszaru nie powiodło się!",
+      "editSuccess": "Edytowano obszar!",
+      "editError": "Edycja obszaru nie powiodło się!",
+      "deleteSuccess": "Usunięto obszar! ",
+      "deleteError": "Usunięcie obszaru nie powiodło się!"
+    }
+  },
+  "areaType": {
+    "name": "Nazwa typu",
+    "color": "Kolor typu",
+    "organizationUnit": "Jednostka organizacyjna",
+    "dialog": {
+      "header": "Podgląd planu",
+      "addSuccess": "Dodano nowy typ obszaru!",
+      "addError": "Dodanie nowego typu obszaru nie powiodło się!",
+      "editSuccess": "Edytowano typ obszaru!",
+      "editError": "Edycja typu obszaru nie powiodło się!",
+      "deleteSuccess": "Usunięto typ obszaru! ",
+      "deleteError": "Usunięcie typu obszaru nie powiodło się!"
+    }
+  },
+  "areaVertex": {
+    "lp": "Indeks wierzchołka",
+    "x": "X",
+    "y": "Y",
+    "area": "Obszar",
+    "dialog": {
+      "addSuccess": "Dodano nowe wierzchołki obszaru!",
+      "addError": "Dodanie nowych wierzchołków obszaru nie powiodło się!",
+      "editSuccess": "Edytowano wierzchołki obszaru!",
+      "editError": "Edycja wierzchołków obszaru nie powiodło się!",
+      "deleteMessage": "Czy na pewno chcesz usunąć wszystkie wierzchołki z danego obszaru?",
+      "deleteSuccess": "Usunięto wierzchołki obszaru! ",
+      "deleteError": "Usunięcie wierzchołków obszaru nie powiodło się!"
+    }
   },
   "background": {
     "name": "Nazwa planu",
