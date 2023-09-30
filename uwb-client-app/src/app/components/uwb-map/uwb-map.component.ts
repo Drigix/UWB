@@ -55,7 +55,7 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
   @Input() styleClass = 'h-full';
   @Input() selectedMapPoint?: any;
   /*INPUT MAP CLICK OPTION */
-  @Input() mapClickMode: 'add' | 'else' = 'else';
+  @Input() mapClickMode: 'add' | 'edit' | 'else' = 'else';
   @Output() emitLengthLineString = new EventEmitter<number>();
   @Output() emitNewPoint = new EventEmitter();
   @Output() emitEditSelectedPoint = new EventEmitter();
@@ -75,6 +75,7 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
   overlayType?: MapOverlayType;
   mapInterval?: NodeJS.Timer;
   disabledMapPanelButtons = false;
+  showOverlay = true;
 
   constructor(protected cd: ChangeDetectorRef, protected renderer: Renderer2) {}
 

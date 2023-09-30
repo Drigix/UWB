@@ -14,6 +14,7 @@ import { anchorMapIconStyle } from '@entities/anchor/anchor-map-style';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
 import { MapOverlayType } from '@entities/uwb-map/map-options.type';
+import { toLonLat } from 'ol/proj';
 
 @Component({
   selector: 'uwb-map-anchors',
@@ -59,9 +60,10 @@ export class UwbMapAnchorsComponent
 
   loadPoints(style: Style): void {
     this.overlay.setPosition(undefined);
-    this.selectedMapPoint = undefined;
     this.source.clear();
     if (this.mapClickMode === 'else') {
+      this.showOverlay = true;
+      this.selectedMapPoint = undefined;
       this.anchors.forEach((anchor) => {
         let id = 'anchor_' + 'NEW';
         if (anchor.id !== null) {
@@ -70,6 +72,10 @@ export class UwbMapAnchorsComponent
         this.addPointToMap([anchor.xPx!, anchor.yPx!], id, style);
         this.source.changed();
       });
+    } else if (this.mapClickMode === 'edit') {
+      this.showOverlay = false;
+      const searchAnchor = this.selectedMapPoint as IAnchor;
+      this.addPointToMap([searchAnchor.xPx!, searchAnchor.yPx!], 'anchor_' + searchAnchor.id, style);
     }
   }
 
@@ -77,15 +83,22 @@ export class UwbMapAnchorsComponent
     this.map.on('click', (event) => {
       if (this.mapClickMode === 'add') {
         const existingFeature = this.source.getFeatureById('anchor_NEW');
+        const newCoordinates = this.map.getCoordinateFromPixel(event.pixel);
         if (existingFeature) {
-          const newCoordinates = this.map.getCoordinateFromPixel(event.pixel);
           existingFeature.setGeometry(new Point(newCoordinates));
         } else {
-          this.addPointToMap([event.pixel[0], event.pixel[1]], 'anchor_NEW', style);
+          this.addPointToMap(newCoordinates, 'anchor_NEW', style);
         }
         this.source.changed();
-        const newAnchor: IAnchor = { x: event.pixel[0], y: event.pixel[1] };
+        const newAnchor: IAnchor = { x: newCoordinates[0], y: newCoordinates[1] };
         this.selectedMapPoint = newAnchor;
+        this.emitNewPoint.emit(this.selectedMapPoint);
+      } else if(this.mapClickMode === 'edit') {
+        const newCoordinates = this.map.getCoordinateFromPixel(event.pixel);
+        const existingFeature = this.source.getFeatureById('anchor_' + this.selectedMapPoint.id);
+        existingFeature?.setGeometry(new Point(newCoordinates));
+        this.selectedMapPoint = {...this.selectedMapPoint, x: newCoordinates[0], y: newCoordinates[1] };
+        this.source.changed();
         this.emitNewPoint.emit(this.selectedMapPoint);
       } else {
         if (this.map.getFeaturesAtPixel(event.pixel).length > 0) {

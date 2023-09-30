@@ -39,4 +39,7 @@ public class Background extends BaseEntity implements Serializable {
 
     @OneToMany(mappedBy = "background")
     private List<Area> areas;
+
+    @OneToMany(mappedBy = "background")
+    private List<Anchor> anchors;
 }
