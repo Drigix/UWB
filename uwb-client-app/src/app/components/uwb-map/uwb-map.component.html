@@ -66,7 +66,7 @@
 <div id="popup" class="overlay">
   <ng-container [ngSwitch]="overlayType">
     <ng-container *ngSwitchCase="'anchor'">
-      <div *ngIf="selectedMapPoint" class="flex flex-column">
+      <div *ngIf="selectedMapPoint && showOverlay" class="flex flex-column">
         <span class="p-1">
           {{ "anchor.name" | translate }}: {{ selectedMapPoint.name }}
         </span>
@@ -92,7 +92,7 @@
             styleClass="ui-button_size_125"
             pTooltip="{{ 'global.buttons.delete' | translate }}"
             icon="pi pi-times"
-            (onClick)="emitDeleteSelectedPoint.emit()"
+            (onClick)="emitDeleteSelectedPoint.emit(selectedMapPoint)"
           ></p-button>
         </div>
       </div>
