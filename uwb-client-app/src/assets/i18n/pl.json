@@ -228,7 +228,16 @@
     "name": "Identyfikator",
     "x": "X",
     "y": "Y",
-    "z": "Z"
+    "z": "Z",
+    "dialog": {
+      "addSuccess": "Dodano nową kotwice!",
+      "addError": "Dodanie nowej kotwicy nie powiodło się!",
+      "idAlreadyExistsError": "Kotwica z podanym identyfikatorem już istnieje!",
+      "editSuccess": "Edytowano kotwice!",
+      "editError": "Edycja kotwicy nie powiodło się!",
+      "deleteSuccess": "Usunięto kotwice! ",
+      "deleteError": "Usunięcie kotwicy nie powiodło się!"
+    }
   },
   "localization": {
     "backgrounds":"Plany pomieszczeń",
