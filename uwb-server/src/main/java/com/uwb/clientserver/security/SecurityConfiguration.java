@@ -38,6 +38,7 @@ public class SecurityConfiguration {
                     request.requestMatchers("/api/authentication/**").permitAll();
                     request.requestMatchers("/api/**").authenticated();
                     request.requestMatchers("/swagger-ui.html", "/swagger-ui/**","/v3/api-docs/**").permitAll();
+                    request.requestMatchers("/ws/**").permitAll();
                 })
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
