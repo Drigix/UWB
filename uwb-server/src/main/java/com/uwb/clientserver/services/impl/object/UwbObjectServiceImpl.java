@@ -1,5 +1,6 @@
 package com.uwb.clientserver.services.impl.object;
 
+import com.uwb.clientserver.dao.UwbObjectDao;
 import com.uwb.clientserver.exceptions.ItemNotExistException;
 import com.uwb.clientserver.mappers.object.UwbObjectMapper;
 import com.uwb.clientserver.models.object.UwbObject;
@@ -23,10 +24,12 @@ public class UwbObjectServiceImpl implements UwbObjectService {
     private final UwbObjectMapper uwbObjectMapper;
     private final UwbObjectRepository uwbObjectRepository;
     private final UwbObjectIconService uwbObjectIconService;
+    private final UwbObjectDao uwbObjectDao;
 
     @Override
     public UwbObjectResponse create(UwbObjectRequest request) {
         UwbObject uwbObject = uwbObjectMapper.toEntity(request);
+        uwbObjectDao.createUwbObjectTable(uwbObject.getHexTagId());
         return uwbObjectMapper.toResponse(uwbObjectRepository.save(uwbObject));
     }
 
@@ -51,6 +54,12 @@ public class UwbObjectServiceImpl implements UwbObjectService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public UwbObjectResponse findOneByHexTagId(String hexTagId) {
+        return uwbObjectMapper.toResponse(uwbObjectRepository.findOneByHexTagId(hexTagId).orElse(null));
+    }
+
+    @Override
     public UwbObjectResponse update(UwbObjectRequest request) {
         UwbObject uwbObject = uwbObjectMapper.toEntity(request);
         return uwbObjectMapper.toResponse(uwbObjectRepository.save(uwbObject));
@@ -58,6 +67,8 @@ public class UwbObjectServiceImpl implements UwbObjectService {
 
     @Override
     public void delete(Long id) {
+        UwbObject uwbObject = uwbObjectRepository.findById(id).orElseThrow(() -> new ItemNotExistException(id));
+        uwbObjectDao.deleteUwbObjectTable(uwbObject.getHexTagId());
         uwbObjectRepository.softDelete(id);
     }
 
