@@ -11,12 +11,14 @@ public class CorsGlobalConfiguration {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
-        source.registerCorsConfiguration("/v3/api-docs", config);
-        source.registerCorsConfiguration("/api/**", config);
-        source.registerCorsConfiguration("/swagger-ui/**", config);
+        config.setAllowCredentials(true);
+        config.addAllowedOriginPattern("*");
+//        source.registerCorsConfiguration("/v3/api-docs", config);
+//        source.registerCorsConfiguration("/api/**", config);
+//        source.registerCorsConfiguration("/swagger-ui/**", config);
+        source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
 }

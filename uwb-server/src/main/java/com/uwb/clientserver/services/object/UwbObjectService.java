@@ -14,6 +14,8 @@ public interface UwbObjectService {
 
     List<UwbObjectResponse> findAllByOrganization(Long id) throws IOException;
 
+    UwbObjectResponse findOneByHexTagId(String hexTagId);
+
     UwbObjectResponse update(UwbObjectRequest request);
 
     void delete(Long id);

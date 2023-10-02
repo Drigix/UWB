@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -36,9 +37,12 @@ public class UwbObjectController {
      */
     @PostMapping()
     @PreAuthorize(ADMIN_PREAUTHORIZE)
-    public UwbObjectResponse createUwbObject(@Valid @RequestBody UwbObjectRequest request) throws MethodArgumentNotValidException {
+    public ResponseEntity<?> createUwbObject(@Valid @RequestBody UwbObjectRequest request) throws MethodArgumentNotValidException {
         logger.info("Request to create new uwb-object: {}", request);
-        return uwbObjectService.create(request);
+        if(uwbObjectService.findOneByHexTagId(request.getHexTagId()) != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("UwbObject with hexTagId: " + request.getHexTagId() + " already exists!");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(uwbObjectService.create(request));
     }
 
     /**

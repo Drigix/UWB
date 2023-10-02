@@ -8,12 +8,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UwbObjectRepository extends JpaRepository<UwbObject, Long> {
 
     @Query(value = "SELECT uo.*, uot.id as object_id FROM uwb_object uo LEFT JOIN uwb_object_type uot ON uo.uwb_object_type_id = uot.id WHERE uo.deleted IS NOT TRUE AND uot.organization_unit_id = :id", nativeQuery = true)
     List<UwbObject> findALLByOrganizationUnitId(@Param("id") Long id);
+
+
+    Optional<UwbObject> findOneByHexTagId(String hexTagId);
 
     @Modifying
     @Query("UPDATE UwbObject uo SET uo.deleted = true WHERE uo.id = :id")
