@@ -4,7 +4,9 @@ import {
   EventEmitter,
   forwardRef,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -21,7 +23,7 @@ import { noop } from 'rxjs';
     },
   ],
 })
-export class UwbMultiSelectComponent<T extends { id: number }> implements AfterViewInit, ControlValueAccessor {
+export class UwbMultiSelectComponent<T extends { id: number }> implements OnChanges, AfterViewInit, ControlValueAccessor {
   @Input() items: any[] = [];
   @Input() placeholder!: string;
   @Input() optionLabel!: string;
@@ -29,15 +31,23 @@ export class UwbMultiSelectComponent<T extends { id: number }> implements AfterV
   @Input() label = 'Wybierz opcje';
   @ViewChild(MultiSelect) multiSelect!: MultiSelect;
   @Input() itemValue!: string;
+  @Input() values: any[] = [];
   itemLabel!: string;
   filterBy!: string;
   value!: T[];
   isDisabled = false;
   @Output() emitSelectedOption = new EventEmitter<any>();
+  @Output() emitSelectedOptions = new EventEmitter<any[]>();
   @Output() itemChange = new EventEmitter();
 
   onModelChange: (_: T[]) => void = () => noop;
   onModelTouched: () => void = () => noop;
+
+  ngOnChanges(changes: SimpleChanges): void {
+      if(changes['values']) {
+        this.value = this.values;
+      }
+  }
 
   ngAfterViewInit(): void {
     this.multiSelect.registerOnChange(this.onModelChange);
@@ -63,7 +73,7 @@ export class UwbMultiSelectComponent<T extends { id: number }> implements AfterV
   emitAndUpdate(event: { value: T[] }): void {
     this.value = event.value;
     this.emitSelectedOption.emit(event.value[event.value.length - 1]);
-    // this.emitItemChange(event);
+    this.emitSelectedOptions.emit(event.value);
   }
 
   emitItemChange(event: { value: number | T[] | undefined }): void {

@@ -79,7 +79,7 @@
         <span class="p-1">
           {{ "anchor.z" | translate }}: {{ selectedMapPoint.z }}
         </span>
-        <div class="buttons_container_center">
+        <div class="buttons_container_center" *ngIf="showAnchorOverlayButtons">
           <p-button
             class="p-2"
             styleClass="ui-button_size_125"
@@ -109,7 +109,7 @@
           {{ "localization.tag.y" | translate }}: {{ selectedMapPoint.y }}
         </span>
         <span class="p-1">
-          {{ "localization.tag.date" | translate }}: {{ selectedMapPoint.date }}
+          {{ "localization.tag.date" | translate }}: {{ selectedMapPoint.date | date:'yyyy-M-dd, h:mm' }}
         </span>
       </div>
     </ng-container>

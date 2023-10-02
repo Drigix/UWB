@@ -19,45 +19,38 @@
       <p-button icon="pi pi-cog" [disabled]="selectedBackground === undefined" pTooltip="{{ 'localization.details.mapOptions' | translate }}" (onClick)="ol.toogleOverlay($event)"></p-button>
     </div>
   </div>
-  <uwb-map-localizations [background]="selectedBackground?.fullPath!" [localizations]="localizations" [anchors]="anchors"></uwb-map-localizations>
+  <uwb-map-localizations [background]="selectedBackground?.fullPath!" [localizations]="localizations" [anchors]="selectedAnchors" [selectedAreas]="selectedAreas" [vertexes]="selectedAreasVertexes"></uwb-map-localizations>
 </div>
 
 <uwb-overlay #ol>
   <div class="grid justify-content-center align-items-center" style="width: 300px;">
-    <span class="clas-6 p-2 pb-0 flex align-items-center">
-      <label class="mr-1">{{ 'localization.overlay.showAnchors' | translate }}</label>
-      <p-checkbox [(ngModel)]="showAnchors" [binary]="true" inputId="binary" (onChange)="onShowAnchorsChange($event)"></p-checkbox>
-    </span>
-    <span class="clas-6 p-2 pb-0 flex align-items-center">
-      <label class="mr-1">{{ 'localization.overlay.showAreas' | translate }}</label>
-      <p-checkbox [(ngModel)]="showAreas" [binary]="true" inputId="binary" (onChange)="onShowAreasChange($event)"></p-checkbox>
-    </span>
-    <uwb-single-select
+    <uwb-multi-select
         class="col-12 p-0"
+        [values]="selectedObjects"
         [showClear]="false"
-        [items]="localizationObjects"
+        [items]="objects"
         optionLabel="name"
         label="{{ 'localization.objects' | translate }}"
-        (modelChange)="onObjectChange($event)"
+        (emitSelectedOptions)="onObjectChange($event)"
       >
-      </uwb-single-select>
-    <uwb-single-select
+      </uwb-multi-select>
+    <uwb-multi-select
         class="col-12 p-0"
         [showClear]="false"
         [items]="anchors"
         optionLabel="name"
         label="{{ 'localization.anchors' | translate }}"
-        (modelChange)="onAnchorChange($event)"
+        (emitSelectedOptions)="onAnchorChange($event)"
       >
-      </uwb-single-select>
-      <uwb-single-select
+      </uwb-multi-select>
+      <uwb-multi-select
         class="col-12 p-0"
         [showClear]="false"
         [items]="areas"
         optionLabel="name"
         label="{{ 'localization.areas' | translate }}"
-        (modelChange)="onAreaChange($event)"
+        (emitSelectedOptions)="onAreaChange($event)"
       >
-      </uwb-single-select>
+      </uwb-multi-select>
   </div>
 </uwb-overlay>

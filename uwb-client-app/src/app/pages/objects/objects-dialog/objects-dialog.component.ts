@@ -1,4 +1,4 @@
-import { HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IClientUnit } from '@entities/client/client-unit.model';
@@ -100,8 +100,8 @@ export class ObjectsDialogComponent implements OnInit {
   }
 
   onSave(): void {
-    const value = this.formGroup?.getRawValue();
-    console.log(value);
+    let value = this.formGroup?.getRawValue();
+    value = {...value, hexTagId: value.hexTagId.toLowerCase()};
     if(this.edit) {
       value.id = this.selectedObject?.id;
       this.objectsService.update(value).subscribe(
@@ -122,8 +122,12 @@ export class ObjectsDialogComponent implements OnInit {
             this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('object.dialog.addSuccess')});
             this.onCloseDialog(true);
           },
-          error: () => {
-            this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('object.dialog.addError')});
+          error: (error: HttpErrorResponse) => {
+            if(error.status === 409) {
+              this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('object.dialog.idAlreadyExistsError')});
+            } else {
+              this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('object.dialog.addError')});
+            }
           }
         }
       );

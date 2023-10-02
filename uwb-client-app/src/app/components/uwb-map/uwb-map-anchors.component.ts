@@ -34,6 +34,7 @@ export class UwbMapAnchorsComponent
 
   override ngOnInit() {
     this.overlayType = MapOverlayType.ANCHOR;
+    this.showAnchorOverlayButtons = true;
   }
 
   override ngOnChanges(changes: SimpleChanges): void {

@@ -76,6 +76,7 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
   mapInterval?: NodeJS.Timer;
   disabledMapPanelButtons = false;
   showOverlay = true;
+  showAnchorOverlayButtons = false;
 
   constructor(protected cd: ChangeDetectorRef, protected renderer: Renderer2) {}
 
