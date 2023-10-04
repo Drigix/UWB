@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { UwbMap } from './uwb-map.component';
 import { IAnchor } from '@entities/anchor/anchor.model';
-import { Fill, Stroke, Style, Text } from 'ol/style';
+import { Fill, Icon, Stroke, Style, Text } from 'ol/style';
 import { anchorMapIconStyle } from '@entities/anchor/anchor-map-style';
 import { Feature } from 'ol';
 import { Point, Polygon } from 'ol/geom';
@@ -79,7 +79,14 @@ export class UwbMapLocalizationsComponent extends UwbMap implements OnInit, OnCh
       if(localization.tagId === this.selectedMapPoint?.tagId) {
         this.overlay.setPosition([localization.xPx!, localization.yPx!]);
       }
-      feature.setStyle(style);
+      feature.setStyle(new Style({
+        image: new Icon({
+          src: localization.fullPath,
+          scale: 0.07,
+          anchor: [0.5, 1],
+        }),
+        zIndex: 100
+      }));
       this.source.addFeature(feature);
       this.source.changed();
     });

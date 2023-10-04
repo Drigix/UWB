@@ -100,6 +100,7 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
   }
 
   loadMap(): void {
+    this.selectedMapPoint = undefined;
     if(this.map) {
       this.map.dispose();
     }

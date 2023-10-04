@@ -117,8 +117,11 @@ export class LocalizationsComponent implements OnInit, OnDestroy {
         }
       });
       this.localizations.forEach((loc) => {
+        const searchObject = this.selectedObjects.find(o => o.hexTagId === loc.tagId);
+        loc.name = searchObject?.name! + ' ' + searchObject?.secondName;
         loc.xPx = this.selectedBackground?.scale ? this.selectedBackground?.scale * loc.x! : loc.x;
         loc.yPx = this.selectedBackground?.scale ? this.selectedBackground?.scale * loc.y! : loc.y;
+        loc.fullPath = this.arrayBufferService.convertImage(loc.pathArrayBuffer!);
       });
     });
   }
