@@ -1,7 +1,16 @@
-<div class="h-full single_map_with_navbar">
-  <div class="grid align-items-center">
+<div class="h-full single_map_with_hight_navbar">
+  <div class="grid">
+    <uwb-tree-select
+        class="col-12 mt-1"
+        [treeSelectValue]="treeSelectItemSelected"
+        [options]="treeSelectItems"
+        [optionLabel]="'name'"
+        [floatLabel]="false"
+        [placeholder]="'background.organizationUnit' | translate"
+        (modelChange)="onOrganizationUnitSelect($event)"
+      ></uwb-tree-select>
     <uwb-single-select
-      class="col-4"
+      class="col pt-0 px-1"
       [items]="backgrounds"
       optionLabel="name"
       label="{{ 'localization.backgrounds' | translate }}"
@@ -15,9 +24,9 @@
         </div>
       </ng-template>
     </uwb-single-select>
-    <uwb-calendar class="col-3 flex justify-content-center" [rangeMode]="true" [showTime]="true" (modelChange)="onDateChange($event)"></uwb-calendar>
+    <uwb-calendar class="col-3 pt-0 px-1 flex justify-content-center" [rangeMode]="true" [showTime]="true" (modelChange)="onDateChange($event)"></uwb-calendar>
     <uwb-single-select
-        class="col-4"
+        class="col-4 pt-0 px-1"
         [showClear]="false"
         [items]="objects"
         optionLabel="name"
@@ -25,9 +34,9 @@
         (modelChange)="onObjectSelect($event)"
       >
     </uwb-single-select>
-    <div class="col-1 flex justify-content-center align-items-end" style="height: 80px;">
+    <div class="col-1 pt-0 px-1 flex justify-content-center align-items-end" style="height: 80px;">
       <p-button icon="pi pi-search" [disabled]="!checkIsAllValid()" (onClick)="onLoadLocalizationsArchive()"></p-button>
     </div>
   </div>
-  <uwb-map-localizations-archive [background]="selectedBackground?.path!" [localizations]="localizations" [mapDisplayType]="'mapWithBodyInside'"></uwb-map-localizations-archive>
+  <uwb-map-localizations-archive [background]="selectedBackground?.fullPath!" [localizations]="localizations" [mapDisplayType]="'mapWithBodyInside'"></uwb-map-localizations-archive>
 </div>

@@ -1,22 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_URL } from '@config/api-url.constans';
+import { LocalizationsArchiveArrayResponseType } from '@entities/global/httpresponse-types.model';
+import { ILocalization } from '@entities/localization/localization.model';
 import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class LocalizationsArchiveService {
 
-  private resourceUrl = '../../../assets/data/data-heatmap-points.json';
-  private resourceArchiveUrl = '../../../assets/data/data-localizations-archive.json';
+  private resourceUrl = API_URL + 'localization-archive';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  findAll(): Observable<any> {
-    return this.http.get(this.resourceUrl);
-  }
-
-  findAllArchiveData(): Observable<any> {
-    return this.http.get(this.resourceArchiveUrl);
+  findAllByTagIdAndDateBetween(tagId: string, dateFrom: Date, dateTo: Date): Observable<LocalizationsArchiveArrayResponseType> {
+    return this.http.get<ILocalization[]>(`${this.resourceUrl}/${tagId}/${dateFrom}/${dateTo}`, { observe: 'response' });
   }
 }

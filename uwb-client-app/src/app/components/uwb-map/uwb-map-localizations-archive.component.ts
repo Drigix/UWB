@@ -9,10 +9,12 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { UwbMap } from './uwb-map.component';
-import { Style } from 'ol/style';
+import { Icon, Style } from 'ol/style';
 import { localizationMapIconStyle } from '@entities/localization/localization-map.style';
 import { MapOverlayType } from '@entities/uwb-map/map-options.type';
 import { Coordinate } from 'ol/coordinate';
+import { Feature } from 'ol';
+import { Point } from 'ol/geom';
 
 @Component({
   selector: 'uwb-map-localizations-archive',
@@ -21,6 +23,7 @@ import { Coordinate } from 'ol/coordinate';
 })
 export class UwbMapLocalizationsArchiveComponent extends UwbMap implements OnInit, OnChanges, OnDestroy {
   @Input() localizations: any[] = [];
+  localizationArchivePointStyle?: Style;
   localizationArchiveInterval?: NodeJS.Timer;
   currentPointIndex?: number;
   timeToChangePoint = 2;
@@ -59,31 +62,39 @@ export class UwbMapLocalizationsArchiveComponent extends UwbMap implements OnIni
   }
 
   loadPoints(style: Style): void {
-    this.overlay.setPosition(undefined);
     this.selectedMapPoint = undefined;
     const firstLocalization = this.localizations[0];
     this.selectedMapPoint = firstLocalization;
     this.currentPointIndex = 0;
-    this.addPointToMap([firstLocalization.xPx!, firstLocalization.yPx],'tag_' + firstLocalization.objectId, style);
+    this.localizationArchivePointStyle = new Style({
+      image: new Icon({
+        src: firstLocalization.fullPath,
+        scale: 0.07,
+        anchor: [0.5, 1],
+      }),
+      zIndex: 100
+    });
+    this.addPointToMap([firstLocalization.xPx!, firstLocalization.yPx],'tag_' + firstLocalization.tagId, this.localizationArchivePointStyle);
     this.setOverlay([firstLocalization.xPx!, firstLocalization.yPx]);
+    this.source.changed();
   }
 
 
   override goToPreviousPoint(): void {
-    this.removePointFromMap('tag_' + this.localizations[this.currentPointIndex!].objectId);
+    this.removePointFromMap('tag_' + this.localizations[this.currentPointIndex!].tagId);
     this.currentPointIndex = (this.currentPointIndex! - 1 < 0) ? this.localizations.length - 1 : this.currentPointIndex! - 1;
     const previousLocalization = this.localizations[this.currentPointIndex!];
     this.selectedMapPoint = previousLocalization;
-    this.addPointToMap([previousLocalization.xPx!, previousLocalization.yPx],'tag_' + previousLocalization.objectId, localizationMapIconStyle);
+    this.addPointToMap([previousLocalization.xPx!, previousLocalization.yPx],'tag_' + previousLocalization.tagId, this.localizationArchivePointStyle!);
     this.setOverlay([previousLocalization.xPx!, previousLocalization.yPx]);
   }
 
   override goToNextPoint(): void {
-    this.removePointFromMap('tag_' + this.localizations[this.currentPointIndex!].objectId);
+    this.removePointFromMap('tag_' + this.localizations[this.currentPointIndex!].tagId);
     this.currentPointIndex = (this.currentPointIndex! + 1 > this.localizations.length - 1) ? 0 : this.currentPointIndex! + 1;
     const nextLocalization = this.localizations[this.currentPointIndex!];
     this.selectedMapPoint = nextLocalization;
-    this.addPointToMap([nextLocalization.xPx!, nextLocalization.yPx],'tag_' + nextLocalization.objectId, localizationMapIconStyle);
+    this.addPointToMap([nextLocalization.xPx!, nextLocalization.yPx],'tag_' + nextLocalization.tagId, this.localizationArchivePointStyle!);
     this.setOverlay([nextLocalization.xPx!, nextLocalization.yPx]);
   }
 

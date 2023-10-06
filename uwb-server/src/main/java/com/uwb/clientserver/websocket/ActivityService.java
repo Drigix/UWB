@@ -35,7 +35,6 @@ public class ActivityService {
     private Timer timer;
     private Map<Object, LocalizationResponse> aggregatedLocalizationData = new ConcurrentHashMap<Object, LocalizationResponse>();
 
-    private Map<Object, AnchorResponse> aggregatedAnchorData = new ConcurrentHashMap<Object, AnchorResponse>();
 
     public void newLocalizationData(List<LocalizationResponse> localizationResponseList) {
         for(LocalizationResponse localizationResponse: localizationResponseList) {
@@ -44,15 +43,6 @@ public class ActivityService {
             }
         }
     }
-
-    public void newAnchornData(List<AnchorResponse> localizationResponseList) {
-        for(AnchorResponse localizationResponse: localizationResponseList) {
-            if(localizationResponse.getId() != null) {
-                aggregatedAnchorData.put(localizationResponse.getId(), localizationResponse);
-            }
-        }
-    }
-
     @MessageMapping("/send/localizactions/tag")
     public void handleRequestLocalizations(Long backgroundId) {
         log.info("Localization tag websockets connected.");
@@ -72,8 +62,6 @@ public class ActivityService {
         };
         timer = new Timer();
         timer.scheduleAtFixedRate(repetedTask, 0, 1000L);
-//        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-//        executorService.scheduleAtFixedRate(repetedTask, 0, 1000L, TimeUnit.MILLISECONDS);
     }
 
     @MessageMapping("/stop/localizactions/tag")
@@ -84,22 +72,4 @@ public class ActivityService {
             timer.cancel();
         }
     }
-
-//    @MessageMapping("/send/localizactions/tag")
-////    @SendTo("/topic/localizactions/tag")
-//    public void handleRequestAnchor() {
-//        repetedTask = new TimerTask() {
-//            public void run() {
-//                List<AnchorResponse> anchors = anchorService.findAll();
-//                newAnchornData(anchors);
-//                if(!aggregatedAnchorData.isEmpty()) {
-//                    messagingTemplate.convertAndSend("/topic/localizactions/tag", aggregatedAnchorData.values());
-//                    aggregatedAnchorData.clear();
-//                }
-//            }
-//        };
-//        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-//        executorService.scheduleAtFixedRate(repetedTask, 0, 1000L, TimeUnit.MILLISECONDS);
-//    }
-
 }

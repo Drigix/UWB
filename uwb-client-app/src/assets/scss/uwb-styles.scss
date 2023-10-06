@@ -470,6 +470,11 @@ body {
   grid-template-rows: 75px calc(100vh - 150px);
 }
 
+.single_map_with_hight_navbar {
+  display: grid;
+  grid-template-rows: 140px calc(100vh - 160px);
+}
+
 .single_map_with_footer {
   display: grid;
   grid-template-rows: calc(100vh - 100px) 75px;

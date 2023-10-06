@@ -20,4 +20,5 @@ public class LocalizationResponse {
     private String tagId;
     private Long backgroundId;
     private String anchorIds;
+    private byte[] pathArrayBuffer;
 }

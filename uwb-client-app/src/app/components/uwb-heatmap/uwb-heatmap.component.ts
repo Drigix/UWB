@@ -44,15 +44,15 @@ export class UwbHeatmapComponent implements OnInit, OnChanges {
       this.loadHeatmap();
     }
     if(changes['data']) {
-      console.log(this.data);
       this.loadData();
     }
   }
 
   loadData(): void {
+    this.source.clear();
     this.data.forEach( d => {
       const feature = new Feature(
-        new Point([d.x, d.y])
+        new Point([d.xPx, d.yPx])
       );
       this.source.addFeature(feature);
       this.source.changed();
