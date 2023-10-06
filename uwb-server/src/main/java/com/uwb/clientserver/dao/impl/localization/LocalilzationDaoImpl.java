@@ -103,5 +103,4 @@ public class LocalilzationDaoImpl extends BaseJdbcDouSupport implements Localiza
         Path tagPath = Paths.get(path);
         return Files.readAllBytes(tagPath);
     }
-
 }
