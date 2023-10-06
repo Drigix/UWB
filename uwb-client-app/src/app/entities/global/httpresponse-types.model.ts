@@ -8,6 +8,7 @@ import { IBackground } from "@entities/background/background.model";
 import { IClientUnit } from "@entities/client/client-unit.model";
 import { IClient } from "@entities/client/client.model";
 import { IIcon } from "@entities/icon/icon.model";
+import { ILocalization } from "@entities/localization/localization.model";
 import { INotificationConfig } from "@entities/notification/notification-config.model";
 import { INotificationType } from "@entities/notification/notification-type.model";
 import { INotification } from "@entities/notification/notification.model";
@@ -48,6 +49,8 @@ export type AreaVertexArrayResponseType = HttpResponse<IAreaVertex[]>;
 
 export type AnchorsResponseType = HttpResponse<IAnchor>;
 export type AnchorsArrayResponseType = HttpResponse<IAnchor[]>;
+
+export type LocalizationsArchiveArrayResponseType = HttpResponse<ILocalization[]>;
 
 export type NotificationsResponseType = HttpResponse<INotification>;
 export type NotificationsArrayResponseType = HttpResponse<INotification[]>;
