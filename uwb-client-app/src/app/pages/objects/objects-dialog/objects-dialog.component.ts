@@ -52,9 +52,9 @@ export class ObjectsDialogComponent implements OnInit {
 
   loadFormGroup(): void {
     this.formGroup = this.formBuilder.group({
-      name: [{value: null, disabled: false}, [Validators.required]],
-      secondName: [{value: null, disabled: false}, [Validators.required]],
-      hexTagId: [{value: null, disabled: false}, [Validators.required]],
+      name: [{value: null, disabled: false}, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+      secondName: [{value: null, disabled: false}, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+      hexTagId: [{value: null, disabled: this.edit}, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       uwbObjectTypeId: [{value: null, disabled: false}, [Validators.required]],
     });
     if(this.edit) {

@@ -1,6 +1,7 @@
 package com.uwb.clientserver.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,10 +26,13 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min = 2, max = 20)
     private String firstName;
 
+    @Size(min = 2, max = 30)
     private String lastName;
 
+    @Size(min = 6, max = 50)
     private String email;
 
     private String password;

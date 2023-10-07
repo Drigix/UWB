@@ -6,21 +6,24 @@
   <uwb-form-grid form-body>
     <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
-        <input pInputText id="name" formControlName="name" />
+        <input pInputText id="name" formControlName="name" minlength="2" maxlength="30" />
         <label htmlFor="name">{{ "object.name" | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('name')?.touched && formGroup?.get('name')?.invalid" [minLength]="2" [maxLength]="30"></uwb-input-warn>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
-        <input pInputText id="secondName" formControlName="secondName" />
+        <input pInputText id="secondName" formControlName="secondName" minlength="2" maxlength="30" />
         <label htmlFor="secondName">{{ "object.secondName" | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('secondName')?.touched && formGroup?.get('secondName')?.invalid" [minLength]="2" [maxLength]="30"></uwb-input-warn>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
-        <input pInputText id="hexTagId" formControlName="hexTagId" />
+        <input pInputText id="hexTagId" formControlName="hexTagId" minlength="2" maxlength="20" />
         <label htmlFor="hexTagId">{{ "object.hexTagId" | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('hexTagId')?.touched && formGroup?.get('hexTagId')?.invalid" [minLength]="2" [maxLength]="20"></uwb-input-warn>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <uwb-tree-select

@@ -17,8 +17,6 @@ public interface RoleMapper {
         if (roleId == null) {
             return null;
         }
-        Role role = new Role();
-        role.setId(roleId);
-        return role;
+        return Role.builder().id(roleId).build();
     }
 }

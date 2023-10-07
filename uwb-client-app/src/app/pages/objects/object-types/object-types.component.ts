@@ -83,6 +83,7 @@ export class ObjectTypesComponent implements OnInit {
         selectedObjectType: this.selectedObjectType,
         selectedOrganizationUnit: this.selectedOrganizationUnit
       },
+      width: '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

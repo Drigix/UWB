@@ -4,6 +4,7 @@ import com.uwb.clientserver.models.area.AreaType;
 import com.uwb.clientserver.models.object.UwbObjectType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -22,6 +23,7 @@ public class OrganizationUnit extends BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min = 2, max = 100)
     private String name;
 
     private Long parentOrganizationUnitId;

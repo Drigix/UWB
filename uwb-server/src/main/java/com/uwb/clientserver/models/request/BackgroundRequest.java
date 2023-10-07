@@ -2,6 +2,7 @@ package com.uwb.clientserver.models.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -14,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 public class BackgroundRequest {
     private Long id;
     @NotEmpty(message = "The background name is required.")
+    @Size(min = 2, max = 50)
     private String name;
     private String fileName;
     private Double fileSize;

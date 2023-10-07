@@ -1,38 +1,43 @@
 
 <uwb-form [formGroup]="formGroup!" (ngSubmit)="onSave()" (cancel)="onCloseDialog()">
   <uwb-form-grid form-body>
-    <uwb-form-control labe="Imie">
+    <uwb-form-control>
       <span class="p-float-label">
-        <input pInputText id="name" formControlName="firstName" />
+        <input pInputText id="name" formControlName="firstName" minlength="2" maxlength="20"/>
         <label htmlFor="firstName">{{ 'user.firstName' | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('firstName')?.touched && formGroup?.get('firstName')?.invalid" [minLength]="2" [maxLength]="20"></uwb-input-warn>
     </uwb-form-control>
-    <uwb-form-control labe="Nazwisko">
+    <uwb-form-control>
       <span class="p-float-label">
-        <input pInputText id="surname" formControlName="lastName" />
+        <input pInputText id="surname" formControlName="lastName" minlength="2" maxlength="30"/>
         <label htmlFor="lastName">{{ 'user.lastName' | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('lastName')?.touched && formGroup?.get('lastName')?.invalid" [minLength]="2" [maxLength]="30"></uwb-input-warn>
     </uwb-form-control>
     <!-- <uwb-form-control>
         <uwb-calendar formControlName="date" label="{{ 'user.dayOfBirth' | translate }}"></uwb-calendar>
     </uwb-form-control> -->
     <uwb-form-control>
       <span class="p-float-label">
-        <input pInputText id="email" formControlName="email" />
+        <input pInputText id="email" formControlName="email" minlength="6" maxlength="50"/>
         <label htmlFor="email">{{ 'user.email' | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('email')?.touched && formGroup?.get('email')?.invalid" [minLength]="6" [maxLength]="50"></uwb-input-warn>
     </uwb-form-control>
     <uwb-form-control *ngIf="!edit">
       <span class="p-float-label">
         <p-password formControlName="password" [toggleMask]="true" class="p-password"></p-password>
         <label for="password">{{ 'user.password' | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('password')?.invalid && formGroup?.get('password')?.touched" [error]="'global.formInvalid.passwordInvalid'"></uwb-input-warn>
     </uwb-form-control>
     <uwb-form-control *ngIf="!edit">
       <span class="p-float-label">
         <p-password formControlName="confirmPassword" [toggleMask]="true" class="p-password"></p-password>
         <label for="confirmPassword">{{ 'user.confirmPassword' | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('password')?.touched && formGroup?.get('confirmPassword')?.touched && formGroup?.get('confirmPassword')?.invalid" [error]="'global.formInvalid.passwordConfirmInvalid'"></uwb-input-warn>
     </uwb-form-control>
     <uwb-form-control>
       <uwb-tree-select

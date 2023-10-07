@@ -43,7 +43,7 @@ export class ClientsDialogComponent implements OnInit {
 
   loadFormGroup(): void {
     this.formGroup = this.formBuilder.group({
-      name: [{value: null, disabled: false}, [Validators.required]],
+      name: [{value: null, disabled: false}, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       parentOrganizationUnitId: [{value: null, disabled: false}, [Validators.required]],
       treePath: [{value: null, disabled: false}]
     });

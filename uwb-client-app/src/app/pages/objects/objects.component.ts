@@ -144,6 +144,7 @@ export class ObjectsComponent implements OnInit {
         selectedObject: this.selectedObject,
         selectedOrganizationUnit: this.selectedOrganizationUnit
       },
+      width: '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

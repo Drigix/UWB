@@ -46,7 +46,7 @@ export class AreasDialogComponent implements OnInit {
 
   loadFormGroup(): void {
     this.formGroup = this.formBuilder.group({
-      name: [{value: null, disabled: false}, [Validators.required]],
+      name: [{value: null, disabled: false}, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       areaTypeId: [{value: null, disabled: false}, [Validators.required]],
       color: [{value: null, disabled: false}, [Validators.required]],
       backgroundId: [{value: null, disabled: false}, [Validators.required]]
