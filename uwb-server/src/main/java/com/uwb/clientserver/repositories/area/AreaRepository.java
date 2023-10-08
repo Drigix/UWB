@@ -13,6 +13,8 @@ import java.util.List;
 public interface AreaRepository extends JpaRepository<Area, Long> {
     List<Area> findAllByBackgroundIdAndDeletedFalse(Long id);
 
+    List<Area> findAllByBackgroundOrganizationUnitIdAndDeletedFalse(Long id);
+
     @Modifying
     @Query("UPDATE Area a SET a.deleted = true WHERE a.id = :id")
     void softDelete(@Param("id") Long id);

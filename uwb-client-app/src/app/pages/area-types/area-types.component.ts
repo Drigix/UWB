@@ -89,6 +89,7 @@ export class AreaTypesComponent implements OnInit {
         selectedAreaType: this.selectedAreaType,
         selectedOrganizationUnit: this.selectedOrganizationUnit
       },
+      width: '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

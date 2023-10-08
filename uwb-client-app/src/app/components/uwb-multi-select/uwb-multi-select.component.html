@@ -5,7 +5,7 @@
     [options]="items"
     [optionValue]="itemValue"
     [optionLabel]="optionLabel"
-    [disabled]="isDisabled"
+    [disabled]="!items || items.length === 0 || isDisabled"
     display="chip"
     appendTo="body"
     (onChange)="emitAndUpdate($event)"

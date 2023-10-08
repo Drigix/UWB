@@ -47,9 +47,9 @@ export class UserDialogComponent implements OnInit {
 
   loadFormGroup(): void {
     this.formGroup = this.formBuilder.group({
-      firstName: [{value: null, disabled: false}, [Validators.required]],
-      lastName: [{value: null, disabled: false}, [Validators.required]],
-      email: [{value: null, disabled: false}, [Validators.required]],
+      firstName: [{value: null, disabled: false}, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      lastName: [{value: null, disabled: false}, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+      email: [{value: null, disabled: false}, [Validators.required], Validators.minLength(6), Validators.maxLength(50)],
       password: [{value: null, disabled: false}, [Validators.required, this.passwordValidator]],
       confirmPassword: [{value: null, disabled: false}, [Validators.required, this.matchPassword.bind(this)]],
       organizationUnitId: [{value: null, disabled: false}, [Validators.required]],

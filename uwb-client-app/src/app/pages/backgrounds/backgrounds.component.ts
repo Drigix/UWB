@@ -93,6 +93,7 @@ export class BackgroundsComponent implements OnInit {
         edit,
         selectedBackground: this.selectedBackground,
       },
+      width: '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

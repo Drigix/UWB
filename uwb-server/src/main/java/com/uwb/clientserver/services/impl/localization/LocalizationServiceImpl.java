@@ -2,6 +2,7 @@ package com.uwb.clientserver.services.impl.localization;
 
 import com.uwb.clientserver.dao.localization.LocalizationDao;
 import com.uwb.clientserver.models.localization.LocalizationRequest;
+import com.uwb.clientserver.services.area.AreaService;
 import com.uwb.clientserver.services.localization.LocalizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,6 +16,7 @@ import java.util.Random;
 public class LocalizationServiceImpl implements LocalizationService {
 
     private final LocalizationDao localizationDao;
+    private final AreaService areaService;
 
     @Override
     @Scheduled(cron = "*/1 * * * * *")
@@ -40,5 +42,6 @@ public class LocalizationServiceImpl implements LocalizationService {
 //                .build();
 //        localizationDao.createLocalization(localizationRequest);
 //        localizationDao.createLocalization(localizationRequest2);
+        areaService.checkIfEnterOrExitArea("qwe12rt", 6L, 7.04, 14.04);
     }
 }

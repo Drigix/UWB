@@ -53,7 +53,8 @@ export class UserComponent implements OnInit {
       data: {
         edit,
         selectedUser: this.selectedUser
-      }
+      },
+      width: '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

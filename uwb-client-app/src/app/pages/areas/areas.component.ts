@@ -160,6 +160,7 @@ export class AreasComponent implements OnInit {
         selectedBackground: this.selectedBackground,
         selectedArea: this.selectedArea,
       },
+      width: '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

@@ -2,6 +2,7 @@ package com.uwb.clientserver.models.area;
 
 import com.uwb.clientserver.models.Background;
 import com.uwb.clientserver.models.BaseEntity;
+import com.uwb.clientserver.models.notification.NotificationConfig;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -42,4 +43,7 @@ public class Area extends BaseEntity implements Serializable {
 
     @OneToMany(mappedBy = "area")
     private List<AreaVertex> areaVertexes;
+
+    @ManyToMany(mappedBy = "areas")
+    private List<NotificationConfig> notificationConfigs;
 }

@@ -8,4 +8,6 @@ import java.util.List;
 public interface LocalizationArchiveDao {
 
     List<LocalizationResponse> findLocalizationsAchiveByTagAndDate(String tagId, ZonedDateTime dateFrom, ZonedDateTime dateTo);
+
+    LocalizationResponse findLastLocalizationArchiveByTag(String tagId);
 }

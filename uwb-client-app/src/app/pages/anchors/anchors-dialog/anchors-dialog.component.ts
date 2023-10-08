@@ -45,7 +45,7 @@ export class AnchorsDialogComponent implements OnInit, OnChanges {
 
   loadFormGroup(): void {
     this.formGroup = this.formBuilder.group({
-      name: [{value: null, disabled: false}, [Validators.required]],
+      name: [{value: null, disabled: false}, [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
       x: [{value: null, disabled: false}, [Validators.required]],
       y: [{value: null, disabled: false}, [Validators.required]],
       z: [{value: null, disabled: false}, [Validators.required]],

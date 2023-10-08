@@ -60,6 +60,7 @@ export class ClientsComponent implements OnInit {
         edit,
         selectedClient: this.selectedClient,
       },
+      width: '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

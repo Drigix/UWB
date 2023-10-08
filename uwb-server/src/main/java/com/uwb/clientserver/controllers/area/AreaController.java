@@ -23,7 +23,6 @@ import static com.uwb.clientserver.security.AuthoritiesConstants.LOGGED_USER_PRE
 @RequiredArgsConstructor
 @Slf4j
 public class AreaController {
-    private final Logger logger = LoggerFactory.getLogger(AreaController.class);
     private final AreaService areaService;
 
     /**
@@ -36,7 +35,7 @@ public class AreaController {
     @PostMapping()
     @PreAuthorize(ADMIN_PREAUTHORIZE)
     public AreaResponse createArea(@Valid @RequestBody AreaRequest request) throws MethodArgumentNotValidException {
-        logger.info("Request to create new area: {}", request);
+        log.info("Request to create new area: {}", request);
         return areaService.create(request);
     }
 
@@ -48,7 +47,7 @@ public class AreaController {
     @GetMapping()
     @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public List<AreaResponse> getAllAreas() {
-        logger.info("Request to get all areas.");
+        log.info("Request to get all areas.");
         return areaService.findAll();
     }
 
@@ -61,8 +60,21 @@ public class AreaController {
     @GetMapping("/background/{id}")
     @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public List<AreaResponse> getAllAreasByBackground(@PathVariable Long id)  {
-        logger.info("Request to get all areas by background.");
+        log.info("Request to get all areas by background.");
         return areaService.findAllByBackground(id);
+    }
+
+    /**
+     * Endpoint for get all areas by organization unit.
+     *
+     * @param id The ID of organization unit.
+     * @return list of areas response.
+     */
+    @GetMapping("/organization-unit/{id}")
+    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
+    public List<AreaResponse> getAllAreasByOrganizationUnit(@PathVariable Long id)  {
+        log.info("Request to get all areas by organization unit: {}.", id);
+        return areaService.findAllByOrganizationUnit(id);
     }
 
     /**
@@ -75,7 +87,7 @@ public class AreaController {
     @PutMapping()
     @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public AreaResponse updateArea(@Valid @RequestBody AreaRequest request) throws MethodArgumentNotValidException {
-        logger.info("Request to update area: {}.", request);
+        log.info("Request to update area: {}.", request);
         return areaService.update(request);
     }
 
@@ -88,7 +100,7 @@ public class AreaController {
     @DeleteMapping("/{id}")
     @PreAuthorize(ADMIN_PREAUTHORIZE)
     public ResponseEntity<String> deleteArea(@PathVariable Long id) {
-        logger.info("Request to delete area: {}.", id);
+        log.info("Request to delete area: {}.", id);
         areaService.delete(id);
         return ResponseEntity.ok("Area has been deleted!");
     }

@@ -6,9 +6,10 @@
   <uwb-form-grid form-body>
     <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
-        <input pInputText id="name" formControlName="name" />
+        <input pInputText id="name" formControlName="name" minlength="2" maxlength="30"/>
         <label htmlFor="name">{{ "icon.name" | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('name')?.touched && formGroup?.get('name')?.invalid" [minLength]="2" [maxLength]="30"></uwb-input-warn>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <uwb-tree-select

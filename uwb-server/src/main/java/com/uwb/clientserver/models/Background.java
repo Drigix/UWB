@@ -2,6 +2,7 @@ package com.uwb.clientserver.models;
 
 import com.uwb.clientserver.models.area.Area;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -20,6 +21,7 @@ public class Background extends BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min = 2, max = 50)
     private String name;
 
     @Column(updatable = false)

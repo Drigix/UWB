@@ -3,9 +3,10 @@
   <uwb-form-grid form-body>
     <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
-        <input pInputText id="name" formControlName="name" />
+        <input pInputText id="name" formControlName="name" minlength="2" maxlength="50" />
         <label htmlFor="name">{{ 'area.name' | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('name')?.touched && formGroup?.get('name')?.invalid" [minLength]="2" [maxLength]="50"></uwb-input-warn>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <uwb-single-select [items]="dropdownItems" [optionLabel]="'name'" [itemValue]="'id'" formControlName="areaTypeId" label="{{ 'area.areaType' | translate }}" (modelChange)="onAreaTypeChange($event)"></uwb-single-select>
