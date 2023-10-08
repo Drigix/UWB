@@ -13,9 +13,13 @@ public interface AreaService {
 
     List<AreaResponse> findAllByBackground(Long id);
 
+    List<AreaResponse> findAllByOrganizationUnit(Long id);
+
     AreaResponse update(AreaRequest request);
 
     void delete(Long id);
 
     void deleteList(List<Long> ids);
+
+    void checkIfEnterOrExitArea(String tagId, Long backgroundId, Double x, Double y);
 }

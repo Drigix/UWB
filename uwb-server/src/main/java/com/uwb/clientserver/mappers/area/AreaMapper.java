@@ -9,6 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+
 @Mapper(componentModel = "spring", uses = { AreaTypeMapper.class, BackgroundMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AreaMapper extends EntityMapper<AreaRequest, Area, AreaResponse> {
 
@@ -19,7 +20,6 @@ public interface AreaMapper extends EntityMapper<AreaRequest, Area, AreaResponse
     @Mapping(source = "areaType", target = "areaType")
     @Mapping(source = "background", target = "backgroundId")
     AreaResponse toResponse(Area area);
-
 
     default Area fromId (Long id) {
         if (id == null) {
