@@ -56,6 +56,11 @@
       "calibrate": "Kalibruj",
       "mapSettings": "Ustawienia mapy",
       "showAll": "Pokaż wszystko"
+    },
+    "formInvalid": {
+      "inputLengthInvalid": "Nazwa powinna mieć pomiędzy {{minLength}} - {{maxLength}} znaków !",
+      "passwordInvalid": "Hasło powinno zawierać małą literę, dużą literę, cyfrę, znak specjalny oraz długość conajmniej 8 znaków!",
+      "passwordConfirmInvalid": "Wartości hasła różnia się od siebie!"
     }
   },
   "login": {
@@ -267,6 +272,14 @@
     "date": "Data",
     "objectName": "Nazwa obiektu",
     "type": "Typ powiadomienia",
-    "areas": "Obszary"
+    "areas": "Obszary",
+    "dialog": {
+      "addSuccess": "Dodano nową konfigurację powiadomienia!",
+      "addError": "Dodanie nowej konfiguracji powiadomienia nie powiodło się!",
+      "editSuccess": "Edytowano konfigurację powiadomienia!",
+      "editError": "Edycja konfiguracji powiadomienia nie powiodło się!",
+      "deleteSuccess": "Usunięto konfigurację powiadomienia! ",
+      "deleteError": "Usunięcie konfiguracji powiadomienia nie powiodło się!"
+    }
   }
 }
