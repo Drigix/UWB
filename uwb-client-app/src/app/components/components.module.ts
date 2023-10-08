@@ -26,6 +26,7 @@ import { UwbProfileSettingsComponent } from './uwb-profile/uwb-profile-settings/
 import { UwbProfilePasswordComponent } from './uwb-profile/uwb-profile-password/uwb-profile-password.component';
 import { UwbProfileProfileComponent } from './uwb-profile/uwb-profile-profile/uwb-profile-profile.component';
 import { SharedModule } from '@shared/shared.module';
+import { UwbInputWarnComponent } from './uwb-input-warn/uwb-input-warn.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { SharedModule } from '@shared/shared.module';
     UwbMapPanelComponent,
     UwbProfileSettingsComponent,
     UwbProfilePasswordComponent,
-    UwbProfileProfileComponent
+    UwbProfileProfileComponent,
+    UwbInputWarnComponent
   ],
   declarations: [
     FormComponent,
@@ -85,7 +87,8 @@ import { SharedModule } from '@shared/shared.module';
     UwbMapPanelComponent,
     UwbProfileSettingsComponent,
     UwbProfilePasswordComponent,
-    UwbProfileProfileComponent
+    UwbProfileProfileComponent,
+    UwbInputWarnComponent
   ],
   providers: [],
 })

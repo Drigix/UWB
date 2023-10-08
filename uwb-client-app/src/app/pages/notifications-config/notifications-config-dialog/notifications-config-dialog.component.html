@@ -2,21 +2,32 @@
   <uwb-form-grid form-body>
     <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
-        <input pInputText id="title" formControlName="title" />
+        <input pInputText id="title" formControlName="title" minlength="2" maxlength="50"/>
         <label htmlFor="title">{{ 'notification.title' | translate }}</label>
       </span>
+      <uwb-input-warn *ngIf="formGroup?.get('title')?.touched && formGroup?.get('title')?.invalid" [minLength]="2" [maxLength]="50"></uwb-input-warn>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-single-select [items]="dropdownNotificationTypeItems" [optionLabel]="'name'" [itemValue]="'id'" formControlName="notificationTypeId" label="{{ 'notification.type' | translate }}" ></uwb-single-select>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-tree-select
+        [treeSelectValue]="selectedOrganizationUnit"
+        [options]="treeSelectItems"
+        [optionLabel]="'name'"
+        label="{{ 'object.organizationUnit' | translate }}"
+        (modelChange)="onOrganizationUnitSelected($event)"
+      ></uwb-tree-select>
+    </uwb-form-control>
+    <uwb-form-control [styleClass]="'col-12'">
+      <uwb-multi-select [items]="dropdownAreaItems" [optionLabel]="'name'" [itemValue]="'id'" formControlName="areaIds" label="{{ 'notification.areas' | translate }}" ></uwb-multi-select>
     </uwb-form-control>
     <uwb-form-control [styleClass]="'col-12'">
       <span class="p-float-label">
-        <input pInputText id="message" formControlName="message" />
+        <textarea pInputTextarea id="message" formControlName="message" [autoResize]="true" rows="5" cols="30" maxlength="300"></textarea>
         <label htmlFor="message">{{ 'notification.message' | translate }}</label>
       </span>
-    </uwb-form-control>
-    <uwb-form-control [styleClass]="'col-12'">
-      <uwb-single-select [items]="dropdownNotificationTypeItems" [optionLabel]="'name'" [itemValue]="'id'" formControlName="type" label="{{ 'notification.type' | translate }}" ></uwb-single-select>
-    </uwb-form-control>
-    <uwb-form-control [styleClass]="'col-12'">
-      <uwb-multi-select [items]="dropdownAreaItems" [optionLabel]="'name'" formControlName="areas" label="{{ 'notification.areas' | translate }}" ></uwb-multi-select>
+      <small class="flex flex-row-reverse">{{ returnAreaTextLenght() }}/300</small>
     </uwb-form-control>
   </uwb-form-grid>
 </uwb-form>

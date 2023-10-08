@@ -27,7 +27,14 @@ export class AreasService {
       .get<IArea[]>(`${this.resourceUrl}/background/${id}`, {
         observe: 'response',
       })
-    }
+  }
+
+  findAllByOrganizationUnit(id: number): Observable<AreaArrayResponseType> {
+    return this.http
+      .get<IArea[]>(`${this.resourceUrl}/organization-unit/${id}`, {
+        observe: 'response',
+      })
+  }
 
   create(area: NewArea): Observable<AreaResponseType> {
     return this.http.post(this.resourceUrl, area, { observe: 'response' });

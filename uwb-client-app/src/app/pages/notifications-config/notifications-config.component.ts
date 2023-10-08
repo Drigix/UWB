@@ -8,6 +8,9 @@ import { ColumnService } from '@shared/uwb-table/column.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { NotificationsConfigDialogComponent } from './notifications-config-dialog/notifications-config-dialog.component';
 import { NotificationsConfigService } from '@services/notifications/notifications-config.service';
+import { HttpResponse } from '@angular/common/http';
+import { ToastService } from '@shared/toast/toast.service';
+import { NotificationTypeListConst } from '@entities/notification/notification-type.constans';
 
 @Component({
   selector: 'app-notifications-config',
@@ -25,7 +28,8 @@ export class NotificationsConfigComponent implements OnInit {
     private dialogService: DialogService,
     private translateService: TranslateService,
     private confirmDialogService: ConfirmDialogService,
-    private notificationsConfigService: NotificationsConfigService
+    private notificationsConfigService: NotificationsConfigService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -35,8 +39,11 @@ export class NotificationsConfigComponent implements OnInit {
 
   loadNotificationsConfig(): void {
     this.notificationsConfigService.findAll().subscribe(
-      (res) => {
-        this.notifications = res;
+      (res: HttpResponse<INotificationConfig[]>) => {
+        this.notifications = res.body ?? [];
+        this.notifications.forEach(n => {
+          n.type = NotificationTypeListConst.find(nt => nt.id === n.notificationTypeId);
+        });
       }
     );
   }
@@ -53,7 +60,8 @@ export class NotificationsConfigComponent implements OnInit {
       data: {
         edit,
         selectedNotificationConfig: this.selectedNotificationConfig,
-      }
+      },
+      width: '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }
@@ -72,7 +80,17 @@ export class NotificationsConfigComponent implements OnInit {
   }
 
   handleDeleteDialog(): void {
-    console.log('DELETE');
+    this.notificationsConfigService.delete(this.selectedNotificationConfig?.id!).subscribe(
+      {
+        next: () => {
+          this.toastService.showSuccessToast({summary: this.translateService.instant('global.toast.header.success'), detail: this.translateService.instant('notification.dialog.deleteSuccess')});
+          this.handleDialogResponse(true);
+        },
+        error: (err) => {
+          this.toastService.showErrorToast({summary: this.translateService.instant('global.toast.header.error'), detail: this.translateService.instant('notification.dialog.deleteError')});
+        }
+      }
+    );
   }
 
 }
