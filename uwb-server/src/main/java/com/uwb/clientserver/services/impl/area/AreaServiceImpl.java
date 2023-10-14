@@ -1,5 +1,6 @@
 package com.uwb.clientserver.services.impl.area;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uwb.clientserver.dao.localization.LocalizationArchiveDao;
 import com.uwb.clientserver.exceptions.ItemNotExistException;
 import com.uwb.clientserver.mappers.area.AreaMapper;
@@ -7,22 +8,28 @@ import com.uwb.clientserver.models.area.Area;
 import com.uwb.clientserver.models.area.AreaVertex;
 import com.uwb.clientserver.models.notification.NotificationTypeConstans;
 import com.uwb.clientserver.models.request.area.AreaRequest;
+import com.uwb.clientserver.models.request.notification.KafkaNotificationRequest;
 import com.uwb.clientserver.models.response.area.AreaResponse;
 import com.uwb.clientserver.models.response.localization.LocalizationResponse;
 import com.uwb.clientserver.models.response.notification.NotificationConfigResponse;
+import com.uwb.clientserver.models.response.object.UwbObjectResponse;
 import com.uwb.clientserver.repositories.area.AreaRepository;
 import com.uwb.clientserver.services.area.AreaService;
 import com.uwb.clientserver.services.area.AreaVertexService;
 import com.uwb.clientserver.services.notification.NotificationConfigService;
+import com.uwb.clientserver.services.object.UwbObjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -35,8 +42,9 @@ public class AreaServiceImpl implements AreaService {
     private final AreaVertexService areaVertexService;
     private final LocalizationArchiveDao localizationArchiveDao;
     private final NotificationConfigService notificationConfigService;
-
-
+    private final UwbObjectService uwbObjectService;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
     @Override
     public AreaResponse create(AreaRequest request) {
         Area area = areaMapper.toEntity(request);
@@ -87,7 +95,7 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public void checkIfEnterOrExitArea(String tagId, Long backgroundId, Double x, Double y) {
+    public void checkIfEnterOrExitArea(String tagId, Long backgroundId, Double x, Double y) throws JsonProcessingException {
         LocalizationResponse lastTagLocalization = localizationArchiveDao.findLastLocalizationArchiveByTag(tagId);
         List<Area> areas = areaRepository.findAllByBackgroundIdAndDeletedFalse(backgroundId);
         for (Area area : areas) {
@@ -106,6 +114,15 @@ public class AreaServiceImpl implements AreaService {
                             .findFirst();
                     if(firstEnterAreaNotification.isPresent()) {
                         log.info("Sent email about enter!");
+                        UwbObjectResponse uwbObjectResponse = uwbObjectService.findOneByHexTagId(tagId);
+                        KafkaNotificationRequest kafkaNotificationRequest = KafkaNotificationRequest.builder()
+                                .title(firstEnterAreaNotification.get().getTitle())
+                                .message(firstEnterAreaNotification.get().getMessage())
+                                .areaName(area.getName())
+                                .date(ZonedDateTime.now().format(formatter))
+                                .objectFullName(uwbObjectResponse.getName() + " " + uwbObjectResponse.getSecondName())
+                                .build();
+                        sendMessage("ENTER_AREA", kafkaNotificationRequest);
                     }
                 } else if (isLastLocalizationInside && !isCurrentLocalizationInside) {
                     Optional<NotificationConfigResponse> firstExitAreaNotification = notificationConfigResponses.stream()
@@ -113,6 +130,15 @@ public class AreaServiceImpl implements AreaService {
                             .findFirst();
                     if(firstExitAreaNotification.isPresent()) {
                         log.info("Sent email about exit!");
+                        UwbObjectResponse uwbObjectResponse = uwbObjectService.findOneByHexTagId(tagId);
+                        KafkaNotificationRequest kafkaNotificationRequest = KafkaNotificationRequest.builder()
+                                .title(firstExitAreaNotification.get().getTitle())
+                                .message(firstExitAreaNotification.get().getMessage())
+                                .areaName(area.getName())
+                                .date(ZonedDateTime.now().format(formatter))
+                                .objectFullName(uwbObjectResponse.getName() + " " + uwbObjectResponse.getSecondName())
+                                .build();
+                        sendMessage("EXIT_AREA", kafkaNotificationRequest);
                     }
                 }
             }
@@ -124,8 +150,6 @@ public class AreaServiceImpl implements AreaService {
         double maxX = Double.MIN_VALUE;
         double minY = Double.MAX_VALUE;
         double maxY = Double.MIN_VALUE;
-
-        // Znajdź minX, maxX, minY, maxY
         for (AreaVertex vertex : vertexes) {
             double vx = vertex.getX() / backgroundScale;
             double vy = vertex.getY() / backgroundScale;
@@ -135,9 +159,11 @@ public class AreaServiceImpl implements AreaService {
             minY = Math.min(minY, vy);
             maxY = Math.max(maxY, vy);
         }
-
-        // Sprawdź, czy punkt (x, y) znajduje się wewnątrz figury
         return x >= minX && x <= maxX && y >= minY && y <= maxY;
+    }
+
+    private void sendMessage(String topic, KafkaNotificationRequest request) {
+        kafkaTemplate.send(topic, request.changeToKafkaMessage());
     }
 }
 

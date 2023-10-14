@@ -1,5 +1,6 @@
 package com.uwb.clientserver.services.area;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uwb.clientserver.models.request.area.AreaRequest;
 import com.uwb.clientserver.models.response.area.AreaResponse;
 
@@ -21,5 +22,5 @@ public interface AreaService {
 
     void deleteList(List<Long> ids);
 
-    void checkIfEnterOrExitArea(String tagId, Long backgroundId, Double x, Double y);
+    void checkIfEnterOrExitArea(String tagId, Long backgroundId, Double x, Double y) throws JsonProcessingException;
 }

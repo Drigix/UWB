@@ -1,10 +1,13 @@
 package com.uwb.clientserver.services.impl.localization;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uwb.clientserver.dao.localization.LocalizationDao;
 import com.uwb.clientserver.models.localization.LocalizationRequest;
 import com.uwb.clientserver.services.area.AreaService;
 import com.uwb.clientserver.services.localization.LocalizationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +22,9 @@ public class LocalizationServiceImpl implements LocalizationService {
     private final AreaService areaService;
 
     @Override
-    @Scheduled(cron = "*/1 * * * * *")
-    public void autoGenerateNewLocalizations() {
+//    @Scheduled(cron = "*/1 * * * * *")
+    @Scheduled(cron = "0 * * * * ?")
+    public void autoGenerateNewLocalizations() throws JsonProcessingException {
 //        Random random = new Random();
 //        LocalizationRequest localizationRequest = LocalizationRequest.builder()
 //                .date(ZonedDateTime.now())
