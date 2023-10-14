@@ -28,9 +28,11 @@ public class LocalizationArchiveController {
     private final static DateTimeFormatter formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     /**
-     * Endpoint for get all anchors.
-     *
-     * @return list of anchor response.
+     * Endpoint for get all localizations by tag and dates.
+     * @param tagId the id of tag
+     * @param dateFrom first date of range
+     * @param dateTo second date of range
+     * @return list of localization response.
      */
     @GetMapping("/{tagId}/{dateFrom}/{dateTo}")
     @PreAuthorize(LOGGED_USER_PREAUTHORIZE)

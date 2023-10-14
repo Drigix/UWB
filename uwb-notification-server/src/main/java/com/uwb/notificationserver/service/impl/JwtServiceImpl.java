@@ -1,7 +1,7 @@
-package com.uwb.clientserver.services.impl;
+package com.uwb.notificationserver.service.impl;
 
 
-import com.uwb.clientserver.services.JwtService;
+import com.uwb.notificationserver.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -33,9 +33,21 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public boolean isTokenValid(String token, UserDetails userDetails) {
+    public boolean isTokenValid(String token, String email) {
         final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        return (userName.equals(email)) && !isTokenExpired(token);
+    }
+
+    @Override
+    public boolean isTokenValid(String token) {
+        try {
+            Claims claims = Jwts.parser().setSigningKey(jwtSigningKey).parseClaimsJws(token).getBody();
+            // Tutaj możesz dokonać innych weryfikacji, takich jak daty wygaśnięcia, claimów itp.
+            return true; // Jeśli weryfikacja powiodła się
+        } catch (Exception e) {
+            // Weryfikacja nie powiodła się
+            return false;
+        }
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {

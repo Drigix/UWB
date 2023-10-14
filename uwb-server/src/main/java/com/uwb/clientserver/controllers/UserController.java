@@ -14,6 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import static com.uwb.clientserver.security.AuthoritiesConstants.*;
@@ -64,6 +67,13 @@ public class UserController {
     public UserResponse getCurrentUser() {
         logger.info("Request to get current user.");
         return userService.findCurrentUser();
+    }
+
+    @GetMapping("/user-authentication-token")
+    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
+    public UserDetails getUserDetails() {
+        return userService.userDetailsService()
+                .loadUserByUsername("michlaw@gmail.pl");
     }
 
     /**

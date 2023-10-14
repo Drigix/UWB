@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.1.3'
+	id 'org.springframework.boot' version '3.1.4'
 	id 'io.spring.dependency-management' version '1.1.3'
 }
 
@@ -25,24 +25,18 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'io.github.cdimascio', name: 'java-dotenv', version: '5.2.2'
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.apache.commons:commons-lang3:3.13.0'
-	implementation 'org.springframework.boot:spring-boot-starter-validation:3.1.2'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
-	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-	implementation 'org.springframework:spring-websocket'
-	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	implementation 'org.springframework.kafka:spring-kafka'
+	implementation group: 'io.github.cdimascio', name: 'java-dotenv', version: '5.2.2'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	annotationProcessor 'org.projectlombok:lombok'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 tasks.named('test') {

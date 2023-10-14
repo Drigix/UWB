@@ -32,5 +32,4 @@ public class ClientServerApplication {
 		System.setProperty("DB_PASSWORD", password);
 		SpringApplication.run(ClientServerApplication.class, args);
 	}
-
 }

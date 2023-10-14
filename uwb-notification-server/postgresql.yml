@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-uwb-notification
+    environment:
+      POSTGRES_DB: UWB-NOTIFICATION
+      POSTGRES_USER: uwb
+      POSTGRES_PASSWORD: uwb123
+    ports:
+      - "5433:5432"

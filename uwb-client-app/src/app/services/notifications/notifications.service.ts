@@ -1,3 +1,4 @@
+import { API_URL } from './../../config/api-url.constans';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NotificationsResponseType } from '@entities/global/httpresponse-types.model';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class NotificationsService {
 
-  private resourceUrl = '../../../assets/data/data-notifications.json';
+  private resourceUrl = API_URL + 'notification-archive';
 
   constructor(
     private http: HttpClient

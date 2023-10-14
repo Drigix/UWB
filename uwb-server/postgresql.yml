@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-uwb
+    environment:
+      POSTGRES_DB: UWB
+      POSTGRES_USER: uwb
+      POSTGRES_PASSWORD: uwb123
+    ports:
+      - "5432:5432"
