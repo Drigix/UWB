@@ -19,6 +19,10 @@ export class NotificationsConfigService {
     return this.http.get<INotificationConfig[]>(this.resourceUrl, { observe: 'response' });
   }
 
+  findAllByOrganizationUnit(id: number): Observable<NotificationsConfigArrayResponseType> {
+    return this.http.get<INotificationConfig[]>(`${this.resourceUrl}/user-organization-unit/${id}`, { observe: 'response' });
+  }
+
   findById(id: number): Observable<NotificationsConfigResponseType> {
     return this.http.get(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

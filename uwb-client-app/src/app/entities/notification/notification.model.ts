@@ -3,7 +3,8 @@ export interface INotification {
   title?: string;
   date?: Date;
   message?: string;
-  objectName?: string;
+  objectFullName?: string;
+  areaName?: string;
 }
 
 export type NewNotification = Omit<INotification, 'id'>;

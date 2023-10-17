@@ -11,6 +11,11 @@ import { NotificationsConfigService } from '@services/notifications/notification
 import { HttpResponse } from '@angular/common/http';
 import { ToastService } from '@shared/toast/toast.service';
 import { NotificationTypeListConst } from '@entities/notification/notification-type.constans';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
+import { ClientsService } from '@services/clients/clients.service';
+import { IClientUnit } from '@entities/client/client-unit.model';
+import { IClient } from '@entities/client/client.model';
+import { AuthorityService } from '@auth/authority.service';
 
 @Component({
   selector: 'app-notifications-config',
@@ -19,9 +24,14 @@ import { NotificationTypeListConst } from '@entities/notification/notification-t
 })
 export class NotificationsConfigComponent implements OnInit {
 
+  userOrganizationUnitId?: number;
+  treeSelectItems: IClientUnit[] = [];
   columns: UniversalTableColumn[] = [];
   notifications: INotificationConfig[] = [];
   selectedNotificationConfig?: INotificationConfig;
+  treeSelectItemSelected?: IClientUnit;
+  selectedOrganizationUnit?: IClient;
+  handleSelectedOrganizationUnit?: IClient;
 
   constructor(
     private columnService: ColumnService,
@@ -29,16 +39,32 @@ export class NotificationsConfigComponent implements OnInit {
     private translateService: TranslateService,
     private confirmDialogService: ConfirmDialogService,
     private notificationsConfigService: NotificationsConfigService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private sizeScreenService: SizeScreenService,
+    private clientsService: ClientsService,
+    private authorityService: AuthorityService
   ) { }
 
   ngOnInit() {
+    this.userOrganizationUnitId = this.authorityService.getUserOrganizationUnitId();
     this.columns = this.columnService.getNotificationTypeColumns();
-    this.loadNotificationsConfig();
+    this.loadOrganizationUnits();
+  }
+
+  loadOrganizationUnits(): void {
+    this.clientsService.findTree().subscribe(
+      (res: HttpResponse<IClientUnit[]>) => {
+        this.treeSelectItems = res.body ?? [];
+        this.treeSelectItemSelected = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.userOrganizationUnitId!)!;
+        this.selectedOrganizationUnit = this.treeSelectItemSelected.data;
+        this.handleSelectedOrganizationUnit = this.treeSelectItemSelected.data;
+        this.loadNotificationsConfig();
+      }
+    );
   }
 
   loadNotificationsConfig(): void {
-    this.notificationsConfigService.findAll().subscribe(
+    this.notificationsConfigService.findAllByOrganizationUnit(this.selectedOrganizationUnit?.id! ?? this.userOrganizationUnitId).subscribe(
       (res: HttpResponse<INotificationConfig[]>) => {
         this.notifications = res.body ?? [];
         this.notifications.forEach(n => {
@@ -46,6 +72,16 @@ export class NotificationsConfigComponent implements OnInit {
         });
       }
     );
+  }
+
+  onOrganizationUnitSelect(organizationUnit: IClient): void {
+    if(this.selectedOrganizationUnit?.id !== organizationUnit.id) {
+      this.selectedOrganizationUnit = organizationUnit;
+      this.handleSelectedOrganizationUnit = organizationUnit;
+      this.treeSelectItemSelected = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedOrganizationUnit.id!)!;
+      this.selectedNotificationConfig = undefined;
+      this.loadNotificationsConfig();
+    }
   }
 
   onNotificationSelect(notification?: INotification): void {
@@ -60,8 +96,9 @@ export class NotificationsConfigComponent implements OnInit {
       data: {
         edit,
         selectedNotificationConfig: this.selectedNotificationConfig,
+        selectedOrganizationUnit: this.selectedOrganizationUnit
       },
-      width: '40%'
+      width: this.sizeScreenService.smallScreen ? '100%' : '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

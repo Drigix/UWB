@@ -6,6 +6,7 @@ export interface IObject {
   id?: number;
   name?: string;
   secondName?: string;
+  fullName?: string;
   tagId?: number;
   hexTagId?: string;
   configuration?: string;
