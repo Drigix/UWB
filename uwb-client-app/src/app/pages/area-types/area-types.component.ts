@@ -14,6 +14,7 @@ import { ToastService } from '@shared/toast/toast.service';
 import { ColumnService } from '@shared/uwb-table/column.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AreaTypesDialogComponent } from './area-types-dialog/area-types-dialog.component';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'uwb-area-types',
@@ -39,7 +40,8 @@ export class AreaTypesComponent implements OnInit {
     private dialogService: DialogService,
     private translateService: TranslateService,
     private toastService: ToastService,
-    private confirmDialogService: ConfirmDialogService
+    private confirmDialogService: ConfirmDialogService,
+    private sizeScreenService: SizeScreenService
   ) { }
 
   ngOnInit() {
@@ -89,7 +91,7 @@ export class AreaTypesComponent implements OnInit {
         selectedAreaType: this.selectedAreaType,
         selectedOrganizationUnit: this.selectedOrganizationUnit
       },
-      width: '40%'
+      width: this.sizeScreenService.smallScreen ? '100%' : '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

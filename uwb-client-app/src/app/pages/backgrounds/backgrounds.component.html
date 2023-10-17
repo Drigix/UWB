@@ -25,7 +25,9 @@
       <p-button
         class="col px-2"
         [disabled]="selectedBackground === undefined"
-        label="{{ 'global.buttons.calibrate' | translate }}"
+        [icon]="mobileScreen ? 'pi pi-arrows-h' : ''"
+        [label]="mobileScreen ? '' : ('global.buttons.calibrate' | translate)"
+        [styleClass]="mobileScreen ? 'ui-button_size_100' : smallScreen ? 'ui-button_size_125' : 'ui-button_size_175'"
         (onClick)="openCalibrateBackgroundDialog()"
       ></p-button>
     </uwb-footer-buttons>

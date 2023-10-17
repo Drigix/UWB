@@ -128,6 +128,11 @@
   }
 }
 
+::ng-deep .menu-bar.hide {
+  width: 30px;
+  transition: width ease 0.5s;
+}
+
 ::ng-deep .menu {
   padding: 5px;
 }

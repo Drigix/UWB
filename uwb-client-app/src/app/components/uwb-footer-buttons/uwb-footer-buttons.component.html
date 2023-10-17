@@ -3,21 +3,27 @@
     [class]="styleClass"
     *ngIf="showAddButton"
     [disabled]="disabledAddButton"
-    label="{{ 'global.buttons.add' | translate }}"
+    [icon]="mobileScreen ? 'pi pi-plus' : ''"
+    [label]="mobileScreen ? '' : ('global.buttons.add' | translate)"
+    [styleClass]="mobileScreen ? 'ui-button_size_100' : smallScreen ? 'ui-button_size_125' : 'ui-button_size_175'"
     (onClick)="onAddClick()"
   ></p-button>
   <p-button
     [class]="styleClass"
     *ngIf="showEditButton"
     [disabled]="disabledEditAndDeleteButton"
-    label="{{ 'global.buttons.edit' | translate }}"
+    [icon]="mobileScreen ? 'pi pi-pencil' : ''"
+    [label]="mobileScreen ? '' : ('global.buttons.edit' | translate)"
+    [styleClass]="mobileScreen ? 'ui-button_size_100' : smallScreen ? 'ui-button_size_125' : 'ui-button_size_175'"
     (onClick)="onEditClick()"
   ></p-button>
   <p-button
     [class]="styleClass"
     *ngIf="showDeleteButton"
     [disabled]="disabledEditAndDeleteButton"
-    label="{{ 'global.buttons.delete' | translate }}"
+    [icon]="mobileScreen ? 'pi pi-trash' : ''"
+    [label]="mobileScreen ? '' : ('global.buttons.delete' | translate)"
+    [styleClass]="mobileScreen ? 'ui-button_size_100' : smallScreen ? 'ui-button_size_125' : 'ui-button_size_175'"
     (onClick)="onDeleteClick()"
   ></p-button>
   <ng-content></ng-content>

@@ -16,6 +16,7 @@ import { IClient } from '@entities/client/client.model';
 import { IObjectType } from '@entities/objects/object-type.model';
 import { ObjectTypesService } from '@services/objects/object-types.service';
 import { ArrayBufferService } from '@shared/array-buffer-converter/array-buffer.service';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'app-objects',
@@ -48,20 +49,19 @@ export class ObjectsComponent implements OnInit {
     private clientsService: ClientsService,
     private authorityService: AuthorityService,
     private toastService: ToastService,
-    private arrayBufferService: ArrayBufferService
+    private arrayBufferService: ArrayBufferService,
+    private sizeScreenService: SizeScreenService
   ) { }
 
   ngOnInit() {
+    this.sizeScreenService.smallScreen$.subscribe((isSmallScreen) => {
+      this.isSmallScreen = isSmallScreen;
+    });
     this.loading = true;
     this.userOrganizationUnitId = this.authorityService.getUserOrganizationUnitId();
     this.loadOrganizationUnits();
     this.columns = this.columnService.getObjectColumns();
     this.loadObjects();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.isSmallScreen = event.target.innerWidth < 900;
   }
 
   loadOrganizationUnits(): void {
@@ -144,7 +144,7 @@ export class ObjectsComponent implements OnInit {
         selectedObject: this.selectedObject,
         selectedOrganizationUnit: this.selectedOrganizationUnit
       },
-      width: '40%'
+      width: this.isSmallScreen ? '95%' : '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

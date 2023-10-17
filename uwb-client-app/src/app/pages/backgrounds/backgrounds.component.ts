@@ -15,6 +15,7 @@ import { ClientsService } from '@services/clients/clients.service';
 import { IClient } from '@entities/client/client.model';
 import { AuthorityService } from '@auth/authority.service';
 import { ArrayBufferService } from '@shared/array-buffer-converter/array-buffer.service';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'uwb-backgrounds',
@@ -30,6 +31,8 @@ export class BackgroundsComponent implements OnInit {
   selectedOrganizationUnit?: IClient;
   userOrganizationUnitId?: number;
   loading = false;
+  protected smallScreen = false;
+  protected mobileScreen = false;
 
   constructor(
     private backgroundsService: BackgroundsService,
@@ -40,10 +43,17 @@ export class BackgroundsComponent implements OnInit {
     private toastService: ToastService,
     private clientsService: ClientsService,
     private authorityService: AuthorityService,
-    private arrayBufferService: ArrayBufferService
+    private arrayBufferService: ArrayBufferService,
+    private sizeScreenService: SizeScreenService
     ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.sizeScreenService.smallScreen$.subscribe((isSmall) => {
+      this.smallScreen = isSmall;
+    });
+    this.sizeScreenService.mobileScreen$.subscribe((isMobile) => {
+      this.mobileScreen = isMobile;
+    });
     this.loading = true;
     this.userOrganizationUnitId = this.authorityService.getUserOrganizationUnitId();
     this.columns = this.columnService.getBackgroundColumns();
@@ -93,7 +103,7 @@ export class BackgroundsComponent implements OnInit {
         edit,
         selectedBackground: this.selectedBackground,
       },
-      width: '40%'
+      width: this.smallScreen ? '95%' : '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

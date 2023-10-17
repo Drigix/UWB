@@ -19,6 +19,7 @@ import { IClient } from '@entities/client/client.model';
 import { ClientsService } from '@services/clients/clients.service';
 import { ToastService } from '@shared/toast/toast.service';
 import { IAreaType } from '@entities/area/area-type.model';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'app-areas',
@@ -52,7 +53,8 @@ export class AreasComponent implements OnInit {
     private confirmDialogService: ConfirmDialogService,
     private arrayBufferService: ArrayBufferService,
     private clientsService: ClientsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private sizeScreenService: SizeScreenService
   ) {}
 
   ngOnInit() {
@@ -160,7 +162,7 @@ export class AreasComponent implements OnInit {
         selectedBackground: this.selectedBackground,
         selectedArea: this.selectedArea,
       },
-      width: '40%'
+      width: this.sizeScreenService.smallScreen ? '100%' : '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

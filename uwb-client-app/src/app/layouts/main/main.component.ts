@@ -20,7 +20,8 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   constructor(
     private usersService: UsersService,
-    private authorityService: AuthorityService
+    private authorityService: AuthorityService,
+    private translateService: TranslateService
   ) { }
 
   ngOnInit() {
@@ -30,6 +31,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.usersService.getAccount().subscribe(
         (res: HttpResponse<IUser>) => {
           this.account = res.body ?? undefined;
+          this.setApplicationLanguage(this.account?.langKey);
           this.authorityService.setUserRoles(this.account?.roles!);
           this.authorityService.setUserOrganizationUnitId(this.account?.organizationUnitId!);
           window.localStorage.setItem('user_theme', this.account?.theme!);
@@ -44,6 +46,10 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   isAuthenticated(): boolean {
     return this.account?.id ? true : false;
+  }
+
+  private setApplicationLanguage(langKey?: string): void {
+    this.translateService.use(langKey ?? 'pl');
   }
 
   private setLastUsedTheme(): void {

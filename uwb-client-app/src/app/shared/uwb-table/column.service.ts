@@ -190,9 +190,14 @@ export class ColumnService {
         dateFormat: 'yyyy-MM-dd HH:mm'
       },
       {
-        field: 'objectName',
-        label: 'objectName',
+        field: 'objectFullName',
+        label: 'objectFullName',
         header: this.translateService.instant('notification.objectName'),
+      },
+      {
+        field: 'areaName',
+        label: 'areaName',
+        header: this.translateService.instant('area.name'),
       }
     ];
     return this.columns;
