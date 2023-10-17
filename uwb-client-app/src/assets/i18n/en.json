@@ -1,7 +1,286 @@
 {
   "global": {
+    "menu": {
+      "logout": "Log Out",
+      "profile": "Profile",
+      "changeStyle": "Change Style",
+      "pages": {
+        "users": "Users",
+        "localizations": "Localizations",
+        "localizationsArchive": "Localizations Archive",
+        "areaTypes": "Area Types",
+        "areas": "Areas",
+        "backgrounds": "Room Plans",
+        "clients": "Organizational Units",
+        "objects": "Tags",
+        "anchors": "Anchors",
+        "occurrence-map": "Occurrence Map",
+        "notifications": "Notifications",
+        "notificationsConfig": "Notification Configuration"
+      }
+    },
+    "table": {
+      "search": "Search",
+      "noData": "No Data",
+      "filter": "Filter"
+    },
+    "dialog": {
+      "addHeader": "Add Element",
+      "editHeader": "Edit Element",
+      "calibrateHeader": "Calibrate Plan",
+      "deleteHeader": "Delete Element",
+      "deleteMessage": "Are you sure you want to delete the selected element?"
+    },
+    "toast": {
+      "header": {
+        "success": "Success",
+        "error": "Error",
+        "info": "Information",
+        "warning": "Warning"
+      }
+    },
     "buttons": {
-      "add": "Add"
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "save": "Save",
+      "close": "Close",
+      "copy": "Copy",
+      "draw": "Draw",
+      "stopDraw": "Stop Drawing",
+      "clear": "Clear",
+      "login": "Login",
+      "addFile": "Add File",
+      "preview": "Preview",
+      "calibrate": "Calibrate",
+      "mapSettings": "Map Settings",
+      "showAll": "Show All"
+    },
+    "formInvalid": {
+      "inputLengthInvalid": "Name should be between {{minLength}} - {{maxLength}} characters!",
+      "passwordInvalid": "Password should contain a lowercase letter, uppercase letter, digit, special character, and be at least 8 characters long!",
+      "passwordConfirmInvalid": "Password values do not match!"
+    }
+  },
+  "login": {
+    "loginError": "Invalid email or password!"
+  },
+  "profile": {
+    "menu": {
+      "profile": "Profile",
+      "password": "Password",
+      "settings": "Settings"
+    },
+    "password": {
+      "oldPassword": "Old Password",
+      "password": "New Password",
+      "confirmPassword": "Confirm Password"
+    },
+    "settings": {
+      "language": "Application Language",
+      "theme": "Application Theme"
+    },
+    "language": {
+      "pl": "Polish",
+      "en": "English"
+    },
+    "theme": {
+      "light": "Light",
+      "dark": "Dark"
+    }
+  },
+  "user": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "dayOfBirth": "Date of Birth",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "organizationUnit": "Organizational Unit",
+    "roles": "User Roles",
+    "dialog": {
+      "addSuccess": "Added a new user!",
+      "addError": "Failed to add a new user!",
+      "editSuccess": "Edited user!",
+      "editError": "Failed to edit user!",
+      "deleteSuccess": "Deleted user!",
+      "deleteError": "Failed to delete user!"
+    }
+  },
+  "area": {
+    "name": "Area Name",
+    "areaType": "Area Type",
+    "color": "Area Color",
+    "areas": "Areas",
+    "dialog": {
+      "addSuccess": "Added a new area!",
+      "addError": "Failed to add a new area!",
+      "editSuccess": "Edited area!",
+      "editError": "Failed to edit area!",
+      "deleteSuccess": "Deleted area!",
+      "deleteError": "Failed to delete area!"
+    }
+  },
+  "areaType": {
+    "name": "Type Name",
+    "color": "Type Color",
+    "organizationUnit": "Organizational Unit",
+    "dialog": {
+      "header": "Plan Preview",
+      "addSuccess": "Added a new area type!",
+      "addError": "Failed to add a new area type!",
+      "editSuccess": "Edited area type!",
+      "editError": "Failed to edit area type!",
+      "deleteSuccess": "Deleted area type!",
+      "deleteError": "Failed to delete area type!"
+    }
+  },
+  "areaVertex": {
+    "lp": "Vertex Index",
+    "x": "X",
+    "y": "Y",
+    "area": "Area",
+    "dialog": {
+      "addSuccess": "Added new area vertices!",
+      "addError": "Failed to add new area vertices!",
+      "editSuccess": "Edited area vertices!",
+      "editError": "Failed to edit area vertices!",
+      "deleteMessage": "Are you sure you want to delete all vertices from this area?",
+      "deleteSuccess": "Deleted area vertices!",
+      "deleteError": "Failed to delete area vertices!"
+    }
+  },
+  "background": {
+    "name": "Room Plan Name",
+    "scale": "Scale",
+    "image": "Room Plan Image",
+    "organizationUnit": "Organizational Unit",
+    "realValue": "Real Value",
+    "dialog": {
+      "header": "Plan Preview",
+      "addSuccess": "Added a new room plan!",
+      "addError": "Failed to add a new room plan!",
+      "editSuccess": "Edited room plan!",
+      "editError": "Failed to edit room plan!",
+      "editScaleSuccess": "Successfully rescaled room plan!",
+      "editScaleError": "Failed to rescale room plans!",
+      "deleteSuccess": "Deleted room plan!",
+      "deleteError": "Failed to delete room plan!"
+    }
+  },
+  "client": {
+    "name": "Organizational Unit Name",
+    "clients": "Clients",
+    "orgUnit": "Organizational Unit",
+    "parentOrganizationUnit": "Parent Organizational Unit",
+    "orgUnits": "Organizational Units",
+    "dialog": {
+      "addSuccess": "Added a new organizational unit!",
+      "addError": "Failed to add a new organizational unit!",
+      "editSuccess": "Edited organizational unit!",
+      "editError": "Failed to edit organizational unit!",
+      "deleteSuccess": "Deleted organizational unit!",
+      "deleteError": "Failed to delete organizational unit!"
+    }
+  },
+  "object": {
+    "name": "Name/Title",
+    "secondName": "Last Name/Second Title",
+    "hexTagId": "Tag Identifier",
+    "organizationUnit": "Organizational Unit",
+    "uwbObjectType": "Tag Type",
+    "objects": "Tags",
+    "uwbObjectTypes": "Tag Types",
+    "icons": "Icons",
+    "dialog": {
+      "addSuccess": "Added a new tag!",
+      "addError": "Failed to add a new tag!",
+      "idAlreadyExistsError": "Tag with the given hex identifier already exists!",
+      "editSuccess": "Edited tag!",
+      "editError": "Failed to edit tag!",
+      "deleteSuccess": "Deleted tag!",
+      "deleteError": "Failed to delete tag!"
+    }
+  },
+  "objectType": {
+    "name": "Type Name",
+    "organizationUnit": "Organizational Unit",
+    "icon": "Icon",
+    "adminOnly": "For Administrators Only",
+    "dialog": {
+      "addSuccess": "Added a new tag type!",
+      "addError": "Failed to add a new tag type!",
+      "editSuccess": "Edited tag type!",
+      "editError": "Failed to edit tag type!",
+      "deleteSuccess": "Deleted tag type!",
+      "deleteError": "Failed to delete tag type!"
+    }
+  },
+  "icon": {
+    "name": "Icon Name",
+    "icon": "Icon",
+    "dialog": {
+      "addSuccess": "Added a new tag icon!",
+      "addError": "Failed to add a new tag icon!",
+      "editSuccess": "Edited tag icon!",
+      "editError": "Failed to edit tag icon!",
+      "deleteSuccess": "Deleted tag icon!",
+      "deleteError": "Failed to delete tag icon!"
+    }
+  },
+  "anchor": {
+    "anchors": "Anchors",
+    "backgrounds":"Room Plans",
+    "name": "Identifier",
+    "x": "X",
+    "y": "Y",
+    "z": "Z",
+    "dialog": {
+      "addSuccess": "Added a new anchor!",
+      "addError": "Failed to add a new anchor!",
+      "idAlreadyExistsError": "Anchor with the given identifier already exists!",
+      "editSuccess": "Edited anchor!",
+      "editError": "Failed to edit anchor!",
+      "deleteSuccess": "Deleted anchor!",
+      "deleteError": "Failed to delete anchor!"
+    }
+  },
+  "localization": {
+    "backgrounds":"Room Plans",
+    "objects": "Tags",
+    "anchors": "Anchors",
+    "areas": "Areas",
+    "tag": {
+      "name": "Name",
+      "x": "X",
+      "y": "Y",
+      "date": "Date"
+    },
+    "details": {
+      "mapOptions": "Map Options",
+      "timeToChangePoint": "Time to Change Points"
+    },
+    "overlay": {
+      "showAnchors": "Show Anchors",
+      "showAreas": "Show Areas"
+    }
+  },
+  "notification": {
+    "name": "Notification Name",
+    "title": "Notification Title",
+    "message": "Notification Message",
+    "date": "Date",
+    "objectName": "Object Name",
+    "type": "Notification Type",
+    "areas": "Areas",
+    "dialog": {
+      "addSuccess": "Added a new notification configuration!",
+      "addError": "Failed to add a new notification configuration!",
+      "editSuccess": "Edited notification configuration!",
+      "editError": "Failed to edit notification configuration!",
+      "deleteSuccess": "Deleted notification configuration!",
+      "deleteError": "Failed to delete notification configuration!"
     }
   }
 }

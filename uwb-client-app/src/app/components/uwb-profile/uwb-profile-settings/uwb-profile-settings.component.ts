@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ILanguage } from '@entities/global/language.model';
 import { ITheme } from '@entities/global/theme.model';
 import { IUpdateUser, IUser, UpdateUser } from '@entities/user/user.model';
+import { TranslateService } from '@ngx-translate/core';
 import { UsersService } from '@services/users/users.service';
 import { LanguagesService } from '@shared/language/languages.service';
 import { ThemeService } from '@shared/theme/theme.service';
@@ -28,7 +29,8 @@ export class UwbProfileSettingsComponent implements OnInit {
     private languagesService: LanguagesService,
     private themeService: ThemeService,
     private usersService: UsersService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -50,7 +52,6 @@ export class UwbProfileSettingsComponent implements OnInit {
       language: [{ value: null, disabled: false }, [Validators.required]],
       theme: [{ value: null, disabled: false }, [Validators.required]],
     });
-    console.log(this.account);
     const language = this.account?.langKey ?? 'pl';
     const theme = this.account?.theme ?? 'primaryTheme';
     this.formGroup.patchValue({ language, theme });
@@ -68,7 +69,11 @@ export class UwbProfileSettingsComponent implements OnInit {
       {
         next: () => {
           this.toastService.showSuccessToast({summary: 'Success', 'detail': 'Pomyślnie edytowano profil!'})
+          this.changeApplicationLanguage(user.langKey);
           this.changeTheme(user.theme!);
+          if(this.account?.langKey !== user.langKey) {
+            window.location.reload();
+          }
           this.onCloseDialog();
         },
         error: () => {
@@ -78,7 +83,11 @@ export class UwbProfileSettingsComponent implements OnInit {
     );
   }
 
-  changeTheme(userTheme: string): void {
+  private changeApplicationLanguage(langKey?: string): void {
+    this.translateService.use(langKey ?? 'pl');
+  }
+
+  private changeTheme(userTheme: string): void {
     const html = document.getElementsByTagName('html')[0];
     Themes.themes.get(userTheme!)!.forEach((value, key) => {
       html.style.setProperty(key, value);
