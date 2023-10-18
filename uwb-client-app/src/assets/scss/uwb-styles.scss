@@ -368,66 +368,66 @@ body {
     }
 }
 
-@media (max-width:700px) {
-  .single_table_with_buttons {
-    button {
-      width: 80px;
-      font-size: 12px !important
-    }
-  }
-  .single_table_with_5buttons {
-    button {
-      width: 70px;
-      font-size: 10px !important
-    }
-  }
-  .buttons_container_scale {
-    button {
-      width: 80px;
-      font-size: 12px !important
-    }
-  }
-}
-@media (min-width: 701px) {
-  .single_table_with_buttons {
-    button {
-      width: 130px;
-      font-size: 15px !important
-    }
-  }
-  .single_table_with_5buttons {
-    button {
-      width: 110px;
-      font-size: 15px !important
-    }
-  }
-  .buttons_container_scale {
-    button {
-      width: 130px;
-      font-size: 15px !important
-    }
-  }
-}
-@media (min-width: 1200px) {
-  .single_table_with_buttons {
-    button {
-      width: 170px;
-      font-size: 17px !important
-    }
-  }
-  .single_table_with_5buttons {
-    button {
-      width: 150px;
-      font-size: 17px !important
-    }
-  }
-  .buttons_container_scale {
-    button {
-      width: 170px;
-      font-size: 17px !important
-    }
-  }
-}
+// @media (max-width:700px) {
+//   .single_table_with_buttons {
+//     button {
+//       width: 80px;
+//       font-size: 12px !important
+//     }
+//   }
+//   .single_table_with_5buttons {
+//     button {
+//       width: 70px;
+//       font-size: 10px !important
+//     }
+//   }
+//   .buttons_container_scale {
+//     button {
+//       width: 80px;
+//       font-size: 12px !important
+//     }
+//   }
+// }
+// @media (min-width: 701px) {
+//   .single_table_with_buttons {
+//     button {
+//       width: 130px;
+//       font-size: 15px !important
+//     }
+//   }
+//   .single_table_with_5buttons {
+//     button {
+//       width: 110px;
+//       font-size: 15px !important
+//     }
+//   }
+//   .buttons_container_scale {
+//     button {
+//       width: 130px;
+//       font-size: 15px !important
+//     }
+//   }
+// }
+// @media (min-width: 1200px) {
+//   .single_table_with_buttons {
+//     button {
+//       width: 170px;
+//       font-size: 17px !important
+//     }
+//   }
+//   .single_table_with_5buttons {
+//     button {
+//       width: 150px;
+//       font-size: 17px !important
+//     }
+//   }
+//   .buttons_container_scale {
+//     button {
+//       width: 170px;
+//       font-size: 17px !important
+//     }
+//   }
+// }
 .buttons_container_center {
   overflow: hidden;
   display: flex;

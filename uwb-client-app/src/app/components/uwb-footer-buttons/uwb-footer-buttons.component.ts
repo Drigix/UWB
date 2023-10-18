@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'uwb-footer-buttons',
@@ -18,9 +19,18 @@ export class UwbFooterButtonsComponent implements OnInit {
   @Output() emitEditClick = new EventEmitter<boolean>();
   @Output() emitDeleteClick = new EventEmitter<boolean>();
 
-  constructor() { }
+  protected smallScreen = false;
+  protected mobileScreen = false;
 
-  ngOnInit() {
+  constructor(private sizeScreenService: SizeScreenService) { }
+
+  ngOnInit(): void {
+    this.sizeScreenService.smallScreen$.subscribe((isSmall) => {
+      this.smallScreen = isSmall;
+    });
+    this.sizeScreenService.mobileScreen$.subscribe((isMobile) => {
+      this.mobileScreen = isMobile;
+    });
   }
 
   onAddClick(): void {

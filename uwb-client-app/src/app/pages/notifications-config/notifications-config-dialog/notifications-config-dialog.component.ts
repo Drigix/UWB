@@ -30,7 +30,7 @@ export class NotificationsConfigDialogComponent implements OnInit {
   selectedNotificationConfig?: INotificationConfig;
   treeSelectItems: IClientUnit[] = [];
   selectedOrganizationUnit?: IClientUnit;
-  userOrganizationUnitId?: number;
+  pageSelectedOrganizationUnit?: IClient;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,7 +45,6 @@ export class NotificationsConfigDialogComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.userOrganizationUnitId = this.authorityService.getUserOrganizationUnitId();
     this.loadPageData();
     this.loadFormGroup();
     this.loadOrganizationUnits();
@@ -54,6 +53,7 @@ export class NotificationsConfigDialogComponent implements OnInit {
   loadPageData(): void {
     this.edit = this.config.data.edit;
     this.selectedNotificationConfig = this.config.data.selectedNotificationConfig;
+    this.pageSelectedOrganizationUnit = this.config.data.selectedOrganizationUnit;
   }
 
   loadFormGroup(): void {
@@ -80,7 +80,7 @@ export class NotificationsConfigDialogComponent implements OnInit {
         if(this.edit) {
           this.selectedOrganizationUnit = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedNotificationConfig?.organizationUnitId!)!;
         } else {
-          this.selectedOrganizationUnit = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.userOrganizationUnitId!)!;
+          this.selectedOrganizationUnit = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.pageSelectedOrganizationUnit?.id!)!;
         }
         this.loadAreas(this.selectedOrganizationUnit.data.id!);
       }

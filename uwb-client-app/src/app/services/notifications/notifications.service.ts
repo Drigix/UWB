@@ -1,14 +1,14 @@
-import { API_URL } from './../../config/api-url.constans';
+import { API_NOTIFICATION_URL, API_URL } from './../../config/api-url.constans';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NotificationsResponseType } from '@entities/global/httpresponse-types.model';
-import { NewNotification } from '@entities/notification/notification.model';
+import { NotificationsArrayResponseType, NotificationsResponseType } from '@entities/global/httpresponse-types.model';
+import { INotification, NewNotification } from '@entities/notification/notification.model';
 import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class NotificationsService {
 
-  private resourceUrl = API_URL + 'notification-archive';
+  private resourceUrl = API_NOTIFICATION_URL + 'notification-archive';
 
   constructor(
     private http: HttpClient
@@ -16,6 +16,10 @@ export class NotificationsService {
 
   findAll(): Observable<any> {
     return this.http.get(this.resourceUrl);
+  }
+
+  findAllByDates(dateFrom: Date, dateTo: Date): Observable<NotificationsArrayResponseType> {
+    return this.http.get<INotification[]>(`${this.resourceUrl}/${dateFrom}/${dateTo}`, { observe: 'response' });
   }
 
   findById(id: number): Observable<NotificationsResponseType> {

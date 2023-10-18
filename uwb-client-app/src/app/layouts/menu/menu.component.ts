@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { Themes } from '../themes';
 import { IUser } from '@entities/user/user.model';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'uwb-menu',
@@ -25,13 +26,19 @@ export class MenuComponent implements OnInit {
   isMenuVisible = true;
   filterText = '';
   themeSubscription?: Subscription;
+
+  isMenuHide = false;
+  mobileScreen = false;
+  handleMobileSreen = false;
+
   constructor(
     private menuService: MenuService,
     private dialogService: DialogService,
     private router: Router,
     private translateService: TranslateService,
     private themeService: ThemeService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private sizeScreenService: SizeScreenService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -41,8 +48,36 @@ export class MenuComponent implements OnInit {
     const currentMenuItem = this.items.find( i => i.routerLink === currentUrl);
     this.filteredItems = this.items;
     this.primaryTheme = this.account?.theme === 'darkTheme' ? false : true;
+    this.setMobileMenu();
     this.observeAppThemeChange();
     //this.navigateToStartPage();
+  }
+
+  setMobileMenu(): void {
+    if(this.sizeScreenService.checkIsMobile()) {
+      this.mobileScreen = true;
+      this.isMenuVisible = false;
+      this.isMenuHide = true;
+      // this.deviceMenuItems = this.menuItemsAvailableForUser.filter( item => item.showOnMobile === true);
+      // this.searchedMenuItems = this.deviceMenuItems;
+    } else {
+      this.sizeScreenService.mobileScreen$.subscribe(mobileScreen => {
+        this.mobileScreen = mobileScreen;
+        if(this.mobileScreen && this.mobileScreen !== this.handleMobileSreen) {
+          this.handleMobileSreen = true;
+          // this.items = this.menuService.getMenuItems();
+          // this.deviceMenuItems = this.menuItemsAvailableForUser.filter( item => item.showOnMobile === true);
+          // this.searchedMenuItems = this.deviceMenuItems;
+          this.isMenuVisible = false;
+        } else if(!this.mobileScreen &&  this.mobileScreen !== this.handleMobileSreen) {
+          this.isMenuHide = false;
+          this.handleMobileSreen = false;
+          // this.items = this.menuService.getMenuItems();
+          // this.searchedMenuItems = this.menuItemsAvailableForUser;
+          this.isMenuVisible = true;
+        }
+      });
+    }
   }
 
   toggleMenuVisibility(): void {

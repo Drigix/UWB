@@ -13,6 +13,7 @@ public class UwbObjectResponse {
     private Long id;
     private String name;
     private String secondName;
+    private String fullName;
     private String hexTagId;
     private UwbObjectTypeResponse uwbObjectType;
 }

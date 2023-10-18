@@ -24,6 +24,7 @@ export class ObjectIconsComponent implements OnInit {
   @Input() treeSelectItems: IClientUnit[] = [];
   @Input() treeSelectItemSelected?: IClientUnit;
   @Input() selectedOrganizationUnit?: IClient;
+  @Input() isSmallScreen = false;
   @Output() emitTreeSelectItem = new EventEmitter<IClient>();
   icons: IIcon[] = [];
   columns: UniversalTableColumn[] = [];
@@ -80,7 +81,7 @@ export class ObjectIconsComponent implements OnInit {
         selectedIcon: this.selectedIcon,
         selectedOrganizationUnit: this.selectedOrganizationUnit
       },
-      width: '40%'
+      width: this.isSmallScreen ? '95%' : '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

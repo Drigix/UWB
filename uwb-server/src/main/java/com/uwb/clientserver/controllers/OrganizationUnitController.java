@@ -18,7 +18,7 @@ import static com.uwb.clientserver.security.AuthoritiesConstants.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/organization-unit")
+@RequestMapping("/api/uwb/organization-unit")
 @RequiredArgsConstructor
 @Slf4j
 public class OrganizationUnitController {

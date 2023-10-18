@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.uwb.clientserver.security.AuthoritiesConstants.ADMIN_PREAUTHORIZE;
 
 @RestController
-@RequestMapping("/api/localization")
+@RequestMapping("/api/uwb/localization")
 @RequiredArgsConstructor
 @Slf4j
 public class LocalizationController {

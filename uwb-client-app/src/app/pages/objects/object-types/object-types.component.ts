@@ -24,6 +24,7 @@ export class ObjectTypesComponent implements OnInit {
   @Input() treeSelectItems: IClientUnit[] = [];
   @Input() treeSelectItemSelected?: IClientUnit;
   @Input() selectedOrganizationUnit?: IClient;
+  @Input() isSmallScreen = false;
   @Output() emitTreeSelectItem = new EventEmitter<IClient>();
   objectTypes: IObjectType[] = [];
   columns: UniversalTableColumn[] = [];
@@ -41,7 +42,6 @@ export class ObjectTypesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('xd');
     this.loading = true;
     this.columns = this.columnService.getObjectTypeColumns();
     this.loadObjectTypes();
@@ -83,7 +83,7 @@ export class ObjectTypesComponent implements OnInit {
         selectedObjectType: this.selectedObjectType,
         selectedOrganizationUnit: this.selectedOrganizationUnit
       },
-      width: '40%'
+      width: this.isSmallScreen ? '95%' : '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

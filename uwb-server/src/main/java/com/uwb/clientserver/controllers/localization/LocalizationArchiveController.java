@@ -19,7 +19,7 @@ import java.util.List;
 import static com.uwb.clientserver.security.AuthoritiesConstants.LOGGED_USER_PREAUTHORIZE;
 
 @RestController
-@RequestMapping("/api/localization-archive")
+@RequestMapping("/api/uwb/localization-archive")
 @RequiredArgsConstructor
 @Slf4j
 public class LocalizationArchiveController {

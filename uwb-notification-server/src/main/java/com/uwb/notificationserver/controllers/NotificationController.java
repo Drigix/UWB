@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/notification/notification-archive")
+@RequestMapping("/api/uwb-notification/notification-archive")
 @RequiredArgsConstructor
 @Slf4j
 public class NotificationController {
@@ -30,7 +30,7 @@ public class NotificationController {
      * @param dateTo second date of range
      * @return list of notifications.
      */
-    @GetMapping()
+    @GetMapping("/{dateFrom}/{dateTo}")
     public List<Notification> getAllNotificationsBetweenDates(@PathVariable String dateFrom, @PathVariable String dateTo) {
         log.info("Request to get all anchors.");
         LocalDateTime parsedDateFrom = LocalDateTime.parse(dateFrom, formatter);
@@ -38,5 +38,10 @@ public class NotificationController {
         ZonedDateTime formatDateFrom = parsedDateFrom.atZone(ZoneId.systemDefault());
         ZonedDateTime formatDateTo = parsedDateTo.atZone(ZoneId.systemDefault());
         return notificationService.findAllBetweenDates(formatDateFrom, formatDateTo);
+    }
+
+    @GetMapping("/test")
+    public String getTemp() {
+        return "TEST";
     }
 }

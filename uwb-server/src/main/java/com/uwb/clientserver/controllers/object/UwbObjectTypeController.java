@@ -20,7 +20,7 @@ import static com.uwb.clientserver.security.AuthoritiesConstants.ADMIN_PREAUTHOR
 import static com.uwb.clientserver.security.AuthoritiesConstants.LOGGED_USER_PREAUTHORIZE;
 
 @RestController
-@RequestMapping("/api/uwb-object-type")
+@RequestMapping("/api/uwb/uwb-object-type")
 @RequiredArgsConstructor
 @Slf4j
 public class UwbObjectTypeController {

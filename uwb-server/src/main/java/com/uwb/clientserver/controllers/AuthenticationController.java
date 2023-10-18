@@ -19,7 +19,7 @@ import static com.uwb.clientserver.security.AuthoritiesConstants.*;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/authentication")
+@RequestMapping("/api/uwb/authentication")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationController {

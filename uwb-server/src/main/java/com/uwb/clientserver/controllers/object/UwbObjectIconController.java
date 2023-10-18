@@ -23,7 +23,7 @@ import static com.uwb.clientserver.security.AuthoritiesConstants.ADMIN_PREAUTHOR
 import static com.uwb.clientserver.security.AuthoritiesConstants.LOGGED_USER_PREAUTHORIZE;
 
 @RestController
-@RequestMapping("/api/uwb-object-icon")
+@RequestMapping("/api/uwb/uwb-object-icon")
 @RequiredArgsConstructor
 @Slf4j
 public class UwbObjectIconController {

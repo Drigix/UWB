@@ -8,6 +8,7 @@ import { UsersService } from '@services/users/users.service';
 import { ColumnService } from '@shared/uwb-table/column.service';
 import { IUser } from '@entities/user/user.model';
 import { ToastService } from '@shared/toast/toast.service';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'app-user',
@@ -27,10 +28,11 @@ export class UserComponent implements OnInit {
     private confirmDialogService: ConfirmDialogService,
     private usersService: UsersService,
     private columnService: ColumnService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private sizeScreenService: SizeScreenService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.columns = this.columnService.getUserColumns();
     this.loadUsers();
@@ -54,7 +56,7 @@ export class UserComponent implements OnInit {
         edit,
         selectedUser: this.selectedUser
       },
-      width: '40%'
+      width: this.sizeScreenService.smallScreen ? '100%' : '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

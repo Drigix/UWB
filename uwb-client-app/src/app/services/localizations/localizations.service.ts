@@ -9,7 +9,7 @@ import * as SockJS from 'sockjs-client';
 export class LocalizationsService {
 
   private resourceUrl = '../../../assets/data/data-localization.json';
-  private websocketUrl = '//localhost:8080/ws';
+  private websocketUrl = '//localhost:8081/ws';
   private connection?: Promise<any>;
   private stompClient?: Client;
   private connectedPromise?: any;

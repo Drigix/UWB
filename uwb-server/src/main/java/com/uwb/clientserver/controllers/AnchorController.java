@@ -17,7 +17,7 @@ import java.util.List;
 import static com.uwb.clientserver.security.AuthoritiesConstants.ADMIN_PREAUTHORIZE;
 import static com.uwb.clientserver.security.AuthoritiesConstants.LOGGED_USER_PREAUTHORIZE;
 @RestController
-@RequestMapping("/api/anchor")
+@RequestMapping("/api/uwb/anchor")
 @RequiredArgsConstructor
 @Slf4j
 public class AnchorController {

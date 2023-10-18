@@ -19,7 +19,7 @@ import static com.uwb.clientserver.security.AuthoritiesConstants.ADMIN_PREAUTHOR
 import static com.uwb.clientserver.security.AuthoritiesConstants.LOGGED_USER_PREAUTHORIZE;
 
 @RestController
-@RequestMapping("/api/area-vertex")
+@RequestMapping("/api/uwb/area-vertex")
 @RequiredArgsConstructor
 @Slf4j
 public class AreaVertexController {

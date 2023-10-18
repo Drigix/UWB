@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface NotificationConfigRepository extends JpaRepository<NotificationConfig, Long> {
 
+    List<NotificationConfig> findAllByAreas_BackgroundOrganizationUnitId(Long id);
+
     List<NotificationConfig> findAllByAreas_Id(Long id);
 }

@@ -1,14 +1,30 @@
 <div class="single_table_with_navbar">
   <div class="grid align-items-center">
-    <uwb-calendar class="col-3 flex justify-content-center" [rangeMode]="true" [showTime]="true" (modelChange)="onDateChange($event)"></uwb-calendar>
-    <div class="col-1 flex justify-content-center align-items-end" style="height: 80px;">
+    <uwb-calendar class="col-10 flex justify-content-center" [rangeMode]="true" [showTime]="true" (modelChange)="onDateChange($event)"></uwb-calendar>
+    <div class="col-2 flex justify-content-center align-items-end" style="height: 80px;">
       <p-button icon="pi pi-search" [disabled]="!checkIsAllValid()" (onClick)="onLoadNotifications()"></p-button>
     </div>
   </div>
   <uwb-table
   [columns]="columns"
   [values]="notifications"
+  [loading]="loading"
+  [showFilterOption]="true"
   (selectionChange)="onNotificationSelect($event)"
   >
+  <div filter class="w-11rem m-2">
+    <uwb-single-select
+      [items]="dropdownFilterObjectItems"
+      [optionLabel]="'fullName'"
+      label="{{ 'object.objects' | translate }}"
+      (modelChange)="onObjectFilterSelected($event)"
+    ></uwb-single-select>
+    <uwb-single-select
+      [items]="dropdownFilterAreaItems"
+      [optionLabel]="'name'"
+      label="{{ 'area.areas' | translate }}"
+      (modelChange)="onAreaFilterSelected($event)"
+    ></uwb-single-select>
+  </div>
   </uwb-table>
 </div>

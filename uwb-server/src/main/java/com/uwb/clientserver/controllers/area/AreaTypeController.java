@@ -20,7 +20,7 @@ import static com.uwb.clientserver.security.AuthoritiesConstants.ADMIN_PREAUTHOR
 import static com.uwb.clientserver.security.AuthoritiesConstants.LOGGED_USER_PREAUTHORIZE;
 
 @RestController
-@RequestMapping("/api/area-type")
+@RequestMapping("/api/uwb/area-type")
 @RequiredArgsConstructor
 @Slf4j
 public class AreaTypeController {

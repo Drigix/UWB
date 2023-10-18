@@ -22,7 +22,7 @@ import java.util.List;
 import static com.uwb.clientserver.security.AuthoritiesConstants.*;
 
 @RestController
-@RequestMapping("/api/background")
+@RequestMapping("/api/uwb/background")
 @RequiredArgsConstructor
 @Slf4j
 public class BackgroundController {

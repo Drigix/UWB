@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: uwb-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: uwb-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/uwb/**
+        - id: uwb-notification-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/uwb-notification/**
+
+server:
+  port: 8080
+
+token:
+  signing:
+    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351

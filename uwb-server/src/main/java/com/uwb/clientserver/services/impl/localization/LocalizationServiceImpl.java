@@ -22,30 +22,37 @@ public class LocalizationServiceImpl implements LocalizationService {
     private final AreaService areaService;
 
     @Override
-//    @Scheduled(cron = "*/1 * * * * *")
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "*/5 * * * * *")
+//    @Scheduled(cron = "0 * * * * ?")
     public void autoGenerateNewLocalizations() throws JsonProcessingException {
 //        Random random = new Random();
+//        Double randomX1 = 2.0 + (random.nextDouble() * (19.0 - 2.0));
+//        Double randomY1 = 12.0 + (random.nextDouble() * (19.0 - 12.0));
+//        Double randomZ1 = 0.5 + (random.nextDouble() * (3.0 - 0.5));
+//        Double randomX2 = 2.0 + (random.nextDouble() * (19.0 - 2.0));
+//        Double randomY2 = 12.0 + (random.nextDouble() * (19.0 - 12.0));
+//        Double randomZ2 = 0.5 + (random.nextDouble() * (3.0 - 0.5));
 //        LocalizationRequest localizationRequest = LocalizationRequest.builder()
 //                .date(ZonedDateTime.now())
-//                .x(2.0 + (random.nextDouble() * (19.0 - 2.0)))
-//                .y(12.0 + (random.nextDouble() * (19.0 - 12.0)))
-//                .z(0.5 + (random.nextDouble() * (3.0 - 0.5)))
+//                .x(randomX1)
+//                .y(randomY1)
+//                .z(randomZ1)
 //                .tagId("qwe12rt")
 //                .backgroundId(6L)
 //                .anchorIds("ABC12357;ABC12355;")
 //                .build();
 //        LocalizationRequest localizationRequest2 = LocalizationRequest.builder()
 //                .date(ZonedDateTime.now())
-//                .x(2.0 + (random.nextDouble() * (19.0 - 2.0)))
-//                .y(12.0 + (random.nextDouble() * (19.0 - 12.0)))
-//                .z(0.5 + (random.nextDouble() * (3.0 - 0.5)))
+//                .x(randomX2)
+//                .y(randomY2)
+//                .z(randomZ2)
 //                .tagId("po85uxc")
 //                .backgroundId(6L)
 //                .anchorIds("ABC12357;ABC12355;")
 //                .build();
+//        areaService.checkIfEnterOrExitArea("qwe12rt", 6L, randomX1, randomY1);
+//        areaService.checkIfEnterOrExitArea("po85uxc", 6L, randomX2, randomY2);
 //        localizationDao.createLocalization(localizationRequest);
 //        localizationDao.createLocalization(localizationRequest2);
-        areaService.checkIfEnterOrExitArea("qwe12rt", 6L, 7.04, 14.04);
     }
 }

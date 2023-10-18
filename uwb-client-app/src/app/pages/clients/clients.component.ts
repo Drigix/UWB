@@ -10,6 +10,7 @@ import { ClientsDialogComponent } from './clients-dialog/clients-dialog.componen
 import { IClientUnit } from '@entities/client/client-unit.model';
 import { HttpResponse } from '@angular/common/http';
 import { ToastService } from '@shared/toast/toast.service';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'uwb-clients',
@@ -30,7 +31,8 @@ export class ClientsComponent implements OnInit {
     private translateService: TranslateService,
     private confirmDialogService: ConfirmDialogService,
     private clientsService: ClientsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private sizeScreenService: SizeScreenService
   ) { }
 
   ngOnInit() {
@@ -60,7 +62,7 @@ export class ClientsComponent implements OnInit {
         edit,
         selectedClient: this.selectedClient,
       },
-      width: '40%'
+      width: this.sizeScreenService.smallScreen ? '100%' : '40%'
     });
     ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }

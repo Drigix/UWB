@@ -112,6 +112,7 @@
     "name": "Nazwa obszaru",
     "areaType": "Typ obszaru",
     "color": "Kolor obszaru",
+    "areas": "Obszary",
     "dialog": {
       "addSuccess": "Dodano nowy obszar!",
       "addError": "Dodanie nowego obszaru nie powiodło się!",

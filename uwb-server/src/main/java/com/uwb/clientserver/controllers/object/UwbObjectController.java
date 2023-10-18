@@ -21,7 +21,7 @@ import static com.uwb.clientserver.security.AuthoritiesConstants.ADMIN_PREAUTHOR
 import static com.uwb.clientserver.security.AuthoritiesConstants.LOGGED_USER_PREAUTHORIZE;
 
 @RestController
-@RequestMapping("/api/uwb-object")
+@RequestMapping("/api/uwb/uwb-object")
 @RequiredArgsConstructor
 @Slf4j
 public class UwbObjectController {
