@@ -1,0 +1,13 @@
+task runGateway(type: Exec, dependsOn: 'uwb-gateway:bootRun') {
+    commandLine 'java', '-jar', ':uwb-gateway/build/libs/uwb-gateway.jar'
+}
+
+task runServer(type: Exec, dependsOn: 'uwb-server:bootRun') {
+    commandLine 'java', '-jar', ':uwb-server/build/libs/uwb-server.jar'
+}
+
+task runNotificationServer(type: Exec, dependsOn: 'uwb-notification-server:bootRun') {
+    commandLine 'java', '-jar', ':uwb-notification-server/build/libs/uwb-notification-server.jar'
+}
+
+task runAll(dependsOn: ['runGateway', 'runServer', 'runNotificationServer']) {}

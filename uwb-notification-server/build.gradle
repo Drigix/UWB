@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.kafka:spring-kafka'
 	implementation group: 'io.github.cdimascio', name: 'java-dotenv', version: '5.2.2'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux:3.1.4'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'

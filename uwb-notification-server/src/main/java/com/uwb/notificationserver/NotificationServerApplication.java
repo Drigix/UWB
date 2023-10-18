@@ -4,12 +4,16 @@ import io.github.cdimascio.dotenv.Dotenv;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 
 @SpringBootApplication
 @Slf4j
+@ComponentScan(basePackages = {"com.uwb.notificationserver.*"})
+@EntityScan("com.uwb.notificationserver.*")
 @EnableScheduling
 public class NotificationServerApplication {
 

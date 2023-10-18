@@ -23,7 +23,7 @@ import static com.uwb.clientserver.security.AuthoritiesConstants.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/uwb/user")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
@@ -70,10 +70,10 @@ public class UserController {
     }
 
     @GetMapping("/user-authentication-token")
-    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
-    public UserDetails getUserDetails() {
-        return userService.userDetailsService()
-                .loadUserByUsername("michlaw@gmail.pl");
+    public String getUserDetails() {
+//        return userService.userDetailsService()
+//                .loadUserByUsername("michlaw@gmail.pl");
+        return "TEST1";
     }
 
     /**

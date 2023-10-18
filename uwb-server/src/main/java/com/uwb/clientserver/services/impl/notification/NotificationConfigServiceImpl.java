@@ -34,6 +34,12 @@ public class NotificationConfigServiceImpl implements NotificationConfigService 
 
     @Override
     @Transactional(readOnly = true)
+    public List<NotificationConfigResponse> findAllByOrganization(Long id) {
+        return notificationConfigMapper.toResponseList(notificationConfigRepository.findAllByAreas_BackgroundOrganizationUnitId(id));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<NotificationConfigResponse> findAllByArea(Long id) {
         return notificationConfigMapper.toResponseList(notificationConfigRepository.findAllByAreas_Id(id));
     }

@@ -11,6 +11,8 @@ public interface NotificationConfigService {
 
     List<NotificationConfigResponse> findAll();
 
+    List<NotificationConfigResponse> findAllByOrganization(Long id);
+
     List<NotificationConfigResponse> findAllByArea(Long id);
 
     NotificationConfigResponse update(NotificationConfigRequest request);

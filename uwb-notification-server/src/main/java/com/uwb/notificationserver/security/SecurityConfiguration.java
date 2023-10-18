@@ -24,15 +24,15 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
-                    request.requestMatchers("/api/**").authenticated();
+                    request.requestMatchers("/api/uwb-notification/**").permitAll();
                 })
-                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS)).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS));
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 //                .authenticationProvider(authenticationProvider()).addFilterBefore(
 //                        jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

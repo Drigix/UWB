@@ -2,6 +2,7 @@ package com.uwb.clientserver.controllers.notification;
 
 import com.uwb.clientserver.models.request.notification.NotificationConfigRequest;
 import com.uwb.clientserver.models.response.notification.NotificationConfigResponse;
+import com.uwb.clientserver.models.response.object.UwbObjectResponse;
 import com.uwb.clientserver.services.notification.NotificationConfigService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +13,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.uwb.clientserver.security.AuthoritiesConstants.ADMIN_PREAUTHORIZE;
 import static com.uwb.clientserver.security.AuthoritiesConstants.LOGGED_USER_PREAUTHORIZE;
 
 @RestController
-@RequestMapping("/api/notification-config")
+@RequestMapping("/api/uwb/notification-config")
 @RequiredArgsConstructor
 @Slf4j
 public class NotificationConfigController {
@@ -49,6 +51,19 @@ public class NotificationConfigController {
     public List<NotificationConfigResponse> getAllNotificationConfigs() {
         log.info("Request to get all notificationConfigs.");
         return notificationConfigService.findAll();
+    }
+
+    /**
+     * Endpoint for get all notification configs by user organization unit.
+     *
+     * @param id The ID of user organization unit.
+     * @return list of notification configs response.
+     */
+    @GetMapping("/user-organization-unit/{id}")
+    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
+    public List<NotificationConfigResponse> getAllNotificationConfigsByUserOrganizationUnit(@PathVariable Long id) {
+        log.info("Request to get all all uwb-objects by user organization unit.");
+        return notificationConfigService.findAllByOrganization(id);
     }
 
     /**
