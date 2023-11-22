@@ -18,16 +18,16 @@ export class MenuService {
 
   async getMenuItems(): Promise<IMenuItem[]> {
     const items: IMenuItem[] = [
+      await this.createMenuItem('fa fa-handshake-o', 'global.menu.pages.clients', 'clients', ADMIN_ACCESS),
       await this.createMenuItem('pi pi-users', 'global.menu.pages.users', 'user', ADMIN_ACCESS),
       await this.createMenuItem('pi pi-map-marker', 'global.menu.pages.localizations', 'localizations', LOGGED_USER_ACCESS),
       await this.createMenuItem('fa fa-archive', 'global.menu.pages.localizationsArchive', 'localizations-archive', LOGGED_USER_ACCESS),
-      await this.createMenuItem('fa fa-object-ungroup', 'global.menu.pages.areaTypes', 'area-types', LOGGED_USER_ACCESS),
-      await this.createMenuItem('fa fa-object-group', 'global.menu.pages.areas', 'areas', LOGGED_USER_ACCESS),
-      await this.createMenuItem('fa fa-photo', 'global.menu.pages.backgrounds', 'backgrounds', LOGGED_USER_ACCESS),
-      await this.createMenuItem('fa fa-handshake-o', 'global.menu.pages.clients', 'clients', LOGGED_USER_ACCESS),
-      await this.createMenuItem('fa fa-bullseye', 'global.menu.pages.objects', 'objects', LOGGED_USER_ACCESS),
-      await this.createMenuItem('fa fa-anchor', 'global.menu.pages.anchors', 'anchors', LOGGED_USER_ACCESS),
       await this.createMenuItem('pi pi-map', 'global.menu.pages.occurrence-map', 'occurrence-map', LOGGED_USER_ACCESS),
+      await this.createMenuItem('fa fa-object-group', 'global.menu.pages.areas', 'areas', LOGGED_USER_ACCESS),
+      await this.createMenuItem('fa fa-object-ungroup', 'global.menu.pages.areaTypes', 'area-types', LOGGED_USER_ACCESS),
+      await this.createMenuItem('fa fa-anchor', 'global.menu.pages.anchors', 'anchors', LOGGED_USER_ACCESS),
+      await this.createMenuItem('fa fa-photo', 'global.menu.pages.backgrounds', 'backgrounds', LOGGED_USER_ACCESS),
+      await this.createMenuItem('fa fa-bullseye', 'global.menu.pages.objects', 'objects', LOGGED_USER_ACCESS),
       await this.createMenuItem('fa fa-envelope', 'global.menu.pages.notifications', 'notifications', LOGGED_USER_ACCESS),
       await this.createMenuItem('fa fa-wrench', 'global.menu.pages.notificationsConfig', 'notifications-config', LOGGED_USER_ACCESS)
 

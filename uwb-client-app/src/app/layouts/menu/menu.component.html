@@ -1,9 +1,6 @@
 <div class="menu-bar" [ngClass]="{ 'collapsed': !isMenuVisible, 'hide': isMenuHide }">
   <div class="flex-space">
-    <a *ngIf="mobileScreen" (click)="isMenuHide = !isMenuHide">
-      <i class="pi pi-angle-left hide-menu-icon"></i>
-    </a>
-    <a *ngIf="!mobileScreen" class="mode-icon" (click)="switchTheme()" pTooltip="{{ 'global.menu.changeStyle' | translate }}" tooltipPosition="right">
+    <a *ngIf="!isMenuHide" class="mode-icon" (click)="switchTheme()" pTooltip="{{ 'global.menu.changeStyle' | translate }}" tooltipPosition="right">
       <div class="icon-container">
         <i [ngClass]="{ 'fade-out': !primaryTheme }" class="pi pi-sun text-lg"></i>
         <i [ngClass]="{ 'fade-out': primaryTheme }" class="pi pi-moon text-lg"></i>
@@ -12,6 +9,9 @@
     <a *ngIf="!mobileScreen" (click)="toggleMenuVisibility()">
       <!-- <fa-icon icon="bars" [fixedWidth]="true" class="menu-icon"></fa-icon> -->
       <i class="pi pi-bars menu-icon"></i>
+    </a>
+    <a *ngIf="mobileScreen" (click)="isMenuHide = !isMenuHide">
+      <i class="pi pi-angle-left hide-menu-icon text-xl"></i>
     </a>
   </div>
   <ng-container *ngIf="!isMenuHide">

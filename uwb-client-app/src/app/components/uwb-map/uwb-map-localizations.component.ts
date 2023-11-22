@@ -44,8 +44,8 @@ export class UwbMapLocalizationsComponent extends UwbMap implements OnInit, OnCh
     if (changes['background'] && this.background !== '') {
       this.loadMap();
     }
-    if(changes['localizations'] || changes['anchors']) {
-      if(this.localizations.length > 0 || this.anchors.length > 0) {
+    if(changes['localizations'] || changes['anchors'] || changes['vertexes']) {
+      if(this.localizations.length > 0 || this.anchors.length > 0 || this.vertexes.length > 0) {
         this.loadPoints(localizationMapIconStyle, anchorMapIconStyle);
       } else {
         this.source.clear();
@@ -77,6 +77,7 @@ export class UwbMapLocalizationsComponent extends UwbMap implements OnInit, OnCh
         feature.setId('tag_' + 'NEW');
       }
       if(localization.tagId === this.selectedMapPoint?.tagId) {
+        this.selectedMapPoint.date = localization.date;
         this.overlay.setPosition([localization.xPx!, localization.yPx!]);
       }
       feature.setStyle(new Style({

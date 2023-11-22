@@ -470,9 +470,19 @@ body {
   grid-template-rows: 75px calc(100vh - 150px);
 }
 
+.single_map_with_navbar_small_screen {
+  display: grid;
+  grid-template-rows: 250px calc(100vh - 150px);
+}
+
 .single_map_with_hight_navbar {
   display: grid;
-  grid-template-rows: 140px calc(100vh - 160px);
+  grid-template-rows: 125px calc(100vh - 160px);
+}
+
+.single_map_with_hight_navbar_small_screen {
+  display: grid;
+  grid-template-rows: 350px calc(100vh - 160px);
 }
 
 .single_map_with_footer {
@@ -483,4 +493,9 @@ body {
 .single_map_with_navbar_and_footer {
   display: grid;
   grid-template-rows: 75px calc(100vh - 170px) 75px;
+}
+
+.single_map_with_navbar_and_footer_small_screen {
+  display: grid;
+  grid-template-rows: 250px calc(100vh - 170px) 75px;
 }

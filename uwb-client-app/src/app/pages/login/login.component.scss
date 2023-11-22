@@ -3,8 +3,15 @@
   background: rgb(255,255,255) !important;
   background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,165,52,1) 54%, rgba(255,145,5,1) 100%) !important;
 
-  img {
-    height: calc(100% - 400px);
+  .normal-screen img {
+    height: 500px;
+  }
+
+  .small-screen img {
+    height: 200px;
+    position: absolute;
+    left: 0;
+    top: 30px;
   }
 
   input {

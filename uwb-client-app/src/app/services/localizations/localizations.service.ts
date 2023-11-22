@@ -19,8 +19,7 @@ export class LocalizationsService {
   private listener?: Observable<any>;
 
   constructor(
-    private http: HttpClient,
-    private authorityService: AuthorityService
+    private http: HttpClient
   ) {
     this.listener = this.createListener();
   }
@@ -85,5 +84,4 @@ export class LocalizationsService {
   private createConnection(): Promise<any> {
     return new Promise((resolve, reject) => ( this.connectedPromise = resolve ));
   }
-
 }

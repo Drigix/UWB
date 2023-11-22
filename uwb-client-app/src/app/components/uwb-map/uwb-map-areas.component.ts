@@ -20,6 +20,7 @@ import { ConfirmDialogService } from '@shared/confirm-dialog/confirm-dialog.serv
 import { AreaVertexesService } from '@services/areas/area-vertexes.service';
 import { ToastService } from '@shared/toast/toast.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'uwb-map-areas',
@@ -37,12 +38,20 @@ export class UwbMapAreasComponent extends UwbMap implements OnInit, OnChanges {
     private confirmDialogService: ConfirmDialogService,
     private areaVertexesService: AreaVertexesService,
     private toastService: ToastService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private sizeScreenService: SizeScreenService
   ) {
     super(cd, renderer);
   }
 
-  override ngOnInit() {}
+  override ngOnInit() {
+    this.sizeScreenService.smallScreen$.subscribe((isSmall) => {
+      this.smallScreen = isSmall;
+    });
+    this.sizeScreenService.mobileScreen$.subscribe((isMobile) => {
+      this.mobileScreen = isMobile;
+    });
+  }
 
   override ngOnChanges(changes: SimpleChanges): void {
     if (changes['background'] && this.background !== '') {

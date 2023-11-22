@@ -9,24 +9,27 @@
         <p-button
           *ngIf="vertexes.length === 0"
           class="px-2"
-          styleClass="ui-button_size_125"
           [disabled]="disabledMapButtons"
-          label="{{ 'global.buttons.draw'| translate }}"
+          [icon]="mobileScreen ? 'pi pi-palette' : ''"
+          [styleClass]="mobileScreen ? 'ui-button_size_100' : smallScreen ? 'ui-button_size_125' : 'ui-button_size_125'"
+          [label]="mobileScreen ? '' : ('global.buttons.draw'| translate)"
           (onClick)="onDrawClick()"
         ></p-button>
         <p-button
           *ngIf="vertexes.length > 0"
           class="px-2"
-          styleClass="ui-button_size_125"
           [disabled]="disabledMapButtons"
-          label="{{ 'global.buttons.edit' | translate }}"
+          [icon]="mobileScreen ? 'pi pi-pencil' : ''"
+          [styleClass]="mobileScreen ? 'ui-button_size_100' : smallScreen ? 'ui-button_size_125' : 'ui-button_size_125'"
+          [label]="mobileScreen ? '' : ('global.buttons.edit' | translate)"
           (onClick)="onModifyClick()"
         ></p-button>
         <p-button
           class="px-2"
-          styleClass="ui-button_size_125"
           [disabled]="disabledMapButtons"
-          label="{{ 'global.buttons.clear' | translate }}"
+          [icon]="mobileScreen ? 'pi pi-trash' : ''"
+          [styleClass]="mobileScreen ? 'ui-button_size_100' : smallScreen ? 'ui-button_size_125' : 'ui-button_size_125'"
+          [label]="mobileScreen ? '' : ('global.buttons.clear' | translate)"
           (onClick)="deleteVertex()"
         ></p-button>
       </div>

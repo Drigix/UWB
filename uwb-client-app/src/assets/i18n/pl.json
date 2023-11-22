@@ -110,6 +110,7 @@
   },
   "area": {
     "name": "Nazwa obszaru",
+    "background": "Plan pomieszczenia",
     "areaType": "Typ obszaru",
     "color": "Kolor obszaru",
     "areas": "Obszary",

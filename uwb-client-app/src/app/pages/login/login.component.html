@@ -1,8 +1,8 @@
 <div class="login-page grid">
-  <div class="col-4 flex justify-content-center align-items-center">
+  <div [class]="sizeScreenService!.smallScreen ? 'col-12 max-h-7rem small-screen' : 'col-4 normal-screen'" class="flex justify-content-center align-items-center">
     <img src="../../../assets/images/uwb_logo.png" />
   </div>
-  <div class="col-8 flex justify-content-center align-items-center">
+  <div [class]="sizeScreenService!.smallScreen ? 'col-12 small-screen' : 'col-8 normal-screen'" class="flex justify-content-center align-items-center">
     <form [formGroup]="formGroup!" (ngSubmit)="login()" autocomplete="off" class="flex flex-column align-items-center">
       <span class="p-float-label">
         <input pInputText id="email" formControlName="email" />

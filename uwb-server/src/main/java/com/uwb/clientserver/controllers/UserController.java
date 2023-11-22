@@ -1,6 +1,5 @@
 package com.uwb.clientserver.controllers;
 
-import com.uwb.clientserver.models.request.PasswordRequest;
 import com.uwb.clientserver.models.request.SignUpRequest;
 import com.uwb.clientserver.models.request.UserRequest;
 import com.uwb.clientserver.models.response.JwtAuthenticationResponse;
@@ -10,16 +9,13 @@ import com.uwb.clientserver.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import static com.uwb.clientserver.security.AuthoritiesConstants.*;
+
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -27,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
-    private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final AuthenticationService authenticationService;
 
@@ -41,7 +36,7 @@ public class UserController {
     @PostMapping()
     @PreAuthorize(ADMIN_PREAUTHORIZE)
     public ResponseEntity<JwtAuthenticationResponse> signup(@Valid @RequestBody SignUpRequest request) throws MethodArgumentNotValidException  {
-        logger.info("Request to signup new user: {}", request);
+        log.info("Request to signup new user: {}", request);
         return ResponseEntity.ok(authenticationService.signup(request));
     }
 
@@ -51,10 +46,23 @@ public class UserController {
      * @return list of UserResponse.
      */
     @GetMapping()
-    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
+    @PreAuthorize(ADMIN_PREAUTHORIZE)
     public List<UserResponse> getAllUsers() {
-        logger.info("Request to get all users");
+        log.info("Request to get all users");
         return userService.findAll();
+    }
+
+    /**
+     * Endpoint for get all users by user organization unit.
+     *
+     * @param id The ID of user organization unit.
+     * @return list of UserResponse.
+     */
+    @GetMapping("/user-organization-unit/{id}")
+    @PreAuthorize(ADMIN_PREAUTHORIZE)
+    public List<UserResponse> getAllUsersByUserOrganizationUnit(@PathVariable Long id) throws IOException {
+        log.info("Request to get all users by user organization unit.");
+        return userService.findAllByOrganization(id);
     }
 
     /**
@@ -65,15 +73,8 @@ public class UserController {
     @GetMapping("/account")
     @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public UserResponse getCurrentUser() {
-        logger.info("Request to get current user.");
+        log.info("Request to get current user.");
         return userService.findCurrentUser();
-    }
-
-    @GetMapping("/user-authentication-token")
-    public String getUserDetails() {
-//        return userService.userDetailsService()
-//                .loadUserByUsername("michlaw@gmail.pl");
-        return "TEST1";
     }
 
     /**
@@ -84,7 +85,7 @@ public class UserController {
     @PutMapping()
     @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public UserResponse updateUser(@RequestBody UserRequest request) {
-        logger.info("Request to update user.");
+        log.info("Request to update user.");
         return userService.update(request);
     }
 
@@ -97,7 +98,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     @PreAuthorize(ADMIN_PREAUTHORIZE)
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
-        logger.info("Request to delete user: {}.", id);
+        log.info("Request to delete user: {}.", id);
         userService.delete(id);
         return ResponseEntity.ok("User has been deleted!");
     }

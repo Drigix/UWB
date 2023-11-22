@@ -77,6 +77,8 @@ export class UwbMap implements OnInit, OnChanges, OnDestroy {
   disabledMapPanelButtons = false;
   showOverlay = true;
   showAnchorOverlayButtons = false;
+  smallScreen = false;
+  mobileScreen = false;
 
   constructor(protected cd: ChangeDetectorRef, protected renderer: Renderer2) {}
 

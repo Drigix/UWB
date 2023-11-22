@@ -2,13 +2,13 @@
   class="anchors"
   [class]="
     isDialogOpen
-      ? 'single_map_with_navbar'
-      : 'single_map_with_navbar_and_footer'
+      ? (smallScreen ? 'single_map_with_navbar_small_screen' : 'single_map_with_navbar')
+      : (smallScreen ? 'single_map_with_navbar_and_footer_small_screen' : 'single_map_with_navbar_and_footer')
   "
 >
   <div class="grid">
     <uwb-tree-select
-      class="col-4"
+      [class]="smallScreen ? 'col-12' : 'col-4'"
       [treeSelectValue]="treeSelectItemSelected"
       [options]="treeSelectItems"
       [optionLabel]="'name'"
@@ -16,7 +16,7 @@
       (modelChange)="onOrganizationUnitSelect($event)"
      ></uwb-tree-select>
     <uwb-single-select
-      class="col-4"
+      [class]="smallScreen ? 'col-12' : 'col-4'"
       [items]="backgrounds"
       optionLabel="name"
       label="{{ 'anchor.backgrounds' | translate }}"
@@ -32,7 +32,7 @@
     </uwb-single-select>
 
     <uwb-single-select
-      class="col-4"
+      [class]="smallScreen ? 'col-12' : 'col-4'"
       [value]="selectedAnchor"
       [showClear]="false"
       [isDisabled]="mapClickMode === 'add'"
@@ -43,17 +43,9 @@
     >
     </uwb-single-select>
   </div>
-  <div class="grid">
-    <uwb-anchors-dialog
-      *ngIf="isDialogOpen"
-      class="col-4"
-      [edit]="isEditDialog"
-      [selectedAnchor]="selectedAnchor"
-      [selectedBackgroundId]="selectedBackground?.id"
-      (emitCloseDialog)="handleDialogResponse($event)"
-    ></uwb-anchors-dialog>
-    <uwb-map-anchors
-      [class]="isDialogOpen ? 'col-8' : 'col-12'"
+  <div class="grid" [class]="smallScreen ? 'flex-row' : 'flex-row-reverse'">
+      <uwb-map-anchors
+      [class]="isDialogOpen ? (smallScreen ? 'col-12' : 'col-8') : 'col-12'"
       [background]="selectedBackground?.fullPath!"
       [anchors]="anchors"
       [selectedMapPoint]="selectedAnchor"
@@ -62,6 +54,14 @@
       (emitEditSelectedPoint)="openDialog(true, $event)"
       (emitDeleteSelectedPoint)="openDeleteDialog($event)"
     ></uwb-map-anchors>
+    <uwb-anchors-dialog
+      *ngIf="isDialogOpen"
+      [class]="smallScreen ? 'col-12' : 'col-4'"
+      [edit]="isEditDialog"
+      [selectedAnchor]="selectedAnchor"
+      [selectedBackgroundId]="selectedBackground?.id"
+      (emitCloseDialog)="handleDialogResponse($event)"
+    ></uwb-anchors-dialog>
   </div>
   <div
     *ngIf="!isDialogOpen"

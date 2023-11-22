@@ -13,6 +13,9 @@ export class UwbFooterButtonsComponent implements OnInit {
   @Input() showDeleteButton = true;
   @Input() disabledAddButton = false;
   @Input() disabledEditAndDeleteButton = false;
+  @Input() normalScreenStyleButtons = 'ui-button_size_175';
+  @Input() smallScreenStyleButtons = 'ui-button_size_125';
+  @Input() mobileScreenStyleButtons = 'ui-button_size_100';
   @Input() styleClass = 'col-4 px-2';
 
   @Output() emitAddClick = new EventEmitter<boolean>();

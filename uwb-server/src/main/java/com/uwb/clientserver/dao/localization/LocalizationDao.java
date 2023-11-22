@@ -3,6 +3,7 @@ package com.uwb.clientserver.dao.localization;
 import com.uwb.clientserver.models.localization.LocalizationRequest;
 import com.uwb.clientserver.models.response.localization.LocalizationResponse;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public interface LocalizationDao {

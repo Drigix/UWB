@@ -11,6 +11,7 @@ import { BackgroundsService } from '@services/backgrounds/backgrounds.service';
 import { ClientsService } from '@services/clients/clients.service';
 import { ArrayBufferService } from '@shared/array-buffer-converter/array-buffer.service';
 import { ConfirmDialogService } from '@shared/confirm-dialog/confirm-dialog.service';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 import { ToastService } from '@shared/toast/toast.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class AnchorsComponent implements OnInit {
   userOrganizationUnitId?: number;
   isDialogOpen = false;
   isEditDialog = false;
+  smallScreen = false;
   mapClickMode: 'add' | 'edit' | 'else' = 'else';
 
   constructor(
@@ -40,10 +42,14 @@ export class AnchorsComponent implements OnInit {
     private arrayBufferService: ArrayBufferService,
     private toastService: ToastService,
     private translateService: TranslateService,
-    private clientsService: ClientsService
+    private clientsService: ClientsService,
+    private sizeScreenService: SizeScreenService
   ) { }
 
   ngOnInit() {
+    this.sizeScreenService.smallScreen$.subscribe((smallScreen) => {
+      this.smallScreen = smallScreen;
+    });
     this.userOrganizationUnitId = this.authorityService.getUserOrganizationUnitId();
     this.loadOrganizationUnits();
     this.loadBackgrounds();

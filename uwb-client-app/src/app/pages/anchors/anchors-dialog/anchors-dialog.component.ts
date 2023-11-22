@@ -19,6 +19,8 @@ export class AnchorsDialogComponent implements OnInit, OnChanges {
 
   @Output() emitCloseDialog = new EventEmitter();
   formGroup?: FormGroup;
+  handleAnchorName?: string;
+  handleAnchorZ?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,10 +36,10 @@ export class AnchorsDialogComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if(changes['selectedAnchor']) {
       this.formGroup?.patchValue({
-        name: this.selectedAnchor?.name,
+        name: this.selectedAnchor?.name ?? this.handleAnchorName,
         x: this.selectedAnchor?.x,
         y: this.selectedAnchor?.y,
-        z: this.selectedAnchor?.z,
+        z: this.selectedAnchor?.z ?? this.handleAnchorZ,
         backgroundId: this.selectedBackgroundId
       });
     }
@@ -60,6 +62,14 @@ export class AnchorsDialogComponent implements OnInit, OnChanges {
         backgroundId: this.selectedAnchor?.backgroundId
       });
     }
+  }
+
+  onNameInputChange(): void {
+    this.handleAnchorName = this.formGroup?.get('name')?.getRawValue();
+  }
+
+  onZInputChange(): void {
+    this.handleAnchorZ = this.formGroup?.get('z')?.getRawValue();
   }
 
   onSave(): void {

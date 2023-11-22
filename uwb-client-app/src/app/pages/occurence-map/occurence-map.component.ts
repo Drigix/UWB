@@ -11,6 +11,7 @@ import { ClientsService } from '@services/clients/clients.service';
 import { LocalizationsArchiveService } from '@services/localizations/localizations-archive.service';
 import { ObjectsService } from '@services/objects/objects.service';
 import { ArrayBufferService } from '@shared/array-buffer-converter/array-buffer.service';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'uwb-occurence-map',
@@ -33,6 +34,7 @@ export class OccurenceMapComponent implements OnInit {
   userOrganizationUnitId?: number;
   radius = 10;
   blur = 15;
+  smallScreen = false;
 
   constructor(
      private backgroundsService: BackgroundsService,
@@ -40,10 +42,14 @@ export class OccurenceMapComponent implements OnInit {
      private objectsService: ObjectsService,
      private authorityService: AuthorityService,
      private arrayBufferService: ArrayBufferService,
-     private clientsService: ClientsService
+     private clientsService: ClientsService,
+     private sizeScreenService: SizeScreenService
      ) { }
 
   ngOnInit() {
+    this.sizeScreenService.smallScreen$.subscribe((smallScreen) => {
+      this.smallScreen = smallScreen;
+    });
     this.userOrganizationUnitId = this.authorityService.getUserOrganizationUnitId();
     this.loadOrganizationUnits();
     this.loadBackgrounds();
