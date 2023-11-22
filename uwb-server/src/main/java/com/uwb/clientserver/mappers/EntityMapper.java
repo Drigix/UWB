@@ -20,8 +20,7 @@ Contract for a generic dto to entity mapper.*
 
     RE toResponse(E entity);
 
-     List<E> toEntityList(List<RQ> requestList);
+    List<E> toEntityList(List<RQ> requestList);
 
-     List <RE> toResponseList(List<E> entityList);
-
+    List <RE> toResponseList(List<E> entityList);
 }

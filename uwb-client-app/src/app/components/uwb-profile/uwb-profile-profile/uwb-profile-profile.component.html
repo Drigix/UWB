@@ -1,4 +1,4 @@
-<div class="flex flex-column justify-content-center text-lg">
+<!-- <div class="flex flex-column justify-content-center text-lg">
   <span class="p-2">
     <label for="firstName">{{ account?.firstName }}</label>
   </span>
@@ -8,7 +8,37 @@
   <span class="p-2">
     <label for="email">{{ account?.email }}</label>
   </span>
-  <!-- <span class="p-2">
-    <label for="orgUnit">{{ account.orgUnit }}</label>
-  </span> -->
-</div>
+</div> -->
+
+<uwb-form [formGroup]="formGroup!" (ngSubmit)="onSave()" (cancel)="onCloseDialog()">
+  <uwb-form-grid form-body>
+    <uwb-form-control>
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="firstName" minlength="2" maxlength="20"/>
+        <label htmlFor="firstName">{{ 'user.firstName' | translate }}</label>
+      </span>
+      <uwb-input-warn *ngIf="formGroup?.get('firstName')?.touched && formGroup?.get('firstName')?.invalid" [minLength]="2" [maxLength]="20"></uwb-input-warn>
+    </uwb-form-control>
+    <uwb-form-control>
+      <span class="p-float-label">
+        <input pInputText id="surname" formControlName="lastName" minlength="2" maxlength="30"/>
+        <label htmlFor="lastName">{{ 'user.lastName' | translate }}</label>
+      </span>
+      <uwb-input-warn *ngIf="formGroup?.get('lastName')?.touched && formGroup?.get('lastName')?.invalid" [minLength]="2" [maxLength]="30"></uwb-input-warn>
+    </uwb-form-control>
+    <uwb-form-control>
+      <span class="p-float-label">
+        <input pInputText id="email" formControlName="email" minlength="6" maxlength="50"/>
+        <label htmlFor="email">{{ 'user.email' | translate }}</label>
+      </span>
+      <!-- <uwb-input-warn *ngIf="formGroup?.get('email')?.touched && formGroup?.get('email')?.invalid" [minLength]="6" [maxLength]="50"></uwb-input-warn> -->
+    </uwb-form-control>
+    <uwb-form-control>
+      <span class="p-float-label">
+        <input pInputText id="organizationUnitId" formControlName="organizationUnitId"/>
+        <label htmlFor="organizationUnitId">{{ 'user.organizationUnit' | translate }}</label>
+      </span>
+      <!-- <uwb-input-warn *ngIf="formGroup?.get('email')?.touched && formGroup?.get('email')?.invalid" [minLength]="6" [maxLength]="50"></uwb-input-warn> -->
+    </uwb-form-control>
+  </uwb-form-grid>
+</uwb-form>

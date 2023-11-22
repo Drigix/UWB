@@ -10,8 +10,9 @@ spring:
       ddl-auto: update
     show-sql: true
   kafka:
+    bootstrap-servers: ${KAFKA_URL}
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${KAFKA_URL}
       group-id: uwb
       auto-offset-reset: earliest
 

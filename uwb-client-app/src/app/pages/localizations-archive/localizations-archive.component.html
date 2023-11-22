@@ -1,7 +1,8 @@
-<div class="h-full single_map_with_hight_navbar">
+<div [class]="smallScreen ? 'single_map_with_hight_navbar_small_screen' : 'single_map_with_hight_navbar'" class="h-full">
   <div class="grid">
     <uwb-tree-select
-        class="col-12 mt-1"
+        [class]="smallScreen ? 'm-0' : 'mt-1'"
+        class="col-12"
         [treeSelectValue]="treeSelectItemSelected"
         [options]="treeSelectItems"
         [optionLabel]="'name'"
@@ -10,7 +11,7 @@
         (modelChange)="onOrganizationUnitSelect($event)"
       ></uwb-tree-select>
     <uwb-single-select
-      class="col pt-0 px-1"
+      [class]="smallScreen ? 'col-12' : 'col pt-0 px-1'"
       [items]="backgrounds"
       optionLabel="name"
       label="{{ 'localization.backgrounds' | translate }}"
@@ -24,9 +25,9 @@
         </div>
       </ng-template>
     </uwb-single-select>
-    <uwb-calendar class="col-3 pt-0 px-1 flex justify-content-center" [rangeMode]="true" [showTime]="true" (modelChange)="onDateChange($event)"></uwb-calendar>
+    <uwb-calendar [class]="smallScreen ? 'col-12' : 'col-3'" class="pt-0 px-1 flex justify-content-center" [rangeMode]="true" [showTime]="true" (modelChange)="onDateChange($event)"></uwb-calendar>
     <uwb-single-select
-        class="col-4 pt-0 px-1"
+        [class]="smallScreen ? 'col-12' : 'col-4 pt-0 px-1'"
         [showClear]="false"
         [items]="objects"
         optionLabel="name"
@@ -34,7 +35,7 @@
         (modelChange)="onObjectSelect($event)"
       >
     </uwb-single-select>
-    <div class="col-1 pt-0 px-1 flex justify-content-center align-items-end" style="height: 80px;">
+    <div [class]="smallScreen ? 'col-12' : 'col-1 pt-0 px-1'" class="flex justify-content-center align-items-end" style="height: 80px;">
       <p-button icon="pi pi-search" [disabled]="!checkIsAllValid()" (onClick)="onLoadLocalizationsArchive()"></p-button>
     </div>
   </div>

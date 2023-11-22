@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IBackground, NewBackground } from '@entities/background/background.model';
 import { IClientUnit } from '@entities/client/client-unit.model';
+import { IClient } from '@entities/client/client.model';
 import { UploadEvent } from '@entities/uwb-file-upload/upload-event.model';
 import { TranslateService } from '@ngx-translate/core';
 import { BackgroundsService } from '@services/backgrounds/backgrounds.service';
@@ -20,6 +21,7 @@ export class BackgroundsDialogComponent implements OnInit {
   formGroup?: FormGroup;
   treeSelectItems: IClientUnit[] = [];
   edit = false;
+  pageSelectedOrganizationUnit?: IClient;
   selectedBackground?: IBackground;
   uploadedBackground?: IBackground;
   uploadedFile?: File;
@@ -43,6 +45,7 @@ export class BackgroundsDialogComponent implements OnInit {
   loadPageData(): void {
     this.edit = this.config.data.edit;
     this.selectedBackground = this.config.data.selectedBackground;
+    this.pageSelectedOrganizationUnit = this.config.data.selectedOrganizationUnit;
   }
 
   loadFormGroup(): void {
@@ -65,6 +68,9 @@ export class BackgroundsDialogComponent implements OnInit {
         if(this.edit) {
           const serachOrgUnit = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedBackground?.organizationUnitId!);
           this.formGroup?.get('organizationUnitId')?.setValue(serachOrgUnit);
+        } else {
+          const serachItem = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.pageSelectedOrganizationUnit?.id!)!;
+          this.formGroup?.get('organizationUnitId')?.setValue(serachItem);
         }
       }
     );

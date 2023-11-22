@@ -82,6 +82,12 @@ public class OrganizationUnitServiceImpl implements OrganizationUnitService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public OrganizationUnitResponse findOneById(Long id) {
+        return organizationUnitMapper.toResponse(organizationUnitRepository.findById(id).orElseThrow(() -> new ItemNotExistException(id)));
+    }
+
+    @Override
     public OrganizationUnitResponse update(OrganizationUnitRequest request) {
         OrganizationUnit organizationUnit = organizationUnitMapper.toEntity(request);
         return organizationUnitMapper.toResponse(organizationUnitRepository.save(organizationUnit));

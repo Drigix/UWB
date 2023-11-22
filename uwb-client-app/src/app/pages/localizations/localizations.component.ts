@@ -74,7 +74,7 @@ export class LocalizationsComponent implements OnInit, OnDestroy {
   }
 
   loadObjects(): void {
-    this.objectsService.findAll().subscribe((res: HttpResponse<IObject[]>) => {
+    this.objectsService.findAllByUserOrganizationUnit(this.selectedBackground?.organizationUnitId!).subscribe((res: HttpResponse<IObject[]>) => {
       this.objects = res.body ?? [];
       this.selectedObjects = this.objects;
     });
@@ -84,7 +84,6 @@ export class LocalizationsComponent implements OnInit, OnDestroy {
     this.anchorsService.findAllByBackground(this.selectedBackground?.id!).subscribe(
       (res: HttpResponse<IAnchor[]>) => {
         this.anchors = res.body ?? [];
-        console.log(this.anchors);
       }
     );
   }
@@ -153,7 +152,6 @@ export class LocalizationsComponent implements OnInit, OnDestroy {
     this.selectedAreas.forEach(area => {
       const filterVertexes = this.areaVertexes.filter(v => v.areaId === area.id);
       this.selectedAreasVertexes = this.selectedAreasVertexes.concat(filterVertexes);
-      console.log(this.selectedAreasVertexes);
     });
   }
 

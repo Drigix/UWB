@@ -13,7 +13,10 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
+
     List<User> findAllByDeletedFalse();
+
+    List<User> findAllByOrganizationUnitIdAndDeletedFalse(Long id);
 
     @Modifying
     @Query("UPDATE User u SET u.deleted = true WHERE u.id = :id")

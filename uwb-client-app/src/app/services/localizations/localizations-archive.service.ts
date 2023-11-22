@@ -14,7 +14,13 @@ export class LocalizationsArchiveService {
     private http: HttpClient
   ) { }
 
-  findAllByTagIdAndDateBetween(tagId: string, dateFrom: Date, dateTo: Date): Observable<LocalizationsArchiveArrayResponseType> {
-    return this.http.get<ILocalization[]>(`${this.resourceUrl}/${tagId}/${dateFrom}/${dateTo}`, { observe: 'response' });
+  findAllByTagIdAndDateBetween(
+    tagId: string,
+    dateFrom: Date,
+    dateTo: Date): Observable<LocalizationsArchiveArrayResponseType> {
+    return this.http.get<ILocalization[]>(
+      `${this.resourceUrl}/${tagId}/${dateFrom}/${dateTo}`,
+      { observe: 'response' }
+      );
   }
 }

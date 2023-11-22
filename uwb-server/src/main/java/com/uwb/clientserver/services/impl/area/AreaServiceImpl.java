@@ -59,6 +59,12 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     @Transactional(readOnly = true)
+    public Area findOneEntityById(Long id) {
+        return areaRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<AreaResponse> findAllByBackground(Long id) {
         return areaMapper.toResponseList(areaRepository.findAllByBackgroundIdAndDeletedFalse(id));
     }
@@ -145,7 +151,8 @@ public class AreaServiceImpl implements AreaService {
         }
     }
 
-    private boolean isPointInsideArea(Double backgroundScale, Double x, Double y, List<AreaVertex> vertexes) {
+    @Override
+    public boolean isPointInsideArea(Double backgroundScale, Double x, Double y, List<AreaVertex> vertexes) {
         double minX = Double.MAX_VALUE;
         double maxX = Double.MIN_VALUE;
         double minY = Double.MAX_VALUE;

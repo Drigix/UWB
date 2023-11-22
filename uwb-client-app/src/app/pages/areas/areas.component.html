@@ -14,7 +14,7 @@
         class="col-12 p-0"
         [items]="backgrounds"
         optionLabel="name"
-        label="{{ 'area.areaType' | translate }}"
+        label="{{ 'area.background' | translate }}"
         (modelChange)="onBackgroundSelect($event)"
         [itemTemplate]="itemTemplate"
       >
@@ -50,6 +50,7 @@
       <uwb-footer-buttons
       [disabledAddButton]="selectedBackground === undefined"
       [disabledEditAndDeleteButton]="selectedArea === undefined"
+      [normalScreenStyleButtons]="'ui-button_size_125'"
       (emitAddClick)="openDialog()"
       (emitEditClick)="openDialog(true)"
       (emitDeleteClick)="openDeleteDialog()">

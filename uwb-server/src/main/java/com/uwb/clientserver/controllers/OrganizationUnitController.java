@@ -22,7 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class OrganizationUnitController {
-    private final Logger logger = LoggerFactory.getLogger(OrganizationUnitController.class);
     private final OrganizationUnitService organizationUnitService;
 
     /**
@@ -35,7 +34,7 @@ public class OrganizationUnitController {
     @PostMapping()
     @PreAuthorize(ADMIN_PREAUTHORIZE)
     public OrganizationUnitResponse createOrganizationUnit(@Valid @RequestBody OrganizationUnitRequest request) throws MethodArgumentNotValidException  {
-        logger.info("Request to create new organization unit: {}", request);
+        log.info("Request to create new organization unit: {}", request);
         return organizationUnitService.create(request);
     }
 
@@ -47,7 +46,7 @@ public class OrganizationUnitController {
     @GetMapping()
     @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public List<OrganizationUnitResponse> getAllOrganizationUnits() {
-        logger.info("Request to get all organization units.");
+        log.info("Request to get all organization units.");
         return organizationUnitService.findAll();
     }
 
@@ -59,8 +58,20 @@ public class OrganizationUnitController {
     @GetMapping("/tree")
     @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
     public List<OrganizationUnitTreeResponse> getTreeOrganizationUnits() {
-        logger.info("Request to get tree organization units.");
+        log.info("Request to get tree organization units.");
         return organizationUnitService.findTree();
+    }
+
+    /**
+     * Endpoint for get organization unit by id.
+     * @param id the identification of searching organization unit
+     * @return organization unit response.
+     */
+    @GetMapping("/{id}")
+    @PreAuthorize(LOGGED_USER_PREAUTHORIZE)
+    public OrganizationUnitResponse getOrganizationUnitById(@PathVariable Long id) {
+        log.info("Request to get organization unit by id: {}.", id);
+        return organizationUnitService.findOneById(id);
     }
 
     /**
@@ -73,7 +84,7 @@ public class OrganizationUnitController {
     @PutMapping()
     @PreAuthorize(ADMIN_PREAUTHORIZE)
     public OrganizationUnitResponse updateOrganizationUnit(@Valid @RequestBody OrganizationUnitRequest request) throws MethodArgumentNotValidException  {
-        logger.info("Request to update organization unit: {}", request);
+        log.info("Request to update organization unit: {}", request);
         return organizationUnitService.update(request);
     }
 
@@ -86,7 +97,7 @@ public class OrganizationUnitController {
     @DeleteMapping("/{id}")
     @PreAuthorize(ADMIN_PREAUTHORIZE)
     public ResponseEntity<String> deleteOrganizationUnit(@PathVariable Long id) {
-        logger.info("Request to delete organization unit: {}", id);
+        log.info("Request to delete organization unit: {}", id);
         organizationUnitService.delete(id);
         return ResponseEntity.ok("Organization unit has been deleted!");
     }

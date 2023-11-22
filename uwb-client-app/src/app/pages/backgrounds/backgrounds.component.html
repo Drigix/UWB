@@ -7,6 +7,7 @@
     (selectionChange)="onBackgroundSelect($event)"
   >
     <uwb-tree-select
+      [treeSelectValue]="treeSelectItemSelected"
       [options]="treeSelectItems"
       [optionLabel]="'name'"
       [floatLabel]="false"

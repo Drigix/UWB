@@ -1,10 +1,8 @@
 package com.uwb.clientserver.services.impl;
 
-import com.uwb.clientserver.exceptions.BadPasswordException;
 import com.uwb.clientserver.exceptions.ItemNotExistException;
 import com.uwb.clientserver.mappers.UserMapper;
 import com.uwb.clientserver.models.User;
-import com.uwb.clientserver.models.request.PasswordRequest;
 import com.uwb.clientserver.models.request.UserRequest;
 import com.uwb.clientserver.models.response.UserResponse;
 import com.uwb.clientserver.repositories.UserRepository;
@@ -14,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -22,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,11 +40,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserResponse> findAll() {
         return userMapper.toResponseList(userRepository.findAllByDeletedFalse());
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<UserResponse> findAllByOrganization(Long id) {
+        return userMapper.toResponseList(userRepository.findAllByOrganizationUnitIdAndDeletedFalse(id));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public UserResponse findCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(auth.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -69,8 +73,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private User setMissingValues(User request, User userData) {
-        request.setCreatedBy(userData.getCreatedBy());
-        request.setCreatedDate(userData.getCreatedDate());
         request.setPassword(userData.getPassword());
         if(request.getLangKey() == null) {
             request.setLangKey(userData.getLangKey());

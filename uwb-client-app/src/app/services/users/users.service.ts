@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URL } from '@config/api-url.constans';
 import { IUpdatePassword } from '@entities/auth/password.model';
-import { UserResponseType } from '@entities/global/httpresponse-types.model';
+import { UserArrayResponseType, UserResponseType } from '@entities/global/httpresponse-types.model';
 import { IUser, NewUser, UpdateUser } from '@entities/user/user.model';
 import { Observable, map } from 'rxjs';
 
@@ -17,6 +17,13 @@ export class UsersService {
 
   findAll(): Observable<any> {
     return this.http.get(this.resourceUrl);
+  }
+
+  findAllByUserOrganizationUnit(id: number): Observable<UserArrayResponseType> {
+    return this.http
+      .get<IUser[]>(`${this.resourceUrl}/user-organization-unit/${id}`, {
+        observe: 'response',
+      });
   }
 
   getAccount(): Observable<UserResponseType> {

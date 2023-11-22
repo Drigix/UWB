@@ -14,6 +14,7 @@ import { LocalizationsService } from '@services/localizations/localizations.serv
 import { ObjectsService } from '@services/objects/objects.service';
 import { ArrayBufferService } from '@shared/array-buffer-converter/array-buffer.service';
 import { DateService } from '@shared/date/date.service';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 
 @Component({
   selector: 'app-localizations-archive',
@@ -34,6 +35,7 @@ export class LocalizationsArchiveComponent implements OnInit {
   handleSelectedRangeDate?: Date[] = [];
   handleSelectedObject?: IObject;
   userOrganizationUnitId?: number;
+  smallScreen = false;
 
   constructor(
     private backgroundsService: BackgroundsService,
@@ -42,9 +44,14 @@ export class LocalizationsArchiveComponent implements OnInit {
     private dateService: DateService,
     private authorityService: AuthorityService,
     private arrayBufferService: ArrayBufferService,
-    private clientsService: ClientsService) { }
+    private clientsService: ClientsService,
+    private sizeScreenService: SizeScreenService
+    ) { }
 
   ngOnInit() {
+    this.sizeScreenService.smallScreen$.subscribe((smallScreen) => {
+      this.smallScreen = smallScreen;
+    });
     this.userOrganizationUnitId = this.authorityService.getUserOrganizationUnitId();
     this.loadOrganizationUnits();
     this.loadBackgrounds();

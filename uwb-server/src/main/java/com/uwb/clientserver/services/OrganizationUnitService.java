@@ -14,6 +14,8 @@ public interface OrganizationUnitService {
 
     List<OrganizationUnitTreeResponse> findTree();
 
+    OrganizationUnitResponse findOneById(Long id);
+
     OrganizationUnitResponse update(OrganizationUnitRequest request);
 
     void delete(Long id);

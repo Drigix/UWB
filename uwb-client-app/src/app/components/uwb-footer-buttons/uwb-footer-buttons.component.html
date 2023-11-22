@@ -5,7 +5,7 @@
     [disabled]="disabledAddButton"
     [icon]="mobileScreen ? 'pi pi-plus' : ''"
     [label]="mobileScreen ? '' : ('global.buttons.add' | translate)"
-    [styleClass]="mobileScreen ? 'ui-button_size_100' : smallScreen ? 'ui-button_size_125' : 'ui-button_size_175'"
+    [styleClass]="mobileScreen ? mobileScreenStyleButtons : smallScreen ? smallScreenStyleButtons : normalScreenStyleButtons"
     (onClick)="onAddClick()"
   ></p-button>
   <p-button
@@ -14,7 +14,7 @@
     [disabled]="disabledEditAndDeleteButton"
     [icon]="mobileScreen ? 'pi pi-pencil' : ''"
     [label]="mobileScreen ? '' : ('global.buttons.edit' | translate)"
-    [styleClass]="mobileScreen ? 'ui-button_size_100' : smallScreen ? 'ui-button_size_125' : 'ui-button_size_175'"
+    [styleClass]="mobileScreen ? mobileScreenStyleButtons : smallScreen ? smallScreenStyleButtons : normalScreenStyleButtons"
     (onClick)="onEditClick()"
   ></p-button>
   <p-button
@@ -23,7 +23,7 @@
     [disabled]="disabledEditAndDeleteButton"
     [icon]="mobileScreen ? 'pi pi-trash' : ''"
     [label]="mobileScreen ? '' : ('global.buttons.delete' | translate)"
-    [styleClass]="mobileScreen ? 'ui-button_size_100' : smallScreen ? 'ui-button_size_125' : 'ui-button_size_175'"
+    [styleClass]="mobileScreen ? mobileScreenStyleButtons : smallScreen ? smallScreenStyleButtons : normalScreenStyleButtons"
     (onClick)="onDeleteClick()"
   ></p-button>
   <ng-content></ng-content>

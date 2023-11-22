@@ -34,6 +34,7 @@ dependencies {
 	implementation 'org.springframework:spring-websocket'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.kafka:spring-kafka'
+	implementation 'com.opencsv:opencsv:5.8'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'

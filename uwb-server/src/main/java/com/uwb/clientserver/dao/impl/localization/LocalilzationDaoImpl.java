@@ -22,6 +22,7 @@ import java.util.TimeZone;
 @Slf4j
 public class LocalilzationDaoImpl extends BaseJdbcDouSupport implements LocalizationDao {
 
+    @Override
     public void createLocalization(LocalizationRequest request) {
         try {
             deleteLastLocalizationRecord(request.getBackgroundId(), request.getTagId());
@@ -32,6 +33,7 @@ public class LocalilzationDaoImpl extends BaseJdbcDouSupport implements Localiza
         }
     }
 
+    @Override
     public List<LocalizationResponse> findAllLastLocalizationsInBackground(Long backgroundId) {
         try {
             String query = "SELECT lc1.*, uoi.path, uoi.file_name FROM localization_cache lc1 " +

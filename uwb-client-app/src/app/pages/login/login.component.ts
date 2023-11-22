@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ILogin } from '@entities/auth/login.model';
 import { TranslateService } from '@ngx-translate/core';
+import { SizeScreenService } from '@shared/screen/size-screen.service';
 import { ToastService } from '@shared/toast/toast.service';
 import { AuthenticationService } from 'src/app/auth/authentication.service';
 import { AuthorityService } from 'src/app/auth/authority.service';
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authorityService: AuthorityService,
     private toastService: ToastService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    protected sizeScreenService: SizeScreenService
   ) {}
 
   ngOnInit(): void {

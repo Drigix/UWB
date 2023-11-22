@@ -17,11 +17,10 @@ spring:
     scheduling:
       enabled: true
   kafka:
+    bootstrap-servers: ${KAFKA_URL}
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${KAFKA_URL}
       group-id: uwb
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       auto-offset-reset: earliest
   jackson.serialization:
     WRITE_DATES_AS_TIMESTAMPS: false

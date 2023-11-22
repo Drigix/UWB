@@ -62,7 +62,7 @@ import { ADMIN_ACCESS, LOGGED_USER_ACCESS } from '@auth/role-access.type';
         {
           path: '',
           data: {
-            authorities: LOGGED_USER_ACCESS
+            authorities: ADMIN_ACCESS
           },
           loadChildren: () => import('./clients/clients.module').then(m => m.ClientsModule),
           canActivate: [authGuard]

@@ -26,13 +26,13 @@ public class KafkaListenerServiceImpl implements KafkaListenerService {
 
     @KafkaListener(topics = "ENTER_AREA", groupId = "uwb")
     public void listenEnterArea(String message) {
-        log.info("Received Message in group foo: " + message);
+        log.info("Received Message in group uwb: " + message);
         deserializeKafkaMessage(message);
     }
 
     @KafkaListener(topics = "EXIT_AREA", groupId = "uwb")
     public void listenExitArea(String message) {
-        log.info("Received Message in group foo: " + message);
+        log.info("Received Message in group uwb: " + message);
         deserializeKafkaMessage(message);
     }
 
@@ -40,14 +40,24 @@ public class KafkaListenerServiceImpl implements KafkaListenerService {
         String[] jsonMessageSplit = jsonMessage.split(";;");
         if(jsonMessageSplit.length > 0) {
             Notification notification = Notification.builder()
-                    .title(jsonMessageSplit[0])
-                    .message(jsonMessageSplit[1])
-                    .areaName(jsonMessageSplit[2])
+                    .title(formatString(jsonMessageSplit[0]))
+                    .message(formatString(jsonMessageSplit[1]))
+                    .areaName(formatString(jsonMessageSplit[2]))
                     .date(LocalDateTime.parse(jsonMessageSplit[3], formatter).atZone(ZoneId.systemDefault()))
-                    .objectFullName(jsonMessageSplit[4])
+                    .objectFullName(formatString(jsonMessageSplit[4]))
                     .build();
             notificationService.create(notification);
             mailService.sendEmail(notification.getTitle(), notification.getMessage());
+        }
+    }
+
+    private String formatString(String field) {
+        if(field.startsWith("\"")) {
+            return field.substring(1);
+        } else if(field.endsWith("\"")) {
+            return field.substring(0, field.length() - 1);
+        } else {
+            return field;
         }
     }
 }

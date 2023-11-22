@@ -27,8 +27,10 @@ export class BackgroundsComponent implements OnInit {
   columns: UniversalTableColumn[] = [];
   backgrounds: IBackground[] = [];
   treeSelectItems: IClientUnit[] = [];
+  treeSelectItemSelected?: IClientUnit;
   selectedBackground?: IBackground;
   selectedOrganizationUnit?: IClient;
+  handleSelectedOrganizationUnit?: IClient;
   userOrganizationUnitId?: number;
   loading = false;
   protected smallScreen = false;
@@ -65,6 +67,9 @@ export class BackgroundsComponent implements OnInit {
     this.clientsService.findTree().subscribe(
       (res: HttpResponse<IClientUnit[]>) => {
         this.treeSelectItems = res.body ?? [];
+        this.treeSelectItemSelected = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.userOrganizationUnitId!)!;
+        this.selectedOrganizationUnit = this.treeSelectItemSelected.data;
+        this.handleSelectedOrganizationUnit = this.treeSelectItemSelected.data;
       }
     );
   }
@@ -81,9 +86,13 @@ export class BackgroundsComponent implements OnInit {
   }
 
   onOrganizationUnitSelect(organizationUnit: IClient): void {
-    this.selectedOrganizationUnit = organizationUnit;
-    this.selectedBackground = undefined;
-    this.loadBackgrounds();
+    if(this.selectedOrganizationUnit?.id !== organizationUnit.id) {
+      this.selectedOrganizationUnit = organizationUnit;
+      this.handleSelectedOrganizationUnit = organizationUnit;
+      this.treeSelectItemSelected = this.clientsService.findByIdFromUnits(this.treeSelectItems[0], this.selectedOrganizationUnit.id!)!;
+      this.selectedBackground = undefined;
+      this.loadBackgrounds();
+    }
   }
 
   onBackgroundSelect(background: IBackground): void {
@@ -102,6 +111,7 @@ export class BackgroundsComponent implements OnInit {
       data: {
         edit,
         selectedBackground: this.selectedBackground,
+        selectedOrganizationUnit: this.selectedOrganizationUnit
       },
       width: this.smallScreen ? '95%' : '40%'
     });

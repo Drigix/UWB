@@ -87,7 +87,7 @@ export class MenuComponent implements OnInit {
   openProfileDialog(): void {
     const ref = this.dialogService.open(UwbProfileComponent, {
       header: this.translateService.instant('global.menu.profile'),
-      width: '45%'
+      width: this.sizeScreenService.smallScreen ? '95%' : '40%'
     });
     //ref.onClose.subscribe((response) => this.handleDialogResponse(response));
   }
